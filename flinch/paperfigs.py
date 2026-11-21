@@ -393,8 +393,14 @@ def make_all(directory: Path, event_name: str | None = None) -> list[Path]:
         profiles(stacked, directory / "profiles.pdf"),
         profiles(stacked, directory / "profiles_x.pdf", subset="X"),
         events(pd.read_csv(results / "replication_events.csv"), directory / "events.pdf"),
-        light_curves(chromosphere.light_curves(min_class="X1.0"), directory / "light_curves.pdf"),
     ]
+    curves = chromosphere.light_curves(min_class="X1.0")
+    groups = set(curves["group"]) if "group" in curves else set()
+    if {"disc flares", "controls"} <= groups:
+        written.append(light_curves(curves, directory / "light_curves.pdf"))
+    else:
+        print("light_curves.pdf skipped: it needs the spectra of the X flares and of their controls "
+              "(python -m flinch campaign, see Reproduce)")
     if event_name:
         manifest = pd.read_csv(data_dir() / "spectra" / "events.csv").set_index("name")
         row = manifest.loc[event_name]
