@@ -84,6 +84,11 @@ The check found two numbers that had been rounded twice in the text. The scatter
 velocity changes of the HARPS-N flares is 0.40 m/s, not 0.41, and the excess of Appendix C
 is 0.43 ± 0.10 m/s, not 0.44 ± 0.11. Both are corrected.
 
+On 22 November 2026 the `reproduce` workflow of the repository ran the same on Linux, from
+the public archives, with ten spectra of the sample. It took six minutes. The 12 inputs and
+the ten extracts are identical, the 243 numbers agree, and the 14 velocity tables are the
+same numbers. The largest difference is in the eleventh significant digit.
+
 ## Step by step
 
 `reproduce` runs these commands in this order. Each can be run alone, and then it writes to
@@ -175,12 +180,15 @@ What follows can still make a reproduction differ, or makes it expensive.
   Within a window, every spectrum near the flare was taken and one in two or three farther
   away. Running `campaign` again would not give the same files, because its budget cut the
   last window short and the two windows above lost spectra.
-- **Software versions.** With the versions of `requirements-lock.txt` the tables come out
-  identical, byte by byte. NumPy does not promise the same random numbers in every future
-  version. If they changed, the controls drawn and the bootstrap errors would change in
-  their last digits. The full reproduction was run on Windows 11 with Python 3.14. On Linux
-  the tests run on every change, but the full reproduction has not been run there. Tables
-  are therefore compared number by number, not only as text.
+- **Software versions and machines.** With the versions of `requirements-lock.txt` on
+  Windows 11 the tables come out identical, byte by byte. On Linux the same versions give
+  the same numbers to eleven significant digits, but not the same text, because another
+  processor and other mathematical libraries round the last digits differently. Tables are
+  therefore compared number by number, not only as text, and the report says
+  `same numbers`. The spectral analysis has not been repeated on Linux, because it needs
+  the 143 GB. NumPy does not promise the same random numbers in every future version. If
+  they changed, the controls drawn and the bootstrap errors would change in their last
+  digits.
 - **Figures are not compared by the command.** They are drawn again from the new tables.
   For the run described above they were turned into images and compared with those of the
   paper, and the five are the same pixel by pixel. With other versions of Matplotlib or

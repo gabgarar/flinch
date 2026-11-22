@@ -86,6 +86,12 @@ dispersión de los cambios de velocidad de las fulguraciones de HARPS-N es de 0,
 0,41, y el exceso del Apéndice C es de 0,43 ± 0,10 m/s, no de 0,44 ± 0,11. Los dos están
 corregidos.
 
+El 22 de noviembre de 2026 el flujo `reproduce` del repositorio ejecutó lo mismo en Linux,
+desde los archivos públicos, con diez espectros de la muestra. Tardó seis minutos. Los 12
+datos de entrada y los diez extractos son idénticos, los 243 números coinciden y las 14
+tablas de velocidad tienen los mismos números. La mayor diferencia está en la undécima
+cifra significativa.
+
 ## Paso a paso
 
 `reproduce` ejecuta estas órdenes en este orden. Cada una puede ejecutarse sola, y entonces
@@ -181,13 +187,15 @@ Lo que sigue todavía puede hacer que una reproducción difiera, o la encarece.
   espectros cercanos a la fulguración y uno de cada dos o tres más lejos. Ejecutar `campaign`
   otra vez no daría los mismos ficheros, porque su presupuesto cortó la última ventana y las
   dos ventanas de arriba perdieron espectros.
-- **Versiones de los programas.** Con las versiones de `requirements-lock.txt` las tablas
-  salen idénticas, byte a byte. NumPy no promete los mismos números aleatorios en todas sus
-  versiones futuras. Si cambiaran, los controles elegidos y los errores del remuestreo
-  cambiarían en sus últimas cifras. La reproducción completa se ejecutó en Windows 11 con
-  Python 3.14. En Linux las pruebas se ejecutan con cada cambio, pero la reproducción
-  completa no se ha ejecutado allí. Por eso las tablas se comparan número a número, y no
-  solo como texto.
+- **Versiones de los programas y máquinas.** Con las versiones de `requirements-lock.txt`
+  en Windows 11 las tablas salen idénticas, byte a byte. En Linux las mismas versiones dan
+  los mismos números hasta once cifras significativas, pero no el mismo texto, porque otro
+  procesador y otras bibliotecas matemáticas redondean de otra manera las últimas cifras.
+  Por eso las tablas se comparan número a número, y no solo como texto, y el informe dice
+  `same numbers`. El análisis espectral no se ha repetido en Linux, porque necesita los
+  143 GB. NumPy no promete los mismos números aleatorios en todas sus versiones futuras. Si
+  cambiaran, los controles elegidos y los errores del remuestreo cambiarían en sus últimas
+  cifras.
 - **La orden no compara las figuras.** Se dibujan de nuevo a partir de las tablas nuevas.
   En la ejecución descrita arriba se convirtieron en imágenes y se compararon con las del
   artículo, y las cinco son iguales píxel a píxel. Con otras versiones de Matplotlib o con
