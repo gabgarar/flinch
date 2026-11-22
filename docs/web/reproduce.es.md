@@ -1,74 +1,206 @@
-# Reproducir los resultados
+# Reproducir el artículo
 
-Cada número y cada figura de [Resultados](results.md) sale de una orden. Las elecciones al
-azar (controles, remuestreo) usan una semilla fija, así que las salidas son idénticas de una
-ejecución a otra.
+Una sola orden descarga los datos públicos, ejecuta todo el análisis, compara cada tabla con
+la que guarda el repositorio y comprueba cada número del artículo con las tablas nuevas.
 
-## Velocidad
+```
+python -m flinch reproduce
+```
+
+Necesita 340 MB de descargas y unos diez minutos. Deja fuera los espectros, que son 143 GB;
+los niveles de más abajo explican cómo incluirlos. No se modifica nada del repositorio. Las
+tablas nuevas, las figuras, la salida de cada paso y un informe van a `reproduction/`.
+
+## Desde cero
+
+```
+git clone https://github.com/gabgarar/flinch.git
+cd flinch
+python -m venv venv
+venv/Scripts/python -m pip install -r requirements-lock.txt     # las versiones exactas que se usaron
+venv/Scripts/python -m pip install --no-deps -e .
+venv/Scripts/python -m flinch reproduce
+```
+
+En Linux y macOS el intérprete es `venv/bin/python`. El artículo se calculó con Python 3.14
+en Windows 11. Sin la primera línea de `pip`, `pip install -e ".[analysis,dev]"` instala las
+versiones actuales, que sirven para usar el paquete pero no son la misma prueba.
+
+## Cuatro niveles
+
+Cada nivel añade una descarga al anterior.
+
+| Nivel | Orden | Descarga | Tiempo | Qué demuestra |
+|---|---|---|---|---|
+| 0 | `python -m flinch verify` | ninguna | segundos | Los números del artículo son los de las tablas del repositorio |
+| 1 | `python -m flinch reproduce` | 340 MB | 10 min | Los archivos públicos y este código vuelven a dar las 14 tablas de velocidad |
+| 2 | `python -m flinch reproduce --spectra sample` | 1,1 GB más | 5 min más | Diez espectros del artículo, elegidos al azar, siguen siendo los mismos en el archivo |
+| 3 | `python -m flinch reproduce --spectra all` | 143 GB más | 3 horas o más | También las tablas espectrales, es decir, las Tablas 2 y B.1 y la Fig. 4 del artículo |
+
+`--sample 30` cambia el número de espectros del nivel 2. `--no-download` usa los datos que ya
+están en disco. `--out` indica otra carpeta para la salida. Una ejecución interrumpida puede
+lanzarse de nuevo, y lo que ya está en disco no se descarga otra vez.
+
+## El informe
+
+`reproduction/report.txt` tiene seis partes.
+
+1. **Datos.** Cada dato de entrada se compara con el que se usó en el artículo mediante una
+   huella (SHA-256) de lo que el análisis lee de él. `identical` significa que el archivo
+   sigue sirviendo los mismos datos.
+2. **Análisis de velocidad.** Una línea por orden, con el tiempo que tardó y el fichero que
+   guarda su salida.
+3. **Espectros.** Cuántos extractos son idénticos a los del artículo, y si se repitió el
+   análisis espectral.
+4. **Figuras.** Las figuras del artículo, en PDF, en `reproduction/figures/`.
+5. **Tablas.** Cada tabla nueva frente a la del repositorio. `identical` es el mismo texto.
+   `same numbers` significa que todos los números coinciden en nueve cifras significativas,
+   que es lo que puede cambiar otro procesador u otra versión de una biblioteca. `DIFFERENT`
+   nombra las columnas que difieren y en cuánto.
+6. **Números del artículo.** Los 243 números del texto y de las tablas del artículo, cada
+   uno frente a las tablas nuevas. Un número pasa cuando el artículo da un redondeo correcto
+   de él.
+
+La última línea es `Reproduced.` cuando ningún paso falló, ninguna tabla difiere y todos los
+números coinciden. La orden termina entonces con código 0, y con 1 en caso contrario.
+
+`results/paper_check.csv` lista los 243 números con el lugar del artículo donde aparece cada
+uno, tal como los dejó la última ejecución de `verify`.
+
+## Lo que se ejecutó para el artículo
+
+Los días 21 y 22 de noviembre de 2026 se descargó todo de nuevo en una carpeta vacía y se
+ejecutó desde un clon recién hecho, con las versiones de `requirements-lock.txt`.
+
+| Qué | Resultado |
+|---|---|
+| Datos de entrada del análisis de velocidad (12 ficheros) | idénticos, 12 de 12 |
+| Tablas de velocidad (14) | idénticas, byte a byte |
+| Espectros (1296 ficheros, 143 GB) | idénticos, 1296 de 1296 |
+| Tablas espectrales (2) | idénticas, byte a byte |
+| Números del artículo (243) | 243 de 243 coinciden |
+| Figuras del artículo (5) | las mismas imágenes, píxel a píxel |
+
+La comprobación encontró dos números que se habían redondeado dos veces en el texto. La
+dispersión de los cambios de velocidad de las fulguraciones de HARPS-N es de 0,40 m/s, no de
+0,41, y el exceso del Apéndice C es de 0,43 ± 0,10 m/s, no de 0,44 ± 0,11. Los dos están
+corregidos.
+
+## Paso a paso
+
+`reproduce` ejecuta estas órdenes en este orden. Cada una puede ejecutarse sola, y entonces
+escribe en `results/`.
 
 ```
 python -m flinch download
 python -m flinch coverage
 python -m flinch replication
+python -m flinch replication --cleaning
 python -m flinch robustness
 python -m flinch pilot
+python -m flinch numbers
+python -m flinch paper-spectra
+python -m flinch chromosphere
+python -m flinch paper-figures --out figures
+python -m flinch verify
 ```
 
 | Salida | La genera | Contenido |
 |---|---|---|
 | `results/flare_sample.csv` | `coverage` | Las 2122 fulguraciones M y X y su cobertura por NEID |
-| `results/velocity_by_instrument.csv` | `replication` | Cambio medio, desplazamiento de una X1 y término de rotación, por clase y por instrumento, y los dos juntos |
-| `results/replication_events.csv` | `replication` | Cada fulguración y cada control de los dos instrumentos, con su cambio de velocidad |
-| `results/replication_profiles.csv` | `replication` | Velocidad media alrededor del máximo en intervalos de 10 minutos |
-| `results/early_window.csv` | `replication` | Velocidad media de 60 a 50 minutos antes del máximo, por clase y por instrumento |
+| `results/velocity_by_instrument.csv` | `replication` | Cambio medio, desplazamiento de una X1 y término de rotación, por clase y por instrumento, y los dos juntos (Tabla 1) |
+| `results/replication_events.csv` | `replication` | Cada fulguración y cada control de los dos instrumentos, con su cambio de velocidad (Fig. 3) |
+| `results/replication_profiles.csv` | `replication` | Velocidad media alrededor del máximo en intervalos de 10 minutos (Fig. 2) |
+| `results/early_window.csv` | `replication` | Velocidad media de 60 a 50 minutos antes del máximo, por clase y por instrumento (Apéndice C) |
 | `results/cleaning_variants.csv` | `replication --cleaning` | El cambio medio y el término de rotación con otros umbrales para descartar días y, en HARPS-N, con el indicador de calidad por encima de 0,9 |
-| `results/robustness.csv` | `robustness` | La tabla de variantes (NEID) |
-| `results/injections.csv` | `robustness` | Un desplazamiento añadido y medido después (NEID) |
+| `results/robustness.csv` | `robustness` | La tabla de variantes con NEID (Tabla A.1) |
+| `results/injections.csv` | `robustness` | Un desplazamiento añadido y medido después con NEID (Apéndice A) |
 | `results/pilot_*.csv` | `pilot` | El primer análisis de NEID, con la potencia de las oscilaciones |
+| `results/text_numbers.csv` | `numbers` | Los recuentos y los números descriptivos del texto, es decir, velocidades y días, lo que quitan los cortes, las pruebas de muestra representativa, la frecuencia de las fulguraciones y el tiempo que ocupan |
+| `data/spectra/` | `paper-spectra` | Los extractos de los 1296 espectros del artículo, cada uno comprobado con su huella |
+| `results/spectral_response.csv` | `chromosphere` | Respuesta de cada fulguración y cada control, con sus errores (Tabla B.1) |
+| `results/spectral_indices.csv` | `chromosphere` | Resumen de cada índice por banda de clase (Tabla 2) |
+| Ficheros PDF | `paper-figures` | El ejemplo del método, la velocidad media alrededor del máximo, el cambio de cada fulguración frente a su clase y su posición, y la respuesta media de los espectros |
+| `results/paper_check.csv` | `verify` | Cada número del artículo frente a las tablas |
 
-`replication` descarga la tabla de HARPS-N (64 MB) la primera vez. `robustness` descarga los
-flujos de rayos X minuto a minuto (380 MB) la primera vez.
+Tres variables de entorno cambian dónde va cada cosa. `FLINCH_DATA` es la carpeta de las
+descargas (`data/` si no se indica), `FLINCH_RESULTS` la de las tablas (`results/`) y
+`FLINCH_DATA_END` el último día de datos (véase más abajo).
 
-## Espectros
+## Qué se ha fijado, y cómo
+
+Cuatro cosas hacían que los resultados dependieran del día y de la máquina. Ahora están
+fijadas en el código.
+
+- **El último día de datos.** La tabla de NEID crece cada día despejado y las listas de GOES
+  se reeditan con una fecha final posterior, así que una descarga posterior tenía más
+  fulguraciones, más observaciones y otros controles. `DATA_END`, en `flinch/config.py`, es
+  el 13 de noviembre de 2026. Las fulguraciones y las observaciones de ese día en adelante se
+  ignoran, contenga lo que contenga la descarga. La última observación de NEID del artículo
+  es del 12 de noviembre de 2026.
+- **Los espectros.** Se descargaron con `campaign`, que recorre las fulguraciones de mayor a
+  menor hasta agotar un presupuesto de horas y de ficheros. Lo que descarga depende de la
+  conexión y del día. `flinch/reference/spectra_files.csv` lista los 1296 ficheros que
+  descargó para el artículo, con la huella de cada extracto, y `paper-spectra` descarga
+  exactamente esos.
+- **Las elecciones al azar.** Los controles y el remuestreo usan una semilla fija.
+- **Los números del texto.** Los recuentos, porcentajes y pruebas que no estaban en ninguna
+  tabla los escribe ahora `numbers`.
+
+## Límites
+
+Lo que sigue todavía puede hacer que una reproducción difiera, o la encarece.
+
+- **Los archivos pueden cambiar los datos.** NEID puede reprocesar sus espectros con una
+  versión más nueva de su programa de reducción (los 1296 usados aquí son todos de la
+  versión 1.5.3), y la NOAA reedita los ficheros de GOES. Todavía no hay una copia congelada
+  de los datos de entrada fuera de los archivos. Las huellas no impiden un cambio, pero lo
+  detectan. El informe dice entonces qué dato es `different`, y una tabla que difiere tiene
+  explicación. La serie de HARPS-N es una publicación fija con DOI.
+- **Los espectros son 143 GB.** Un fichero de nivel 2 ocupa 113 MB y el archivo no sirve
+  partes de un fichero, así que cada uno se descarga entero, se reduce a un extracto de
+  0,2 MB y se borra. Los 1296 ficheros tardaron aquí 3 horas y 14 minutos, a 12 MB por
+  segundo, que son 9 segundos por fichero. Una línea más lenta necesita más en proporción.
+  Necesitan 400 MB de disco libre a la vez y dejan 260 MB de extractos. Una conexión
+  doméstica puede frenarse tras decenas de GB. En la primera campaña cayó a una décima
+  parte de su velocidad después de 100 GB. En esta segunda descarga no ocurrió. El
+  ordenador tiene que seguir despierto, así que un portátil debe estar enchufado y no
+  suspenderse al cerrar la tapa. El nivel 2 es la alternativa barata. No repite el análisis
+  espectral, pero demuestra que el archivo y la extracción siguen dando los mismos
+  extractos.
+- **Algunos espectros no se pueden leer.** En 51 exposiciones de dos ventanas (27 de la
+  fulguración X1.3 del 4 de julio de 2026 y 24 del control de la X4.9 del 31 de diciembre de
+  2023) el archivo sirve ficheros sin el espectro unido. No están en la lista, y esas dos
+  ventanas tienen menos espectros que las demás. Esa fulguración y ese control no están
+  entre los utilizables.
+- **La elección de los espectros no se repite.** La lista recoge qué espectros se
+  descargaron, no una regla que vuelva a darlos. Las ventanas son las 20 fulguraciones de
+  clase X que NEID observó en el máximo o durante la subida, las mismas horas del día sin
+  fulguraciones más próximo para 14 de ellas, y las 11 de las 25 fulguraciones entre M5 y M9
+  que tuvieron cielo despejado y estable. Dentro de una ventana se tomaron todos los
+  espectros cercanos a la fulguración y uno de cada dos o tres más lejos. Ejecutar `campaign`
+  otra vez no daría los mismos ficheros, porque su presupuesto cortó la última ventana y las
+  dos ventanas de arriba perdieron espectros.
+- **Versiones de los programas.** Con las versiones de `requirements-lock.txt` las tablas
+  salen idénticas, byte a byte. NumPy no promete los mismos números aleatorios en todas sus
+  versiones futuras. Si cambiaran, los controles elegidos y los errores del remuestreo
+  cambiarían en sus últimas cifras. La reproducción completa se ejecutó en Windows 11 con
+  Python 3.14. En Linux las pruebas se ejecutan con cada cambio, pero la reproducción
+  completa no se ha ejecutado allí. Por eso las tablas se comparan número a número, y no
+  solo como texto.
+- **La orden no compara las figuras.** Se dibujan de nuevo a partir de las tablas nuevas.
+  En la ejecución descrita arriba se convirtieron en imágenes y se compararon con las del
+  artículo, y las cinco son iguales píxel a píxel. Con otras versiones de Matplotlib o con
+  otros tipos de letra pueden diferir en detalles que no cambian lo que muestran.
+- **Los números tomados de otros artículos** (el aumento de brillo de las fulguraciones en
+  luz visible, la escala antigua de GOES) no se calculan aquí.
+
+## Pruebas
 
 ```
-python -m flinch campaign --min-class X1.0 --hours 4 --max-files 700
-python -m flinch campaign --kind controls --hours 4 --max-files 700
-python -m flinch campaign --min-class M5.0 --max-class X1.0 --clear-only --sparse --step 2 --before 26 --after 10
-python -m flinch chromosphere
+python -m pytest              # 120 pruebas con datos sintéticos, sin red, un minuto
+python -m pytest -m network   # 2 pruebas que comprueban que los archivos siguen respondiendo como espera el código
 ```
 
-La primera orden descarga los espectros alrededor de las fulguraciones de clase X, de mayor a
-menor, hasta agotar el tiempo o el número de archivos; la segunda descarga las mismas ventanas
-del día sin fulguraciones más próximo. La tercera descarga las fulguraciones entre M5 y M9, y
-de ellas solo las que tienen cielo despejado y estable, y solo esos espectros: los demás se
-descartarían de todos modos, y cada uno cuesta 113 MB. Todas saltan lo que ya está en disco,
-así que pueden pararse y repetirse. Los extractos van a `data/spectra/<fecha>_<hora>_<clase>/`.
-
-| Salida | La genera | Contenido |
-|---|---|---|
-| `results/spectral_response.csv` | `chromosphere` | Respuesta de cada fulguración y cada control, con sus errores |
-| `results/spectral_indices.csv` | `chromosphere` | Resumen de cada índice por banda de clase |
-
-Una sola ventana:
-
-```
-python -m flinch spectra --start 2024-02-22T21:37 --end 2024-02-22T22:45 --name 20240222_2233_X6.3
-```
-
-## Figuras del artículo
-
-```
-python -m flinch paper-figures --out docs/paper/figuras
-```
-
-Escribe, como PDF vectorial con estilo de revista, el ejemplo del método, la velocidad media
-alrededor del máximo en los dos instrumentos, el cambio de cada fulguración frente a su clase
-y su posición, y la respuesta media de los espectros.
-
-## Versiones
-
-Las versiones exactas de los paquetes usados están en `requirements-lock.txt`. Los datos
-cambian con el tiempo: la tabla de NEID crece cada día despejado y los archivos de GOES se
-reeditan con una nueva fecha final, así que los recuentos que se dan aquí son los del 20 de
-noviembre de 2026.
+Otras tres pruebas comparan las descargas reales con las tablas del repositorio. Se ejecutan
+cuando los datos están en disco.

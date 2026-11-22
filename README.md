@@ -40,14 +40,28 @@ On Linux and macOS the interpreter is `venv/bin/python`. Python 3.10 or later.
 ## Use
 
 ```
-python -m flinch download      # flare lists and NEID velocities into data/ (22 MB)
-python -m flinch replication   # the measurement with NEID and with HARPS-N (downloads 64 MB)
+python -m flinch download      # flare lists and the velocities of NEID and HARPS-N into data/ (340 MB)
+python -m flinch replication   # the measurement with NEID and with HARPS-N
 python -m flinch robustness    # the same under other analysis choices
 python -m pytest               # tests, no network needed
 ```
 
-Every command and the table it writes are listed in
-[Reproduce](https://gabgarar.github.io/flinch/reproduce/).
+## Reproduce the paper
+
+```
+python -m flinch reproduce
+```
+
+One command downloads the public data (340 MB), runs every step, compares each table with
+the one in `results/` and checks the 243 numbers of the paper against the new tables. It
+takes about ten minutes and writes a report to `reproduction/`. The spectra are 143 GB and
+are left out unless asked for (`--spectra sample` or `--spectra all`).
+`python -m flinch verify` alone checks the numbers of the paper against the tables of the
+repository, in seconds and without any download.
+
+The levels, the cost of each, every command with the table it writes, and what can still
+make a reproduction differ are in
+[Reproducing the paper](https://gabgarar.github.io/flinch/reproduce/).
 
 ## Data
 

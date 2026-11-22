@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import datetime as dt
 import os
+import platform
 import shutil
 import subprocess
 import sys
@@ -24,7 +25,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from .config import REPO_ROOT, data_dir, results_dir
+from .config import REPO_ROOT, data_dir
 
 VELOCITY_STEPS = ("coverage", "replication", "replication --cleaning", "robustness", "pilot", "numbers")
 VELOCITY_TABLES = (
@@ -126,7 +127,7 @@ def run(spectra: str = "none", sample: int = 10, download: bool = True, out: Pat
     report = Report(out / "report.txt")
     files = len(campaign.paper_files())
     report.say(f"flinch reproduce, {dt.datetime.now():%Y-%m-%d %H:%M}")
-    report.say(f"Python {sys.version.split()[0]}, numpy {np.__version__}, pandas {pd.__version__}")
+    report.say(f"{platform.platform()}, Python {sys.version.split()[0]}, numpy {np.__version__}, pandas {pd.__version__}")
     report.say(f"Data in {data_dir()}")
     report.say(f"Last day of data: {os.environ.get('FLINCH_DATA_END', 'as in the paper')}")
     plan = {

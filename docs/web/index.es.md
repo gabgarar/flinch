@@ -49,7 +49,7 @@ velocidad no se mueve. Véase [Resultados](results.md).
 | [Velocidades de HARPS-N](data/harpsn.md) | El segundo instrumento: qué es y cómo se procesa |
 | [Método](method.md) | La medida en cuatro pasos |
 | [Resultados](results.md) | Tablas y figuras |
-| [Reproducir los resultados](reproduce.md) | Qué orden genera cada tabla y cada figura |
+| [Reproducir el artículo](reproduce.md) | Una orden que lo ejecuta todo y comprueba el artículo; qué cuesta cada paso; qué puede diferir todavía |
 
 Todos los datos son públicos y no necesitan registro. La web está en español y en inglés: usa
 el botón de idioma de la parte superior. Los rótulos de las figuras y la referencia de la API

@@ -240,7 +240,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="flinch", description="Solar flares in Sun-as-a-star radial velocities")
     commands = parser.add_subparsers(dest="command", required=True)
     download = commands.add_parser(
-        "download", help="download everything the velocity analysis needs: GOES flare lists and one-minute fluxes, NEID table, HARPS-N series (360 MB)"
+        "download", help="download everything the velocity analysis needs: GOES flare lists and one-minute fluxes, NEID table, HARPS-N series (340 MB)"
     )
     download.add_argument("--overwrite", action="store_true", help="download again files that already exist")
     download.set_defaults(run=cmd_download)

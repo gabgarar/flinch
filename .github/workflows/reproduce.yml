@@ -1,0 +1,29 @@
+name: reproduce
+# The reproduction of the paper on Linux, from the public archives: started by hand from the
+# Actions tab. It downloads 340 MB (and 113 MB per spectrum of the sample) and takes about
+# ten minutes. The report, the new tables and the figures are kept as an artifact.
+on:
+  workflow_dispatch:
+    inputs:
+      spectra:
+        description: "Spectra: none, or sample (ten files of 113 MB, checked against their fingerprints)"
+        type: choice
+        options: [sample, none]
+        default: sample
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - run: pip install -r requirements-lock.txt
+      - run: pip install --no-deps -e .
+      - run: python -m flinch reproduce --spectra ${{ inputs.spectra }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reproduction
+          path: reproduction/

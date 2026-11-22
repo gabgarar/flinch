@@ -46,11 +46,12 @@ nav:
       - HARPS-N velocities: data/harpsn.md
   - Method: method.md
   - Results: results.md
-  - Reproducing the results: reproduce.md
+  - Reproducing the paper: reproduce.md
   - API reference:
       - Data: api/data.md
       - Velocity analysis: api/velocity.md
       - Spectra: api/spectra.md
+      - Reproduction: api/reproduction.md
   - References: references.md
   - Cite: cite.md
 
@@ -80,7 +81,8 @@ plugins:
             HARPS-N velocities: Velocidades de HARPS-N
             Method: Método
             Results: Resultados
-            Reproducing the results: Reproducir los resultados
+            Reproducing the paper: Reproducir el artículo
+            Reproduction: Reproducción
             API reference: Referencia de la API
             Velocity analysis: Análisis de velocidad
             Spectra: Espectros

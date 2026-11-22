@@ -46,7 +46,7 @@ stays put. See [Results](results.md).
 | [HARPS-N velocities](data/harpsn.md) | The second instrument: what it is and how it is processed |
 | [Method](method.md) | The measurement in four steps |
 | [Results](results.md) | Tables and figures |
-| [Reproducing the results](reproduce.md) | Which command makes which table and figure |
+| [Reproducing the paper](reproduce.md) | One command that runs everything and checks the paper; what each step costs; what can still differ |
 
 All data are public and need no registration. The site is available in English and in
 Spanish: use the language button at the top of the page.
