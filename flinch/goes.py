@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 from ._http import download, fetch_text
-from .config import data_dir
+from .config import data_dir, data_end_jd
 from .timeutil import JD_J2000, MINUTE, jd_to_datetime
 
 ARCHIVE = "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes"
@@ -170,6 +170,8 @@ def load_flares(directory: Path | None = None, satellites: tuple[int, ...] = SAT
         if locations:
             flares = flares.merge(read_flloc(locations[-1]), on="flare_id", how="left")
         merged = flares if merged is None else merge_flare_lists(merged, flares)
+    # The lists are reissued with a later end date: keep the same flares whatever the download.
+    merged = merged[merged["jd_peak"] < data_end_jd()].reset_index(drop=True)
     merged["peak"] = jd_to_datetime(merged["jd_peak"])
     return merged
 
@@ -193,6 +195,24 @@ def load_avg1m(satellite: int, year: int, directory: Path | None = None) -> tupl
         flux = handle["xrsb_flux"][:].astype(float)
     flux[~(flux > 0.0)] = np.nan  # fill values and gaps
     return jd, flux
+
+
+def download_avg1m(flares: pd.DataFrame, directory: Path | None = None) -> list[tuple[int, int]]:
+    """Download the yearly one-minute files that ``add_impulsive_time`` needs for these flares.
+
+    Returns the (satellite, year) pairs. A year that the archive does not hold is skipped, as
+    ``add_impulsive_time`` does.
+    """
+    years = jd_to_datetime(flares["jd_peak"]).year
+    pairs = sorted({(int(satellite), int(year)) for satellite, year in zip(flares["satellite"], years)})
+    done = []
+    for satellite, year in pairs:
+        try:
+            load_avg1m(satellite, year, directory)
+            done.append((satellite, year))
+        except RuntimeError:  # no file for that year
+            continue
+    return done
 
 
 def add_impulsive_time(flares: pd.DataFrame, directory: Path | None = None) -> pd.DataFrame:

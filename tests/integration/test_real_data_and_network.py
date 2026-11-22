@@ -1,24 +1,26 @@
 """Integration against the real downloads and the real archives.
 
-``needs_data`` tests run only when ``python -m flinch download`` has been run in this checkout;
-they check that the committed tables are reproduced. ``network`` tests are excluded by default
+``needs_data`` tests run only when ``python -m flinch download`` has been run (into ``data/``,
+or into the folder that ``FLINCH_DATA`` names); they check that the committed tables are reproduced. ``network`` tests are excluded by default
 (run them with ``pytest -m network``): they check that the archives still answer as the code expects.
 """
+import os
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import pytest
 
 from flinch import config, goes, neid, pilot
 
-DATA = config.REPO_ROOT / "data"
+DATA = Path(os.environ.get("FLINCH_DATA", config.REPO_ROOT / "data"))
 HAVE_DATA = (DATA / "neid" / "neid_solar_l2.csv.gz").exists() and any((DATA / "goes").glob("sci_xrsf-l2-flsum_g16_*.nc"))
 needs_data = pytest.mark.skipif(not HAVE_DATA, reason="real data not downloaded: python -m flinch download")
 
 
 @pytest.mark.needs_data
 @needs_data
-def test_real_flare_list_has_the_known_flares(monkeypatch):
-    monkeypatch.delenv("FLINCH_DATA", raising=False)
+def test_real_flare_list_has_the_known_flares():
     flares = goes.load_flares()
     assert len(flares) > 20000
     biggest = flares[(flares["peak"] > "2024-05-14") & (flares["peak"] < "2024-05-15")].sort_values("peak_flux").iloc[-1]
@@ -31,10 +33,9 @@ def test_real_flare_list_has_the_known_flares(monkeypatch):
 
 @pytest.mark.needs_data
 @needs_data
-def test_real_velocity_table_is_as_documented(monkeypatch):
-    monkeypatch.delenv("FLINCH_DATA", raising=False)
+def test_real_velocity_table_is_as_documented():
     table = neid.read_solar_table()
-    assert len(table) >= 366180 and table["obsjd"].is_monotonic_increasing
+    assert len(table) == 366180 and table["obsjd"].is_monotonic_increasing  # fixed by the last day of data
     assert table["rv_ms"].median() == pytest.approx(-645.0, abs=5.0)
     assert np.median(table["exptime"]) == pytest.approx(55.0, abs=0.1)
     assert (table["rejected"] == 0).all()
@@ -42,11 +43,10 @@ def test_real_velocity_table_is_as_documented(monkeypatch):
 
 @pytest.mark.needs_data
 @needs_data
-def test_pilot_reproduces_the_committed_summary(monkeypatch):
+def test_pilot_reproduces_the_committed_summary():
     committed_path = config.REPO_ROOT / "results" / "pilot_summary.csv"
     if not committed_path.exists():
         pytest.skip("no committed summary")
-    monkeypatch.delenv("FLINCH_DATA", raising=False)
     committed = pd.read_csv(committed_path).set_index("band")
     summary = pilot.run()["summary"].set_index("band")
     assert (summary["n_flares"] == committed["n_flares"]).all()

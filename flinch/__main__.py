@@ -1,4 +1,4 @@
-"""Command line: ``python -m flinch download`` and ``python -m flinch coverage``."""
+"""Command line: ``python -m flinch <command>``; ``python -m flinch --help`` lists the commands."""
 from __future__ import annotations
 
 import argparse
@@ -16,6 +16,13 @@ def cmd_download(args: argparse.Namespace) -> int:
             print(f"GOES-{satellite} {product}: {path}")
     path = neid.download_solar_table(overwrite=args.overwrite)
     print(f"NEID solar table: {path}")
+    from . import harpsn, pilot
+
+    print(f"HARPS-N series: {harpsn.download_series(overwrite=args.overwrite)}")
+    # One-minute X-ray fluxes of the years with M and X flares in the NEID era (for `robustness`).
+    sample = pilot.major_flare_sample(goes.load_flares(), neid.read_solar_table()["obsjd"].to_numpy())
+    for satellite, year in goes.download_avg1m(sample):
+        print(f"GOES-{satellite} one-minute fluxes of {year}: on disk")
     return 0
 
 
@@ -166,6 +173,36 @@ def cmd_replication(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_numbers(args: argparse.Namespace) -> int:
+    from . import numbers
+
+    table = numbers.run()
+    with pd.option_context("display.width", 200, "display.max_rows", 200, "display.float_format", "{:.4f}".format):
+        print(table.to_string(index=False))
+    table.to_csv(results_dir() / "text_numbers.csv", index=False)
+    return 0
+
+
+def cmd_verify(args: argparse.Namespace) -> int:
+    from . import verify
+
+    table = verify.run()
+    failed = table[~table["ok"]]
+    with pd.option_context("display.width", 250, "display.max_rows", 1000, "display.max_colwidth", 90):
+        shown = table if args.all else failed
+        if len(shown):
+            print(shown.assign(ok=shown["ok"].map({True: "yes", False: "NO"})).to_string(index=False))
+    print(f"Numbers of the paper checked: {len(table)}; in agreement: {len(table) - len(failed)}; not in agreement: {len(failed)}")
+    table.to_csv(results_dir() / "paper_check.csv", index=False)
+    return 0 if failed.empty else 1
+
+
+def cmd_reproduce(args: argparse.Namespace) -> int:
+    from . import reproduce
+
+    return reproduce.run(spectra=args.spectra, sample=args.sample, download=not args.no_download, out=args.out)
+
+
 def cmd_chromosphere(args: argparse.Namespace) -> int:
     from . import chromosphere
 
@@ -202,7 +239,9 @@ def cmd_paper_figures(args: argparse.Namespace) -> int:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="flinch", description="Solar flares in Sun-as-a-star radial velocities")
     commands = parser.add_subparsers(dest="command", required=True)
-    download = commands.add_parser("download", help="download the GOES flare lists and the NEID solar table")
+    download = commands.add_parser(
+        "download", help="download everything the velocity analysis needs: GOES flare lists and one-minute fluxes, NEID table, HARPS-N series (360 MB)"
+    )
     download.add_argument("--overwrite", action="store_true", help="download again files that already exist")
     download.set_defaults(run=cmd_download)
     cover = commands.add_parser("coverage", help="cross-match flares with NEID observations")
@@ -238,7 +277,7 @@ def main(argv: list[str] | None = None) -> int:
     camp.add_argument("--after", type=float, default=45.0, help="minutes fetched after the peak of the flare (default 45)")
     camp.set_defaults(run=cmd_campaign)
     listed = commands.add_parser(
-        "paper-spectra", help="fetch exactly the spectra used in the paper (1313 files of 113 MB) and check each against its fingerprint"
+        "paper-spectra", help="fetch exactly the spectra used in the paper (1296 files of 113 MB) and check each against its fingerprint"
     )
     listed.add_argument("--sample", type=int, default=None, help="only this many files, drawn at random: a check that costs 113 MB per file")
     listed.add_argument("--seed", type=int, default=0, help="seed of the random sample (default 0)")
@@ -248,6 +287,25 @@ def main(argv: list[str] | None = None) -> int:
     again = commands.add_parser("replication", help="the velocity response measured with NEID and with HARPS-N, and both combined")
     again.add_argument("--cleaning", action="store_true", help="instead, repeat the measurement with other cleaning thresholds")
     again.set_defaults(run=cmd_replication)
+
+    text = commands.add_parser("numbers", help="counts and descriptive numbers of the text: data, cuts, flare rate, representativeness of the sample")
+    text.set_defaults(run=cmd_numbers)
+
+    check = commands.add_parser("verify", help="check every number of the paper against the tables in results/")
+    check.add_argument("--all", action="store_true", help="print every check, not only those that fail")
+    check.set_defaults(run=cmd_verify)
+
+    again_all = commands.add_parser(
+        "reproduce", help="download the data, run every step, compare the tables with those of the repository and check the numbers of the paper"
+    )
+    again_all.add_argument(
+        "--spectra", choices=["none", "sample", "all"], default="none",
+        help="none (default): the spectra are not fetched; sample: a few are fetched and checked; all: the 1296 of the paper (143 GB)",
+    )
+    again_all.add_argument("--sample", type=int, default=10, help="spectra fetched with --spectra sample, 113 MB each (default 10)")
+    again_all.add_argument("--no-download", action="store_true", help="use the data already on disk")
+    again_all.add_argument("--out", default=None, help="folder for the report, the logs and the figures (default reproduction/)")
+    again_all.set_defaults(run=cmd_reproduce)
 
     lines = commands.add_parser("chromosphere", help="response of the spectral indices to the flares with spectra, by class band")
     lines.set_defaults(run=cmd_chromosphere)

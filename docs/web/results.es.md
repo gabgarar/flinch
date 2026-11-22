@@ -33,7 +33,7 @@ Tres comprobaciones más dan la misma respuesta:
   se encuentra ningún cambio, pero la cota, 0,19 m/s, es el doble de la señal de la Tierra.
 - **No hay desplazamientos de signo opuesto que se cancelen en la media.** Los cambios de las
   fulguraciones están tan dispersos como los de los controles: 0,40 m/s en ambos con NEID,
-  0,41 con HARPS-N.
+  0,40 y 0,41 con HARPS-N.
 - **No hay firma de rotación.** El término de rotación queda por debajo de 0,07 m/s para una
   X1 en el limbo, lo que equivale a K · ΔF / F < 3,7 × 10⁻⁵ por fulguración X1 (véase
   [Método](method.md#three-estimates)).
@@ -162,7 +162,7 @@ estrellas más activas que el Sol, con fulguraciones mayores y más frecuentes, 
 ### Un exceso antes de las fulguraciones X de NEID que HARPS-N no ve
 
 En los diez minutos que van de 60 a 50 minutos antes del máximo en rayos X, las fulguraciones
-de clase X observadas por NEID están 0,44 ± 0,11 m/s por encima de la tendencia de su día (19
+de clase X observadas por NEID están 0,43 ± 0,10 m/s por encima de la tendencia de su día (19
 fulguraciones con datos en ese momento, 17 de ellas positivas). Se vio en las velocidades
 medias, no se predijo. No aparece en las fulguraciones de clase M de NEID (0,00 ± 0,03 m/s)
 ni en los controles, y HARPS-N no lo muestra en sus diez fulguraciones X, que son otras:

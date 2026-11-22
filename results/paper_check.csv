@@ -1,0 +1,244 @@
+where,what,paper,here,ok
+Table 1,"Mean change, all M and X flares: flares, NEID",139,139.00,True
+Table 1,"Mean change, all M and X flares: value, NEID",-0.035 +/- 0.035,-0.03458 +/- 0.03488,True
+Table 1,"Mean change, all M and X flares: flares, HARPS-N",115,115.00,True
+Table 1,"Mean change, all M and X flares: value, HARPS-N",-0.021 +/- 0.039,-0.02085 +/- 0.03936,True
+Table 1,"Mean change, all M and X flares: flares, Both",254,254.00,True
+Table 1,"Mean change, all M and X flares: value, Both",-0.029 +/- 0.026,-0.02854 +/- 0.02611,True
+Table 1,"Mean change, all M and X flares: 95 % limit",0.07,0.0715,True
+Table 1,"Mean change, M class: flares, NEID",128,128.00,True
+Table 1,"Mean change, M class: value, NEID",-0.032 +/- 0.039,-0.03242 +/- 0.03868,True
+Table 1,"Mean change, M class: flares, HARPS-N",108,108.00,True
+Table 1,"Mean change, M class: value, HARPS-N",-0.015 +/- 0.042,-0.01544 +/- 0.04152,True
+Table 1,"Mean change, M class: flares, Both",236,236.00,True
+Table 1,"Mean change, M class: value, Both",-0.025 +/- 0.028,-0.02453 +/- 0.02830,True
+Table 1,"Mean change, M class: 95 % limit",0.07,0.0711,True
+Table 1,"Mean change, X class: flares, NEID",11,11.00,True
+Table 1,"Mean change, X class: value, NEID",-0.060 +/- 0.088,-0.05968 +/- 0.08755,True
+Table 1,"Mean change, X class: flares, HARPS-N",7,7.00,True
+Table 1,"Mean change, X class: value, HARPS-N",-0.104 +/- 0.127,-0.10426 +/- 0.12714,True
+Table 1,"Mean change, X class: flares, Both",18,18.00,True
+Table 1,"Mean change, X class: value, Both",-0.074 +/- 0.072,-0.07402 +/- 0.07211,True
+Table 1,"Mean change, X class: 95 % limit",0.19,0.1926,True
+Table 1,"Shift of an X1 flare, S: flares, NEID",139,139.00,True
+Table 1,"Shift of an X1 flare, S: value, NEID",-0.010 +/- 0.061,-0.00984 +/- 0.06051,True
+Table 1,"Shift of an X1 flare, S: flares, HARPS-N",115,115.00,True
+Table 1,"Shift of an X1 flare, S: value, HARPS-N",-0.005 +/- 0.040,-0.00467 +/- 0.03994,True
+Table 1,"Shift of an X1 flare, S: flares, Both",254,254.00,True
+Table 1,"Shift of an X1 flare, S: value, Both",-0.006 +/- 0.033,-0.00624 +/- 0.03333,True
+Table 1,"Shift of an X1 flare, S: 95 % limit",0.06,0.0611,True
+Table 1,"Rotation term, R: flares, NEID",139,139.00,True
+Table 1,"Rotation term, R: value, NEID",-0.106 +/- 0.082,-0.10553 +/- 0.08167,True
+Table 1,"Rotation term, R: flares, HARPS-N",115,115.00,True
+Table 1,"Rotation term, R: value, HARPS-N",0.022 +/- 0.043,0.02184 +/- 0.04316,True
+Table 1,"Rotation term, R: flares, Both",254,254.00,True
+Table 1,"Rotation term, R: value, Both",-0.006 +/- 0.038,-0.00597 +/- 0.03816,True
+Table 1,"Rotation term, R: 95 % limit",0.07,0.0687,True
+Sect. 4.1,"scatter of the changes of the flares, NEID (m/s)",0.40,0.4030,True
+Sect. 4.1,"scatter of the changes of the controls, NEID (m/s)",0.40,0.3955,True
+Sect. 4.1,"scatter of the changes of the flares, HARPS-N (m/s)",0.40,0.4048,True
+Sect. 4.1,"scatter of the changes of the controls, HARPS-N (m/s)",0.41,0.4135,True
+Eq. 8,"limit on K dF/F per X1 flare, in units of 1e-5",3.7,3.726,True
+Sect. 4.2,probability of detecting 10 cm/s with both instruments (%),99,98.56,True
+Sect. 3.1,HARPS-N with the quality flag above 0.9: flares,126,126.00,True
+Sect. 3.1,HARPS-N with the quality flag above 0.9: mean change,-0.005 +/- 0.038,-0.00531 +/- 0.03798,True
+Table A.1,Default: flares,139,139.00,True
+Table A.1,Default: mean change,-0.035 +/- 0.035,-0.03458 +/- 0.03488,True
+Table A.1,Default: S,-0.010 +/- 0.061,-0.00984 +/- 0.06051,True
+Table A.1,Default: R,-0.106 +/- 0.082,-0.10553 +/- 0.08167,True
+Table A.1,Daily trend: polynomial of degree 1: flares,137,137.00,True
+Table A.1,Daily trend: polynomial of degree 1: mean change,-0.022 +/- 0.036,-0.02185 +/- 0.03597,True
+Table A.1,Daily trend: polynomial of degree 1: S,-0.015 +/- 0.060,-0.01525 +/- 0.05989,True
+Table A.1,Daily trend: polynomial of degree 1: R,-0.045 +/- 0.080,-0.04517 +/- 0.08032,True
+Table A.1,Daily trend: polynomial of degree 3: flares,139,139.00,True
+Table A.1,Daily trend: polynomial of degree 3: mean change,-0.001 +/- 0.033,-0.00102 +/- 0.03349,True
+Table A.1,Daily trend: polynomial of degree 3: S,0.016 +/- 0.049,0.01606 +/- 0.04859,True
+Table A.1,Daily trend: polynomial of degree 3: R,-0.079 +/- 0.083,-0.07879 +/- 0.08338,True
+Table A.1,Window: 3 min either side of the steepest X-ray rise: flares,120,120.00,True
+Table A.1,Window: 3 min either side of the steepest X-ray rise: mean change,-0.009 +/- 0.042,-0.00886 +/- 0.04236,True
+Table A.1,Window: 3 min either side of the steepest X-ray rise: S,-0.019 +/- 0.061,-0.01882 +/- 0.06068,True
+Table A.1,Window: 3 min either side of the steepest X-ray rise: R,-0.108 +/- 0.135,-0.10812 +/- 0.13498,True
+Table A.1,Window: first 10 min from the start: flares,134,134.00,True
+Table A.1,Window: first 10 min from the start: mean change,-0.040 +/- 0.035,-0.04017 +/- 0.03548,True
+Table A.1,Window: first 10 min from the start: S,0.006 +/- 0.045,0.00567 +/- 0.04484,True
+Table A.1,Window: first 10 min from the start: R,-0.004 +/- 0.080,-0.00447 +/- 0.08006,True
+Table A.1,Window: 5 min either side of the X-ray peak: flares,126,126.00,True
+Table A.1,Window: 5 min either side of the X-ray peak: mean change,-0.021 +/- 0.042,-0.02063 +/- 0.04179,True
+Table A.1,Window: 5 min either side of the X-ray peak: S,-0.111 +/- 0.085,-0.11120 +/- 0.08537,True
+Table A.1,Window: 5 min either side of the X-ray peak: R,-0.134 +/- 0.154,-0.13441 +/- 0.15369,True
+Table A.1,Background: straight line fitted on both sides of the flare: flares,93,93.00,True
+Table A.1,Background: straight line fitted on both sides of the flare: mean change,-0.008 +/- 0.040,-0.00830 +/- 0.04042,True
+Table A.1,Background: straight line fitted on both sides of the flare: S,-0.032 +/- 0.070,-0.03237 +/- 0.07015,True
+Table A.1,Background: straight line fitted on both sides of the flare: R,-0.002 +/- 0.113,-0.00207 +/- 0.11256,True
+Table A.1,Errors: resampling active regions instead of days: flares,139,139.00,True
+Table A.1,Errors: resampling active regions instead of days: mean change,-0.035 +/- 0.035,-0.03458 +/- 0.03546,True
+Table A.1,Errors: resampling active regions instead of days: S,-0.010 +/- 0.061,-0.00984 +/- 0.06089,True
+Table A.1,Errors: resampling active regions instead of days: R,-0.106 +/- 0.082,-0.10553 +/- 0.08163,True
+Table A.1,days resampled by default,111,111.00,True
+Table A.1,active regions resampled instead,81,81.00,True
+Appendix A,"shift of 5 cm/s added to NEID, measured back (cm/s)",4.9,4.881,True
+Appendix A,"shift of 5 cm/s, probability of detection with NEID (%)",40,40.30,True
+Appendix A,"shift of 10 cm/s added to NEID, measured back (cm/s)",9.8,9.766,True
+Appendix A,"shift of 10 cm/s, probability of detection with NEID (%)",88,87.59,True
+Appendix A,"shift of 20 cm/s added to NEID, measured back (cm/s)",19.5,19.475,True
+Appendix A,"shift of 20 cm/s, probability of detection with NEID (%)",100,100.00,True
+Appendix A,"shift of 50 cm/s added to NEID, measured back (cm/s)",48.8,48.804,True
+Appendix A,"shift of 50 cm/s, probability of detection with NEID (%)",100,100.00,True
+Appendix C,"velocity 60 to 50 min before the peak, X class, NEID: flares",19,19.00,True
+Appendix C,"velocity 60 to 50 min before the peak, X class, NEID (m/s)",0.43 +/- 0.10,0.4345 +/- 0.1048,True
+Appendix C,"velocity 60 to 50 min before the peak, M class, NEID: flares",183,183.00,True
+Appendix C,"velocity 60 to 50 min before the peak, M class, NEID (m/s)",0.00 +/- 0.03,0.0040 +/- 0.0261,True
+Appendix C,"velocity 60 to 50 min before the peak, X class, HARPS-N: flares",10,10.00,True
+Appendix C,"velocity 60 to 50 min before the peak, X class, HARPS-N (m/s)",-0.12 +/- 0.11,-0.1232 +/- 0.1096,True
+Appendix C,X-class flares of NEID above the trend in that window,17,17.00,True
+Sect. 2.2,NEID solar spectra in the archive,366180,366180.00,True
+Sect. 2.2,HARPS-N velocities in the release,109466,109466.00,True
+Sect. 2.2,flares in both samples,1,1.00,True
+Sect. 2.1,class of the flare of 6 September 2017 (X),14.6,14.641,True
+Sect. 2.1,class of the flare of 10 September 2017 (X),12.9,12.916,True
+Sect. 3.1,NEID velocities kept,233857,233857.00,True
+Sect. 3.1,NEID days kept,1238,1238.00,True
+Sect. 3.1,HARPS-N velocities kept,93593,93593.00,True
+Sect. 3.1,HARPS-N days kept,1671,1671.00,True
+Sect. 3.1,scatter of one NEID velocity (m/s),0.81,0.8078,True
+Sect. 3.1,scatter of one HARPS-N velocity (m/s),0.44,0.4435,True
+Sect. 3.1,NEID days dropped by the cuts (%),23,22.72,True
+Sect. 3.1,flares observed by NEID that fall on dropped days (%),19,19.00,True
+Sect. 3.2,M and X flares in the NEID era,2122,2122.00,True
+Sect. 3.2,"of them, with NEID observing at the peak",279,279.00,True
+Sect. 3.2,"of them, with both windows complete",140,140.00,True
+Sect. 3.2,M and X flares in the HARPS-N era,1750,1750.00,True
+Sect. 3.2,"of them, with both windows complete",122,122.00,True
+Sect. 3.3,NEID flares with at least three controls,139,139.00,True
+Sect. 3.3,HARPS-N flares with at least three controls,115,115.00,True
+Sect. 4.2,"part of an added shift recovered, NEID (%)",98,97.66,True
+Sect. 4.2,"part of an added shift recovered, HARPS-N (%)",98,97.84,True
+Appendix A,"shift of 10 cm/s added to HARPS-N, measured back (cm/s)",9.8,9.784,True
+Sect. 5.2,M and X flares per year,358,358.45,True
+Sect. 5.2,X flares per year,18,17.57,True
+Sect. 5.2,median length of a flare (min),19,19.00,True
+Sect. 5.2,time spent in M and X flares (%),1.6,1.590,True
+Sect. 5.2,time spent in X flares (%),0.1,0.104,True
+Sect. 5.2,year with most flares,2024,2024.00,True
+Sect. 5.2,flares of that year,934,934.00,True
+Sect. 5.2,time spent in M and X flares that year (%),3.8,3.806,True
+Sect. 5.2,time spent in X flares that year (%),0.3,0.323,True
+Sect. 5.2,change of the flare of Pietrow et al. (2024) with HARPS-N (m/s),-0.01,-0.0140,True
+Sect. 3.2,lowest probability of the Kolmogorov-Smirnov tests,0.08,0.0831,True
+Sect. 3.2,highest probability of the Kolmogorov-Smirnov tests,0.96,0.9648,True
+Sect. 5.3,"strongest flare of the sample (X class), below X15",14.6,14.641,True
+Abstract,measurements with both instruments,254,254.00,True
+Abstract,different flares,253,253.00,True
+Sect. 5.2,error of one flare with HARPS-N: scatter of its controls (m/s),0.41,0.4135,True
+Sect. 3.2,rows of the flare sample (results/flare_sample.csv),2122,2122.00,True
+Sect. 3.2,flares observed at the peak in that table,279,279.00,True
+Sect. 2.3,flares with spectra,31,31.00,True
+Sect. 2.3,"of them, of class X",20,20.00,True
+Sect. 2.3,"of them, between M5 and M9",11,11.00,True
+Sect. 3.6,flares with usable spectra,23,23.00,True
+Sect. 3.6,control windows with usable spectra,9,9.00,True
+Table 2,X-class flares on the disc,8,8.00,True
+Table 2,flares between M5 and M9 on the disc,6,6.00,True
+Sect. 4.3,"flares on the disc that brighten in both lines, of 14",14,14.00,True
+Table 2,"Ca II H and K, X class",5.3 +/- 1.7,5.294 +/- 1.707,True
+Table 2,"Ca II H and K, M5-M9 class",2.2 +/- 0.4,2.231 +/- 0.394,True
+Table 2,"Ca II H and K, controls",0.0 +/- 0.2,-0.021 +/- 0.219,True
+Table 2,"H alpha core, X class",3.3 +/- 1.1,3.292 +/- 1.123,True
+Table 2,"H alpha core, M5-M9 class",2.0 +/- 0.2,1.983 +/- 0.207,True
+Table 2,"H alpha core, controls",-0.1 +/- 0.2,-0.062 +/- 0.211,True
+Table 2,"Radial velocity (m/s), X class",-0.11 +/- 0.21,-0.1082 +/- 0.2145,True
+Table 2,"Radial velocity (m/s), M5-M9 class",-0.10 +/- 0.11,-0.0962 +/- 0.1118,True
+Table 2,"Radial velocity (m/s), controls",0.07 +/- 0.27,0.0733 +/- 0.2693,True
+Table B.1,20260118_1809_X1.9: distance from the disc centre,0.36,0.3591,True
+Table B.1,20260118_1809_X1.9: Ca II H and K,17.0 +/- 1.7,16.963 +/- 1.665,True
+Table B.1,20260118_1809_X1.9: H alpha,10.9 +/- 0.7,10.853 +/- 0.711,True
+Table B.1,20260118_1809_X1.9: velocity,-1.4 +/- 0.9,-1.383 +/- 0.897,True
+Table B.1,20260630_2049_X1.1: distance from the disc centre,0.39,0.3917,True
+Table B.1,20260630_2049_X1.1: Ca II H and K,4.7 +/- 0.9,4.664 +/- 0.919,True
+Table B.1,20260630_2049_X1.1: H alpha,3.6 +/- 0.7,3.600 +/- 0.665,True
+Table B.1,20260630_2049_X1.1: velocity,0.0 +/- 0.8,-0.050 +/- 0.846,True
+Table B.1,20250617_2148_X1.2: distance from the disc centre,0.36,0.3617,True
+Table B.1,20250617_2148_X1.2: Ca II H and K,4.0 +/- 0.9,3.964 +/- 0.854,True
+Table B.1,20250617_2148_X1.2: H alpha,3.0 +/- 0.7,3.009 +/- 0.692,True
+Table B.1,20250617_2148_X1.2: velocity,0.5 +/- 0.9,0.539 +/- 0.885,True
+Table B.1,20240509_1744_X1.1: distance from the disc centre,0.53,0.5281,True
+Table B.1,20240509_1744_X1.1: Ca II H and K,5.0 +/- 0.9,5.033 +/- 0.853,True
+Table B.1,20240509_1744_X1.1: H alpha,2.8 +/- 0.7,2.808 +/- 0.718,True
+Table B.1,20240509_1744_X1.1: velocity,0.3 +/- 0.9,0.263 +/- 0.912,True
+Table B.1,20230109_1849_X1.9: distance from the disc centre,0.97,0.9661,True
+Table B.1,20230109_1849_X1.9: Ca II H and K,4.3 +/- 0.8,4.312 +/- 0.832,True
+Table B.1,20230109_1849_X1.9: H alpha,2.2 +/- 0.7,2.236 +/- 0.749,True
+Table B.1,20230109_1849_X1.9: velocity,0.0 +/- 0.9,-0.001 +/- 0.919,True
+Table B.1,20220330_1737_X1.3: distance from the disc centre,0.58,0.5849,True
+Table B.1,20220330_1737_X1.3: Ca II H and K,2.9 +/- 0.8,2.937 +/- 0.824,True
+Table B.1,20220330_1737_X1.3: H alpha,2.0 +/- 0.7,2.012 +/- 0.701,True
+Table B.1,20220330_1737_X1.3: velocity,-0.4 +/- 0.9,-0.374 +/- 0.871,True
+Table B.1,20231214_1702_X2.8: distance from the disc centre,0.76,0.7612,True
+Table B.1,20231214_1702_X2.8: Ca II H and K,4.0 +/- 1.5,3.971 +/- 1.510,True
+Table B.1,20231214_1702_X2.8: H alpha,1.6 +/- 0.6,1.570 +/- 0.639,True
+Table B.1,20231214_1702_X2.8: velocity,-0.4 +/- 0.8,-0.350 +/- 0.823,True
+Table B.1,20240601_1835_X1.0: distance from the disc centre,0.50,0.4997,True
+Table B.1,20240601_1835_X1.0: Ca II H and K,3.0 +/- 0.9,3.041 +/- 0.853,True
+Table B.1,20240601_1835_X1.0: H alpha,1.4 +/- 0.7,1.434 +/- 0.684,True
+Table B.1,20240601_1835_X1.0: velocity,0.2 +/- 0.8,0.170 +/- 0.843,True
+Table B.1,20240531_2203_X1.1: distance from the disc centre,0.64,0.6394,True
+Table B.1,20240531_2203_X1.1: Ca II H and K,1.8 +/- 0.8,1.778 +/- 0.799,True
+Table B.1,20240531_2203_X1.1: H alpha,1.1 +/- 0.7,1.050 +/- 0.720,True
+Table B.1,20240531_2203_X1.1: velocity,0.3 +/- 0.9,0.321 +/- 0.867,True
+Table B.1,20230805_2220_X1.6: distance from the disc centre,0.95,0.9486,True
+Table B.1,20230805_2220_X1.6: Ca II H and K,1.5 +/- 0.8,1.498 +/- 0.772,True
+Table B.1,20230805_2220_X1.6: H alpha,0.7 +/- 0.7,0.743 +/- 0.699,True
+Table B.1,20230805_2220_X1.6: velocity,0.1 +/- 0.8,0.088 +/- 0.843,True
+Table B.1,20240514_1651_X8.6: distance from the disc centre,1.00,1.0018,True
+Table B.1,20240514_1651_X8.6: Ca II H and K,1.1 +/- 1.0,1.141 +/- 1.013,True
+Table B.1,20240514_1651_X8.6: H alpha,0.6 +/- 0.9,0.614 +/- 0.874,True
+Table B.1,20240514_1651_X8.6: velocity,-0.3 +/- 1.1,-0.272 +/- 1.053,True
+Table B.1,20250223_1927_X1.9: distance from the disc centre,0.96,0.9605,True
+Table B.1,20250223_1927_X1.9: Ca II H and K,-0.2 +/- 0.9,-0.177 +/- 0.857,True
+Table B.1,20250223_1927_X1.9: H alpha,-0.5 +/- 0.7,-0.498 +/- 0.683,True
+Table B.1,20250223_1927_X1.9: velocity,-0.1 +/- 0.9,-0.063 +/- 0.904,True
+Table B.1,20240517_2108_M7.2: distance from the disc centre,0.92,0.9208,True
+Table B.1,20240517_2108_M7.2: Ca II H and K,2.2 +/- 0.9,2.233 +/- 0.944,True
+Table B.1,20240517_2108_M7.2: H alpha,3.3 +/- 0.8,3.292 +/- 0.776,True
+Table B.1,20240517_2108_M7.2: velocity,-0.2 +/- 1.0,-0.219 +/- 1.019,True
+Table B.1,20250615_1807_M8.4: distance from the disc centre,0.38,0.3766,True
+Table B.1,20250615_1807_M8.4: Ca II H and K,4.0 +/- 1.1,4.005 +/- 1.134,True
+Table B.1,20250615_1807_M8.4: H alpha,2.7 +/- 0.9,2.670 +/- 0.859,True
+Table B.1,20250615_1807_M8.4: velocity,-0.3 +/- 0.9,-0.326 +/- 0.928,True
+Table B.1,20260621_1929_M6.8: distance from the disc centre,0.81,0.8060,True
+Table B.1,20260621_1929_M6.8: Ca II H and K,1.7 +/- 1.3,1.683 +/- 1.314,True
+Table B.1,20260621_1929_M6.8: H alpha,2.4 +/- 0.7,2.350 +/- 0.703,True
+Table B.1,20260621_1929_M6.8: velocity,-0.1 +/- 0.9,-0.059 +/- 0.852,True
+Table B.1,20251206_2038_M8.1: distance from the disc centre,0.34,0.3389,True
+Table B.1,20251206_2038_M8.1: Ca II H and K,2.6 +/- 1.2,2.613 +/- 1.177,True
+Table B.1,20251206_2038_M8.1: H alpha,2.1 +/- 0.7,2.109 +/- 0.715,True
+Table B.1,20251206_2038_M8.1: velocity,-0.3 +/- 0.9,-0.282 +/- 0.853,True
+Table B.1,20230509_2051_M5.0: distance from the disc centre,0.62,0.6211,True
+Table B.1,20230509_2051_M5.0: Ca II H and K,2.0 +/- 1.0,2.005 +/- 0.950,True
+Table B.1,20230509_2051_M5.0: H alpha,1.9 +/- 0.7,1.950 +/- 0.719,True
+Table B.1,20230509_2051_M5.0: velocity,0.3 +/- 1.1,0.343 +/- 1.054,True
+Table B.1,20240529_1841_M5.7: distance from the disc centre,0.49,0.4895,True
+Table B.1,20240529_1841_M5.7: Ca II H and K,1.7 +/- 0.8,1.699 +/- 0.791,True
+Table B.1,20240529_1841_M5.7: H alpha,1.5 +/- 0.7,1.488 +/- 0.667,True
+Table B.1,20240529_1841_M5.7: velocity,0.1 +/- 0.8,0.087 +/- 0.844,True
+Table B.1,20220331_1834_M9.6: distance from the disc centre,0.75,0.7499,True
+Table B.1,20220331_1834_M9.6: Ca II H and K,1.4 +/- 1.1,1.383 +/- 1.121,True
+Table B.1,20220331_1834_M9.6: H alpha,1.3 +/- 0.8,1.334 +/- 0.787,True
+Table B.1,20220331_1834_M9.6: velocity,-0.3 +/- 0.8,-0.341 +/- 0.846,True
+Table B.1,20240318_1918_M6.7: distance from the disc centre,0.94,0.9362,True
+Table B.1,20240318_1918_M6.7: Ca II H and K,1.9 +/- 1.1,1.860 +/- 1.115,True
+Table B.1,20240318_1918_M6.7: H alpha,1.0 +/- 0.7,0.972 +/- 0.742,True
+Table B.1,20240318_1918_M6.7: velocity,-0.4 +/- 0.9,-0.353 +/- 0.935,True
+Table B.1,20230806_1840_M5.5: distance from the disc centre,0.98,0.9806,True
+Table B.1,20230806_1840_M5.5: Ca II H and K,2.3 +/- 1.0,2.268 +/- 1.031,True
+Table B.1,20230806_1840_M5.5: H alpha,0.8 +/- 0.7,0.767 +/- 0.687,True
+Table B.1,20230806_1840_M5.5: velocity,0.5 +/- 0.9,0.465 +/- 0.891,True
+Table B.1,20260424_1814_M6.4: distance from the disc centre,1.01,1.0129,True
+Table B.1,20260424_1814_M6.4: Ca II H and K,0.0 +/- 1.0,0.008 +/- 0.954,True
+Table B.1,20260424_1814_M6.4: H alpha,0.4 +/- 0.7,0.416 +/- 0.719,True
+Table B.1,20260424_1814_M6.4: velocity,0.5 +/- 1.0,0.479 +/- 0.969,True
+Table B.1,20240411_1705_M5.4: distance from the disc centre,1.00,1.0029,True
+Table B.1,20240411_1705_M5.4: Ca II H and K,0.5 +/- 1.3,0.452 +/- 1.281,True
+Table B.1,20240411_1705_M5.4: H alpha,-0.1 +/- 0.7,-0.077 +/- 0.696,True
+Table B.1,20240411_1705_M5.4: velocity,-0.2 +/- 0.9,-0.249 +/- 0.870,True
+Table B.1,flares listed in the paper,23,23.00,True

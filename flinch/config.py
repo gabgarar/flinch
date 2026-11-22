@@ -45,14 +45,18 @@ def data_dir() -> Path:
 
 
 def figures_dir() -> Path:
-    """Directory of the figures, inside the documentation site."""
-    path = REPO_ROOT / "docs" / "web" / "img"
+    """Directory of the figures of the site: ``$FLINCH_FIGURES`` if set, otherwise ``docs/web/img``."""
+    path = Path(os.environ.get("FLINCH_FIGURES", REPO_ROOT / "docs" / "web" / "img"))
     path.mkdir(parents=True, exist_ok=True)
     return path
 
 
 def results_dir() -> Path:
-    """Directory for small derived tables that are kept under version control."""
-    path = REPO_ROOT / "results"
+    """Directory of the small derived tables: ``$FLINCH_RESULTS`` if set, otherwise ``results``.
+
+    The tables in ``results`` are kept under version control. ``python -m flinch reproduce``
+    points ``FLINCH_RESULTS`` elsewhere, so that the new tables can be compared with them.
+    """
+    path = Path(os.environ.get("FLINCH_RESULTS", REPO_ROOT / "results"))
     path.mkdir(parents=True, exist_ok=True)
     return path

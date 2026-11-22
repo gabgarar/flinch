@@ -32,7 +32,7 @@ Three further checks give the same answer:
 - **Larger flares do not shift the velocity more.** For the 18 flares of class X no change
   is found either, but the limit, 0.19 m/s, is twice the signal of the Earth.
 - **There are no shifts of opposite sign that cancel in the mean.** The changes of the flares
-  scatter as much as those of the controls: 0.40 m/s for both with NEID, 0.41 with HARPS-N.
+  scatter as much as those of the controls: 0.40 m/s for both with NEID, 0.40 and 0.41 with HARPS-N.
 - **There is no rotation signature.** The rotation term is below 0.07 m/s for an X1 flare at
   the limb, which means K · ΔF / F < 3.7 × 10⁻⁵ per X1 flare (see
   [Method](method.md#three-estimates)).
@@ -154,7 +154,7 @@ the Sun, with larger and more frequent flares, are another matter.
 ### An excess before the X-class flares of NEID that HARPS-N does not see
 
 In the ten minutes from 60 to 50 minutes before the X-ray peak, the X-class flares observed by
-NEID sit 0.44 ± 0.11 m/s above the trend of their day (19 flares with data at that time, 17 of
+NEID sit 0.43 ± 0.10 m/s above the trend of their day (19 flares with data at that time, 17 of
 them positive). It was noticed in the mean velocities, not predicted. It is absent in the
 M-class flares of NEID (0.00 ± 0.03 m/s) and in the controls, and HARPS-N does not show it:
 −0.12 ± 0.11 m/s for its ten X-class flares, which are other flares. The origin of the

@@ -53,7 +53,11 @@ def extract(path: Path) -> dict[str, np.ndarray]:
     from astropy.io import fits  # optional dependency ("analysis" extra)
 
     out: dict[str, np.ndarray] = {}
-    with fits.open(path, memmap=True) as hdus:
+    # Without a memory map: on Windows a mapped file cannot be deleted while an error that
+    # happened here is still being reported, and the 113 MB would stay behind.
+    with fits.open(path, memmap=False) as hdus:
+        if hdus["SCIWAVESTITCH"].data is None:  # some files of the archive come without it
+            raise ValueError(f"{Path(path).name} has no stitched spectrum")
         primary = hdus[0].header
         for key in HEADER_KEYS:
             out[key.lower()] = np.float64(primary.get(key, np.nan))

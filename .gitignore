@@ -14,6 +14,9 @@ venv/
 # Downloaded data: reproducible with `python -m flinch download` (only the folder at the root)
 /data/
 
+# Report, logs and figures of `python -m flinch reproduce`
+/reproduction/
+
 # Documentation build
 site/
 

@@ -8,7 +8,7 @@ from pathlib import Path
 import pandas as pd
 
 from ._http import fetch_text
-from .config import data_dir
+from .config import data_dir, data_end_jd
 from .timeutil import year_start_jd
 
 TAP_SYNC = "https://neid.ipac.caltech.edu/TAP/sync"
@@ -44,13 +44,14 @@ def download_solar_table(
     if destination.exists() and not overwrite:
         return destination
     last_year = last_year or dt.datetime.now(dt.timezone.utc).year
+    end = data_end_jd()  # the table grows every clear day: nothing is asked beyond the last day of data
     columns = ", ".join(COLUMNS)
     chunks = []
     for year in range(FIRST_YEAR, last_year + 1):
-        adql = (
-            f"select {columns} from {SOLAR_TABLE} "
-            f"where obsjd >= {year_start_jd(year)} and obsjd < {year_start_jd(year + 1)} order by obsjd"
-        )
+        first, last = year_start_jd(year), min(year_start_jd(year + 1), end)
+        if first >= last:
+            break
+        adql = f"select {columns} from {SOLAR_TABLE} where obsjd >= {first} and obsjd < {last} order by obsjd"
         chunks.append(query(adql, "obsjd"))
     table = pd.concat([chunk for chunk in chunks if not chunk.empty], ignore_index=True)
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -63,7 +64,8 @@ def read_solar_table(path: Path | None = None) -> pd.DataFrame:
     path = Path(path or data_dir() / "neid" / "neid_solar_l2.csv.gz")
     if not path.exists():
         raise FileNotFoundError(f"{path} not found; run `python -m flinch download`")
-    table = pd.read_csv(path, low_memory=False).sort_values("obsjd", ignore_index=True)
+    table = pd.read_csv(path, low_memory=False)
+    table = table[table["obsjd"] < data_end_jd()].sort_values("obsjd", ignore_index=True)
     table["rv_ms"] = table["ccfrvmod"] * 1000.0
     table["rv_err_ms"] = table["dvrms"] * 1000.0
     return table
