@@ -123,6 +123,21 @@ def cmd_campaign(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_paper_spectra(args: argparse.Namespace) -> int:
+    from . import campaign
+
+    checked = campaign.fetch_paper_spectra(workers=args.workers, sample=args.sample, seed=args.seed)
+    counts = checked["status"].value_counts()
+    print(f"Spectra of the paper checked: {len(checked)}")
+    for label, number in counts.items():
+        print(f"  {label}: {number}")
+    for row in checked[checked["status"] != "identical"].itertuples():
+        print(f"  {row.status}: {row.name}/{row.file}")
+    if counts.get("failed", 0):
+        return 1  # some downloads failed: run the command again
+    return 0 if counts.get("identical", 0) == len(checked) else 2  # 2: the archive has changed
+
+
 def cmd_replication(args: argparse.Namespace) -> int:
     from . import replication
 
@@ -222,6 +237,13 @@ def main(argv: list[str] | None = None) -> int:
     camp.add_argument("--before", type=float, default=30.0, help="minutes fetched before the start of the flare (default 30)")
     camp.add_argument("--after", type=float, default=45.0, help="minutes fetched after the peak of the flare (default 45)")
     camp.set_defaults(run=cmd_campaign)
+    listed = commands.add_parser(
+        "paper-spectra", help="fetch exactly the spectra used in the paper (1313 files of 113 MB) and check each against its fingerprint"
+    )
+    listed.add_argument("--sample", type=int, default=None, help="only this many files, drawn at random: a check that costs 113 MB per file")
+    listed.add_argument("--seed", type=int, default=0, help="seed of the random sample (default 0)")
+    listed.add_argument("--workers", type=int, default=3, help="simultaneous downloads (default 3)")
+    listed.set_defaults(run=cmd_paper_spectra)
 
     again = commands.add_parser("replication", help="the velocity response measured with NEID and with HARPS-N, and both combined")
     again.add_argument("--cleaning", action="store_true", help="instead, repeat the measurement with other cleaning thresholds")

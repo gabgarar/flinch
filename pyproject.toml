@@ -40,6 +40,9 @@ Issues = "https://github.com/gabgarar/flinch/issues"
 [tool.setuptools.packages.find]
 include = ["flinch*"]
 
+[tool.setuptools.package-data]
+flinch = ["reference/*"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["tests"]

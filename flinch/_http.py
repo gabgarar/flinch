@@ -47,5 +47,10 @@ def download(url: str, destination: Path, overwrite: bool = False) -> Path:
     partial = destination.with_name(destination.name + ".part")
     with open_url(url) as response, open(partial, "wb") as handle:
         shutil.copyfileobj(response, handle)
+        expected = response.headers.get("Content-Length")
+    if expected is not None and partial.stat().st_size != int(expected):  # the connection was cut
+        size = partial.stat().st_size
+        partial.unlink(missing_ok=True)
+        raise ConnectionError(f"incomplete download of {url}: {size} of {expected} bytes")
     partial.replace(destination)
     return destination

@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 
 from . import coverage, goes, neid, quality, spectra
-from .config import data_dir, results_dir
+from .config import data_dir, reference_dir, results_dir
 from .timeutil import MINUTE, jd_to_datetime
 
 
@@ -223,3 +223,149 @@ def run(
     finally:
         keep_awake(False)
         log(f"campaign finished: {fetched} files fetched")
+
+
+# ---------------------------------------------------------------------------------------------
+# The spectra of the paper. ``run`` above chose them with a budget of hours and files, so what
+# it fetches depends on the connection and on the day. The two tables in ``flinch/reference``
+# record what it fetched for the paper, and ``fetch_paper_spectra`` fetches exactly that.
+# ---------------------------------------------------------------------------------------------
+FILE_MB = 113  # size of one level-2 file
+
+
+def paper_windows() -> pd.DataFrame:
+    """The windows of spectra of the paper, flares and controls: name, kind, times, class and position."""
+    return pd.read_csv(reference_dir() / "spectra_windows.csv")
+
+
+def paper_files() -> pd.DataFrame:
+    """Every spectrum of the paper: window, level-2 file, start of the exposure, pipeline version and fingerprint."""
+    return pd.read_csv(reference_dir() / "spectra_files.csv")
+
+
+def freeze_paper_spectra() -> None:
+    """Write the two tables above from the extracts on disk.
+
+    Run by the author when the sample of the paper was closed
+    (``python -c "from flinch import campaign; campaign.freeze_paper_spectra()"``).
+    """
+    root = data_dir() / "spectra"
+    windows = pd.read_csv(root / "events.csv")
+    versions = neid.read_solar_table().drop_duplicates("l2filename").set_index("l2filename")["swversion"]
+    rows = []
+    for name in windows["name"]:
+        for path in sorted((root / name).glob("neidL2_*.npz")):
+            with np.load(path, allow_pickle=False) as data:
+                rows.append(
+                    {
+                        "name": name,
+                        "file": path.stem + ".fits",
+                        "obsjd": float(data["obsjd"]),
+                        "swversion": versions.get(path.stem + ".fits", ""),
+                        "sha256": spectra.digest(data),
+                    }
+                )
+    reference_dir().mkdir(parents=True, exist_ok=True)
+    windows.to_csv(reference_dir() / "spectra_windows.csv", index=False, lineterminator="\n")
+    pd.DataFrame(rows).to_csv(reference_dir() / "spectra_files.csv", index=False, lineterminator="\n")
+
+
+def _fetch_listed_window(name: str, listed: pd.DataFrame, root: Path, scratch: Path, workers: int) -> tuple[dict, int]:
+    """Fetch the listed files of one window that are not on disk; status of every listed file and number fetched."""
+    directory = root / name
+    directory.mkdir(parents=True, exist_ok=True)
+
+    def extract_of(filename: str) -> Path:
+        return directory / (Path(filename).stem + ".npz")
+
+    status = {filename: "failed" for filename in listed["file"]}
+    todo = listed[[not extract_of(filename).exists() for filename in listed["file"]]]
+    fetched = 0
+    if len(todo):
+        try:
+            archive = spectra.list_files(todo["obsjd"].min() - MINUTE, todo["obsjd"].max() + MINUTE)
+            paths = dict(zip(archive["l2filename"], archive["l2filepath"]))
+        except Exception as exc:  # noqa: BLE001  (network trouble: left for the next round)
+            log(f"{name}: could not list files ({type(exc).__name__}: {exc})")
+            paths = None
+        if paths is not None:
+            wanted = []
+            for filename in todo["file"]:
+                if filename in paths:
+                    wanted.append(filename)
+                else:
+                    status[filename] = "not in the archive"
+
+            def task(filename: str) -> bool:
+                try:
+                    spectra.fetch_one(paths[filename], filename, directory, scratch)
+                    return True
+                except Exception as exc:  # noqa: BLE001
+                    log(f"{name}: {filename} failed ({type(exc).__name__}: {exc})")
+                    return False
+
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                fetched = sum(pool.map(task, wanted))
+    for row in listed.itertuples():
+        if extract_of(row.file).exists():
+            with np.load(extract_of(row.file), allow_pickle=False) as data:
+                status[row.file] = "identical" if spectra.digest(data) == row.sha256 else "different"
+    return status, fetched
+
+
+def fetch_paper_spectra(
+    workers: int = 3, sample: int | None = None, seed: int = 0, rounds: int = 4, pause_s: float = 300.0
+) -> pd.DataFrame:
+    """Fetch exactly the spectra used in the paper and compare every extract with its fingerprint.
+
+    The files are those of ``paper_files``. Extracts already on disk are not downloaded again,
+    only checked, so the command can be stopped and repeated. With ``sample`` only that many
+    files, drawn at random with ``seed``, are fetched: a check of the archive and of the
+    extraction that costs ``sample`` times 113 MB instead of the whole list. Files that fail
+    are tried again in up to ``rounds`` rounds, ``pause_s`` seconds apart.
+
+    Returns the list with a column ``status``: "identical"; "different" (the archive now serves
+    another version of that spectrum); "not in the archive"; or "failed" (the download failed
+    in every round: run the command again). The table is also written to ``spectra/check.csv``
+    in the data directory, and the list of windows to ``spectra/events.csv``, where
+    ``chromosphere`` reads it.
+    """
+    files = paper_files()
+    if sample is not None and sample < len(files):
+        files = files.sample(n=sample, random_state=seed).sort_index()
+    root = data_dir() / "spectra"
+    root.mkdir(parents=True, exist_ok=True)
+    paper_windows().to_csv(root / "events.csv", index=False)
+    scratch = Path(tempfile.gettempdir()) / "flinch_spectra"
+    scratch.mkdir(parents=True, exist_ok=True)
+    status = pd.Series("failed", index=files.index)
+    total = 0
+    keep_awake(True)
+    log(f"paper spectra: {len(files)} files in {files['name'].nunique()} windows, up to {len(files) * FILE_MB / 1024:.0f} GB to download")
+    try:
+        for attempt in range(rounds):
+            pending = files[status == "failed"]
+            if pending.empty:
+                break
+            if attempt:
+                log(f"round {attempt + 1}: {len(pending)} files left, waiting {pause_s:.0f} s")
+                time.sleep(pause_s)
+            for name in pending["name"].unique():
+                began = time.monotonic()
+                listed = files[files["name"] == name]
+                result, fetched = _fetch_listed_window(name, listed, root, scratch, workers)
+                total += fetched
+                status[listed.index] = [result[filename] for filename in listed["file"]]
+                counts = pd.Series(result).value_counts()
+                rate = (time.monotonic() - began) / max(fetched, 1)
+                log(
+                    f"{name}: +{fetched}, {rate:.0f} s per file, "
+                    + ", ".join(f"{number} {label}" for label, number in counts.items())
+                    + f", total fetched {total}"
+                )
+    finally:
+        keep_awake(False)
+        out = files.assign(status=status)
+        out.to_csv(root / "check.csv", index=False)
+        log("paper spectra finished: " + ", ".join(f"{number} {label}" for label, number in status.value_counts().items()))
+    return out

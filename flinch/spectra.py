@@ -5,6 +5,7 @@ be downloaded whole. Only a compact extract (about 0.2 MB) is kept; the file its
 """
 from __future__ import annotations
 
+import hashlib
 import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -73,6 +74,27 @@ def extract(path: Path) -> dict[str, np.ndarray]:
             out[f"{name}_flux"] = np.asarray(flux[first:last], dtype=np.float32)
             out[f"{name}_var"] = np.asarray(variance[first:last], dtype=np.float32)
     return out
+
+
+def digest(arrays) -> str:
+    """Fingerprint of an extract: SHA-256 of everything that is copied from the level-2 file.
+
+    Two extracts of the same file have the same fingerprint on any machine, so it tells whether
+    the archive still serves the spectrum that was used. ``ccf`` is left out: it is a sum over
+    orders computed here, and its last digits can depend on the numerical library.
+    """
+    sha = hashlib.sha256()
+    for key in sorted(arrays.keys() if hasattr(arrays, "keys") else arrays.files):
+        if key == "ccf":
+            continue
+        value = np.asarray(arrays[key])
+        if value.dtype.kind in "US":
+            content = "\n".join(str(item) for item in value.ravel()).encode("utf-8")
+        else:
+            content = np.ascontiguousarray(value.astype(value.dtype.newbyteorder("<"))).tobytes()
+        sha.update(f"{key}:{value.dtype.kind}{value.dtype.itemsize}:{value.shape}:".encode("ascii"))
+        sha.update(content)
+    return sha.hexdigest()
 
 
 def _retry(action, attempts: int = 8, wait_s: float = 1.5):
