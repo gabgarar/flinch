@@ -112,6 +112,25 @@ def test_tables_are_compared_as_text_and_then_as_numbers(tmp_path):
     assert reproduce.compare_tables(tmp_path / "old.csv", tmp_path / "absent.csv")[0] == "missing"
 
 
+def test_relative_changes_are_compared_in_units_of_the_quantity(tmp_path):
+    # the response is written in parts per million or per thousand: 1e-9 of the quantity is 1e-3 ppm or 1e-6 ppt
+    table = pd.DataFrame({"name": ["a", "b"], "mu": [0.7, 0.9], "ccf_depth": [566.0, -0.4], "ccf_depth_err": [83.0, 61.0], "CaIIHK": [5.3, 0.1]})
+    (tmp_path / "new").mkdir()
+    old, new = tmp_path / "spectral_response.csv", tmp_path / "new" / "spectral_response.csv"
+    table.to_csv(old, index=False)
+    table.assign(ccf_depth=table["ccf_depth"] + 2.0e-5, ccf_depth_err=table["ccf_depth_err"] + 6.0e-6).to_csv(new, index=False)
+    assert reproduce.compare_tables(old, new)[0] == "same numbers"  # what another machine changed before the fit converged
+    table.assign(ccf_depth=table["ccf_depth"] + 0.01).to_csv(new, index=False)
+    assert reproduce.compare_tables(old, new) == ("DIFFERENT", "ccf_depth (by up to 0.01)")
+    table.assign(CaIIHK=table["CaIIHK"] + 2.0e-5).to_csv(new, index=False)  # parts per thousand: 2e-8 of the index
+    assert reproduce.compare_tables(old, new)[0] == "DIFFERENT"
+    table.assign(mu=table["mu"] + 2.0e-5).to_csv(new, index=False)  # not a relative change
+    assert reproduce.compare_tables(old, new)[0] == "DIFFERENT"
+    table.to_csv(tmp_path / "other.csv", index=False)  # the same columns in another table are in their own unit
+    table.assign(ccf_depth=table["ccf_depth"] + 2.0e-5).to_csv(tmp_path / "new" / "other.csv", index=False)
+    assert reproduce.compare_tables(tmp_path / "other.csv", tmp_path / "new" / "other.csv")[0] == "DIFFERENT"
+
+
 def test_a_number_of_the_paper_passes_only_if_it_is_a_correct_rounding():
     checks = verify.Checks()
     checks.add("Appendix C", "excess", (0.44, 0.11), (0.4345, 0.1048), 2)  # rounded twice: wrong

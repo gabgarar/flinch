@@ -14,6 +14,8 @@ from scipy.optimize import least_squares
 
 CONTINUUM_KMS = (20.0, 60.0)  # distance from the line centre used as continuum
 FIT_HALF_WIDTH_KMS = 12.0
+CONVERGENCE_STEPS = 40  # real profiles need 3 to 6 after the first fit
+CONVERGED = 1.0e-13  # a step smaller than this, relative to each parameter, ends the fit
 
 
 def velocity_grid(start: float, step: float, n: int) -> np.ndarray:
@@ -28,18 +30,45 @@ def normalize(velocity: np.ndarray, ccf: np.ndarray) -> np.ndarray:
     return ccf / ccf[wings].mean()
 
 
+def gaussian_residual(parameters: np.ndarray, v: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Inverted Gaussian minus the profile, and its derivatives with respect to the parameters.
+
+    The parameters are the centre (km/s), the depth, the standard deviation (km/s) and the level
+    of the continuum.
+    """
+    centre, depth, sigma, level = parameters
+    z = (v - centre) / sigma
+    bell = np.exp(-0.5 * z * z)
+    derivatives = np.column_stack([-depth * bell * z / sigma, -bell, -depth * bell * z * z / sigma, np.ones_like(v)])
+    return level - depth * bell - y, derivatives
+
+
+def gaussian_parameters(v: np.ndarray, y: np.ndarray) -> np.ndarray:
+    """Least-squares parameters of an inverted Gaussian, carried to convergence.
+
+    ``least_squares`` stops when its step is small, not when it is zero. It leaves the depth and
+    the width within a few hundredths of a part per million of the minimum, at a point that
+    depends on the machine. Gauss-Newton steps with exact derivatives then take the fit to the
+    limit of the arithmetic, so that every machine gives the same parameters.
+    """
+    start = least_squares(lambda p: gaussian_residual(p, v, y)[0], [v[np.argmin(y)], 1.0 - y.min(), 3.5, 1.0]).x
+    parameters = start.copy()
+    for _ in range(CONVERGENCE_STEPS):
+        residual, derivatives = gaussian_residual(parameters, v, y)
+        step = np.linalg.lstsq(derivatives, -residual, rcond=None)[0]
+        if not np.all(np.isfinite(step)):
+            break
+        parameters = parameters + step
+        if np.all(np.abs(step) <= CONVERGED * np.maximum(1.0, np.abs(parameters))):
+            return parameters
+    return start  # a profile that is not a line: the steps do not settle, and the first fit stands
+
+
 def gaussian_fit(velocity: np.ndarray, profile: np.ndarray) -> tuple[float, float, float]:
     """Centre (km/s), depth and full width at half maximum (km/s) of an inverted Gaussian."""
     guess = velocity[np.argmin(profile)]
     use = np.abs(velocity - guess) <= FIT_HALF_WIDTH_KMS
-    v, y = velocity[use], profile[use]
-
-    def residual(parameters):
-        centre, depth, sigma, level = parameters
-        return level - depth * np.exp(-0.5 * ((v - centre) / sigma) ** 2) - y
-
-    fit = least_squares(residual, [guess, 1.0 - y.min(), 3.5, 1.0])
-    centre, depth, sigma, _ = fit.x
+    centre, depth, sigma, _ = gaussian_parameters(velocity[use], profile[use])
     return float(centre), float(depth), float(2.3548200450309493 * abs(sigma))
 
 

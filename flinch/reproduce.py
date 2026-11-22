@@ -37,6 +37,20 @@ SPECTRAL_TABLES = ("spectral_response.csv", "spectral_indices.csv")
 RELATIVE_TOLERANCE = 1.0e-9  # two numbers closer than this are the same number computed on another machine
 
 
+def column_units(name: str) -> dict[str, float]:
+    """How much "one" of the measured quantity is in each column of a table.
+
+    The response of the spectra is written as a relative change, in parts per thousand or per
+    million of each quantity. A difference of 1e-9 in the quantity is 1e-6 or 1e-3 in those
+    columns, and that is what the comparison allows there. Every other column is in its own unit.
+    """
+    if name != "spectral_response.csv":
+        return {}
+    from .response import QUANTITIES, SCALE
+
+    return {column + suffix: SCALE[unit] for column, _, unit in QUANTITIES if unit in SCALE for suffix in ("", "_err", "_total_err")}
+
+
 def compare_tables(reference: Path, new: Path) -> tuple[str, str]:
     """Compare a new table with the reference one.
 
@@ -44,6 +58,7 @@ def compare_tables(reference: Path, new: Path) -> tuple[str, str]:
     within ``RELATIVE_TOLERANCE``), "DIFFERENT" (with the columns that differ and by how much),
     or "missing".
     """
+    units = column_units(reference.name)
     if not reference.exists() or not new.exists():
         return "missing", "no reference table" if not reference.exists() else "the step did not write it"
     if reference.read_bytes().replace(b"\r\n", b"\n") == new.read_bytes().replace(b"\r\n", b"\n"):
@@ -63,7 +78,7 @@ def compare_tables(reference: Path, new: Path) -> tuple[str, str]:
                 differing.append(f"{column} (values missing in one of them)")
             elif both.any():
                 gap = np.abs(x[both] - y[both])
-                allowed = RELATIVE_TOLERANCE * np.maximum(1.0, np.abs(x[both]))
+                allowed = RELATIVE_TOLERANCE * np.maximum(units.get(column, 1.0), np.abs(x[both]))
                 if np.any(gap > allowed):
                     differing.append(f"{column} (by up to {gap.max():.3g})")
         elif not a.astype(str).equals(b.astype(str)):

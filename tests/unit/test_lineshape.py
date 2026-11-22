@@ -24,6 +24,34 @@ def test_gaussian_parameters_are_recovered():
     assert table.loc[0, "ccf_fwhm_kms"] == pytest.approx(table.loc[1, "ccf_fwhm_kms"], rel=2e-5)
 
 
+def test_the_fit_is_carried_to_convergence_and_does_not_depend_on_where_it_starts(monkeypatch):
+    profile = lineshape.normalize(VELOCITY, line(skew=0.2))  # not a Gaussian: the fit leaves residuals
+    use = np.abs(VELOCITY - VELOCITY[np.argmin(profile)]) <= lineshape.FIT_HALF_WIDTH_KMS
+    v, y = VELOCITY[use], profile[use]
+    found = lineshape.gaussian_parameters(v, y)
+    # at the minimum the residuals have no component along any derivative: the next step is zero
+    residual, derivatives = lineshape.gaussian_residual(found, v, y)
+    step = np.linalg.lstsq(derivatives, -residual, rcond=None)[0]
+    assert np.all(np.abs(step) <= 1e-12 * np.maximum(1.0, np.abs(found)))
+    # a first fit that stops elsewhere, as on another machine, ends at the same parameters
+    first = lineshape.least_squares
+
+    def moved(function, start, **options):
+        fit = first(function, start, **options)
+        fit.x = fit.x * (1.0 + 1.0e-6 * np.array([1.0, -1.0, 1.0, -1.0]))
+        return fit
+
+    monkeypatch.setattr(lineshape, "least_squares", moved)
+    again = lineshape.gaussian_parameters(v, y)
+    assert np.allclose(again, found, rtol=1e-11, atol=0.0)  # one part in a million moved, 1e-5 ppm left
+
+
+def test_a_profile_that_is_not_a_line_keeps_the_first_fit():
+    flat = np.ones(97)
+    found = lineshape.gaussian_parameters(np.linspace(-12.0, 12.0, 97), flat)
+    assert np.all(np.isfinite(found))
+
+
 def test_bisector_span_is_zero_for_a_symmetric_line_and_follows_the_asymmetry():
     symmetric, red, blue = lineshape.measure(np.vstack([line(), line(skew=0.3), line(skew=-0.3)]), START, STEP)[
         "ccf_bis_ms"

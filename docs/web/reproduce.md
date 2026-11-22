@@ -55,8 +55,10 @@ again, and what is on disk is not downloaded twice.
 4. **Figures.** The figures of the paper, as PDF, in `reproduction/figures/`.
 5. **Tables.** Each new table against the one in the repository. `identical` is the same
    text. `same numbers` means that every number agrees to nine significant digits, which is
-   what another processor or another version of a library can change. `DIFFERENT` names the
-   columns that differ and by how much.
+   what another processor or another version of a library can change. The response of the
+   spectra is written in parts per thousand or per million of each quantity, and there the
+   nine digits are those of the quantity. `DIFFERENT` names the columns that differ and by
+   how much.
 6. **Numbers of the paper.** The 243 numbers of the text and the tables of the paper, each
    against the new tables. A number passes when the paper gives a correct rounding of it.
 
@@ -84,10 +86,24 @@ The check found two numbers that had been rounded twice in the text. The scatter
 velocity changes of the HARPS-N flares is 0.40 m/s, not 0.41, and the excess of Appendix C
 is 0.43 ± 0.10 m/s, not 0.44 ± 0.11. Both are corrected.
 
-On 22 November 2026 the `reproduce` workflow of the repository ran the same on Linux, from
-the public archives, with ten spectra of the sample. It took six minutes. The 12 inputs and
-the ten extracts are identical, the 243 numbers agree, and the 14 velocity tables are the
-same numbers. The largest difference is in the eleventh significant digit.
+On 22 November 2026 it was run on Linux in two ways. The `reproduce` workflow of the
+repository ran it on GitHub from the public archives, with ten spectra of the sample, in six
+minutes. The 12 inputs and the ten extracts are identical. On Ubuntu 24.04 with Python 3.12
+the whole analysis, the spectral part included, was run on the 1296 extracts. In both, the
+243 numbers agree and every table has the same numbers. The largest difference is in the
+eleventh significant digit. The five figures drawn on Linux are the same images as those of
+the paper.
+
+The run on Linux found one defect, now corrected. The depth and the width of the mean line
+come from an iterative fit, which stopped within a few hundredths of a part per million of
+its minimum, at a point that depended on the machine. The two machines differed by up to
+0.0001 ppm in those two columns of `spectral_response.csv`, and the command reported the
+table as `DIFFERENT`. The fit is now carried to convergence, and the two machines agree to
+the last digits that the arithmetic keeps. The change moved those two columns by less than
+0.0001 ppm, against errors of 50 to 80 ppm, so `spectral_response.csv` is no longer byte for
+byte the table of the first run. No number of the paper and no figure changed. Run again on
+Windows with the corrected fit, the 16 tables are identical to those of the repository. The
+spectra were not downloaded a second time, because the extracts are the same files.
 
 ## Step by step
 
@@ -185,14 +201,16 @@ What follows can still make a reproduction differ, or makes it expensive.
   the same numbers to eleven significant digits, but not the same text, because another
   processor and other mathematical libraries round the last digits differently. Tables are
   therefore compared number by number, not only as text, and the report says
-  `same numbers`. The spectral analysis has not been repeated on Linux, because it needs
-  the 143 GB. NumPy does not promise the same random numbers in every future version. If
-  they changed, the controls drawn and the bootstrap errors would change in their last
-  digits.
+  `same numbers`. On Linux the extraction was checked on ten spectra taken from the
+  archive, and the spectral analysis on the 1296 extracts made on Windows. The download of
+  the 143 GB has not been repeated there. macOS has not been tried. NumPy does not promise
+  the same random numbers in every future version. If they changed, the controls drawn and
+  the bootstrap errors would change in their last digits.
 - **Figures are not compared by the command.** They are drawn again from the new tables.
-  For the run described above they were turned into images and compared with those of the
-  paper, and the five are the same pixel by pixel. With other versions of Matplotlib or
-  other fonts they can differ in details that do not change what they show.
+  For the runs described above, on Windows and on Linux, they were turned into images and
+  compared with those of the paper, and the five are the same pixel by pixel. With other
+  versions of Matplotlib or other fonts they can differ in details that do not change what
+  they show.
 - **Numbers taken from other papers** (the brightening of flares in visible light, the old
   GOES scale) are not computed here.
 

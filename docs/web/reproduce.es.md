@@ -55,8 +55,10 @@ lanzarse de nuevo, y lo que ya está en disco no se descarga otra vez.
 4. **Figuras.** Las figuras del artículo, en PDF, en `reproduction/figures/`.
 5. **Tablas.** Cada tabla nueva frente a la del repositorio. `identical` es el mismo texto.
    `same numbers` significa que todos los números coinciden en nueve cifras significativas,
-   que es lo que puede cambiar otro procesador u otra versión de una biblioteca. `DIFFERENT`
-   nombra las columnas que difieren y en cuánto.
+   que es lo que puede cambiar otro procesador u otra versión de una biblioteca. La
+   respuesta de los espectros está escrita en partes por mil o por millón de cada magnitud,
+   y ahí las nueve cifras son las de la magnitud. `DIFFERENT` nombra las columnas que
+   difieren y en cuánto.
 6. **Números del artículo.** Los 243 números del texto y de las tablas del artículo, cada
    uno frente a las tablas nuevas. Un número pasa cuando el artículo da un redondeo correcto
    de él.
@@ -86,11 +88,25 @@ dispersión de los cambios de velocidad de las fulguraciones de HARPS-N es de 0,
 0,41, y el exceso del Apéndice C es de 0,43 ± 0,10 m/s, no de 0,44 ± 0,11. Los dos están
 corregidos.
 
-El 22 de noviembre de 2026 el flujo `reproduce` del repositorio ejecutó lo mismo en Linux,
-desde los archivos públicos, con diez espectros de la muestra. Tardó seis minutos. Los 12
-datos de entrada y los diez extractos son idénticos, los 243 números coinciden y las 14
-tablas de velocidad tienen los mismos números. La mayor diferencia está en la undécima
-cifra significativa.
+El 22 de noviembre de 2026 se ejecutó en Linux de dos maneras. El flujo `reproduce` del
+repositorio lo ejecutó en GitHub desde los archivos públicos, con diez espectros de la
+muestra, en seis minutos. Los 12 datos de entrada y los diez extractos son idénticos. En
+Ubuntu 24.04 con Python 3.12 se ejecutó el análisis entero, incluida la parte espectral, con
+los 1296 extractos. En las dos, los 243 números coinciden y todas las tablas tienen los
+mismos números. La mayor diferencia está en la undécima cifra significativa. Las cinco
+figuras dibujadas en Linux son las mismas imágenes que las del artículo.
+
+La ejecución en Linux encontró un defecto, ya corregido. La profundidad y la anchura de la
+línea media salen de un ajuste iterativo, que se detenía a unas centésimas de parte por
+millón de su mínimo, en un punto que dependía de la máquina. Las dos máquinas diferían
+hasta en 0,0001 ppm en esas dos columnas de `spectral_response.csv`, y la orden daba la
+tabla por `DIFFERENT`. El ajuste se lleva ahora hasta la convergencia, y las dos máquinas
+coinciden hasta las últimas cifras que conserva la aritmética. El cambio movió esas dos
+columnas menos de 0,0001 ppm, frente a errores de 50 a 80 ppm, así que
+`spectral_response.csv` ya no es byte a byte la tabla de la primera ejecución. No cambió
+ningún número del artículo ni ninguna figura. Ejecutado de nuevo en Windows con el ajuste
+corregido, las 16 tablas son idénticas a las del repositorio. Los espectros no se
+descargaron por segunda vez, porque los extractos son los mismos ficheros.
 
 ## Paso a paso
 
@@ -192,14 +208,16 @@ Lo que sigue todavía puede hacer que una reproducción difiera, o la encarece.
   los mismos números hasta once cifras significativas, pero no el mismo texto, porque otro
   procesador y otras bibliotecas matemáticas redondean de otra manera las últimas cifras.
   Por eso las tablas se comparan número a número, y no solo como texto, y el informe dice
-  `same numbers`. El análisis espectral no se ha repetido en Linux, porque necesita los
-  143 GB. NumPy no promete los mismos números aleatorios en todas sus versiones futuras. Si
-  cambiaran, los controles elegidos y los errores del remuestreo cambiarían en sus últimas
-  cifras.
+  `same numbers`. En Linux la extracción se comprobó con diez espectros tomados del
+  archivo, y el análisis espectral con los 1296 extractos hechos en Windows. La descarga de
+  los 143 GB no se ha repetido allí. En macOS no se ha probado. NumPy no promete los mismos
+  números aleatorios en todas sus versiones futuras. Si cambiaran, los controles elegidos y
+  los errores del remuestreo cambiarían en sus últimas cifras.
 - **La orden no compara las figuras.** Se dibujan de nuevo a partir de las tablas nuevas.
-  En la ejecución descrita arriba se convirtieron en imágenes y se compararon con las del
-  artículo, y las cinco son iguales píxel a píxel. Con otras versiones de Matplotlib o con
-  otros tipos de letra pueden diferir en detalles que no cambian lo que muestran.
+  En las ejecuciones descritas arriba, en Windows y en Linux, se convirtieron en imágenes y
+  se compararon con las del artículo, y las cinco son iguales píxel a píxel. Con otras
+  versiones de Matplotlib o con otros tipos de letra pueden diferir en detalles que no
+  cambian lo que muestran.
 - **Los números tomados de otros artículos** (el aumento de brillo de las fulguraciones en
   luz visible, la escala antigua de GOES) no se calculan aquí.
 
