@@ -219,10 +219,10 @@ def text_checks(checks: Checks, directory: Path) -> None:
         if key[1] == "injection_efficiency":
             here = here * (10.0 if "cm/s" in what else 100.0)
         checks.add(where, what, paper, here, decimals)
-    # The fair-sample tests: class, position east-west and distance from the centre, both instruments.
-    tests = [value.get((name, f"ks_p_{label}"), np.nan) for name in ("NEID", "HARPS-N") for label in ("class", "position_x", "distance_from_centre")]
-    checks.add("Sect. 3.2", "lowest probability of the Kolmogorov-Smirnov tests", 0.08, np.min(tests), 2)
-    checks.add("Sect. 3.2", "highest probability of the Kolmogorov-Smirnov tests", 0.96, np.max(tests), 2)
+    # The eight fair-sample tests: class, the two coordinates on the disc and distance from the centre, both instruments.
+    tests = [value.get((name, f"ks_p_{label}"), np.nan) for name in ("NEID", "HARPS-N") for label in ("class", "position_x", "position_y", "distance_from_centre")]
+    checks.add("Sect. 3.2", "lowest probability of the eight Kolmogorov-Smirnov tests", 0.04, np.min(tests), 2)
+    checks.add("Sect. 3.2", "highest probability of the eight Kolmogorov-Smirnov tests", 0.96, np.max(tests), 2)
     strongest = max(value.get(("NEID", "strongest_flare_class"), np.nan), value.get(("HARPS-N", "strongest_flare_class"), np.nan))
     checks.add("Sect. 5.3", "strongest flare of the sample (X class), below X15", 14.6, strongest, 1)
 

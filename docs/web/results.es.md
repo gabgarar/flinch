@@ -22,9 +22,11 @@ paréntesis, el número de fulguraciones):
 
 Juntos, el cambio medio queda por debajo de 0,07 m/s, menos que los 0,09 m/s que la Tierra
 imprime en el Sol. Las 254 medidas son de 253 fulguraciones distintas: una la observaron los
-dos instrumentos. Las fulguraciones usadas son una muestra representativa de todas las M y X:
-sus clases y sus posiciones en el disco se distribuyen como las de la lista completa (pruebas
-de Kolmogórov-Smirnov, p entre 0,08 y 0,96). Con tan pocas fulguraciones como
+dos instrumentos. Los datos no dan indicios de que las fulguraciones usadas difieran del
+resto de las M y X. Sus clases y sus posiciones en el disco se distribuyen como las de la
+lista completa, con probabilidades de Kolmogórov-Smirnov entre 0,04 y 0,96 en las ocho
+pruebas (clase, dos coordenadas en el disco y distancia a su centro, con cada instrumento).
+La más baja no es inusual para la menor de ocho pruebas. Con tan pocas fulguraciones como
 en la fila de la clase X, el propio error es incierto en una cuarta parte.
 
 Tres comprobaciones más dan la misma respuesta:

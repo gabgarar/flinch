@@ -124,8 +124,8 @@ Sect. 5.2,flares of that year,934,934.00,True
 Sect. 5.2,time spent in M and X flares that year (%),3.8,3.806,True
 Sect. 5.2,time spent in X flares that year (%),0.3,0.323,True
 Sect. 5.2,change of the flare of Pietrow et al. (2024) with HARPS-N (m/s),-0.01,-0.0140,True
-Sect. 3.2,lowest probability of the Kolmogorov-Smirnov tests,0.08,0.0831,True
-Sect. 3.2,highest probability of the Kolmogorov-Smirnov tests,0.96,0.9648,True
+Sect. 3.2,lowest probability of the eight Kolmogorov-Smirnov tests,0.04,0.0421,True
+Sect. 3.2,highest probability of the eight Kolmogorov-Smirnov tests,0.96,0.9648,True
 Sect. 5.3,"strongest flare of the sample (X class), below X15",14.6,14.641,True
 Abstract,measurements with both instruments,254,254.00,True
 Abstract,different flares,253,253.00,True

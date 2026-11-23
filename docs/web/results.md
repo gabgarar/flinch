@@ -22,10 +22,12 @@ number of flares):
 
 Together the mean change is below 0.07 m/s, less than the 0.09 m/s that the Earth imprints on
 the Sun. The 254 measurements are of 253 different flares: one was observed by both
-instruments. The flares used are a fair sample of all the M and X flares: their classes and
-their positions on the disc are distributed like those of the full list (Kolmogorov-Smirnov
-tests, p between 0.08 and 0.96). With as few flares as in the X-class row, the error is
-itself uncertain by a quarter.
+instruments. The data give no evidence that the flares used differ from the rest of the M
+and X flares. Their classes and their positions on the disc are distributed like those of
+the full list, with Kolmogorov-Smirnov probabilities between 0.04 and 0.96 in the eight
+tests (class, two coordinates on the disc and distance from its centre, for each
+instrument). The lowest is not unusual for the smallest of eight tests. With as few flares
+as in the X-class row, the error is itself uncertain by a quarter.
 
 Three further checks give the same answer:
 
