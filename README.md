@@ -75,7 +75,7 @@ All sources are public and need no registration.
 
 ## Cite
 
-> García, G. (2026). *flinch: solar flares in Sun-as-a-star radial velocities* (v0.1.0).
+> García, G. (2026). *flinch: solar flares in Sun-as-a-star radial velocities* (v1.0.0).
 > <https://github.com/gabgarar/flinch>
 
 GitHub shows a ready-made citation under "Cite this repository", generated from

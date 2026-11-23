@@ -6,4 +6,4 @@ the NEID and HARPS-N spectrographs, and measures the response of the disc-integr
 velocity to flares.
 """
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"

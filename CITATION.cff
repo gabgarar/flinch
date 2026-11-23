@@ -3,11 +3,12 @@ message: >-
   If you use this software in academic work, please cite this software.
 type: software
 title: "flinch: solar flares in Sun-as-a-star radial velocities"
-version: 0.1.0
-date-released: 2026-11-20
+version: 1.0.0
+date-released: 2026-11-23
 authors:
   - family-names: "García"
     given-names: "Gabriel"
+    affiliation: "Universidad Complutense de Madrid"
     orcid: "https://orcid.org/0000-0001-7256-2609"
 repository-code: https://github.com/gabgarar/flinch
 url: https://gabgarar.github.io/flinch/

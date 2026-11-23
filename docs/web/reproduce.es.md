@@ -184,10 +184,15 @@ Lo que sigue todavía puede hacer que una reproducción difiera, o la encarece.
 
 - **Los archivos pueden cambiar los datos.** NEID puede reprocesar sus espectros con una
   versión más nueva de su programa de reducción (los 1296 usados aquí son todos de la
-  versión 1.5.3), y la NOAA reedita los ficheros de GOES. Todavía no hay una copia congelada
-  de los datos de entrada fuera de los archivos. Las huellas no impiden un cambio, pero lo
-  detectan. El informe dice entonces qué dato es `different`, y una tabla que difiere tiene
-  explicación. La serie de HARPS-N es una publicación fija con DOI.
+  versión 1.5.3), y la NOAA reedita los ficheros de GOES. Las huellas no impiden un cambio,
+  pero lo detectan. El informe dice entonces qué dato es `different`, y una tabla que difiere
+  tiene explicación. Una copia congelada de los ficheros de GOES, de la tabla de NEID y de los
+  extractos de los 1296 espectros, tal como estaban cuando se calculó el artículo, va adjunta
+  a la [versión 1.0.0](https://github.com/gabgarar/flinch/releases/tag/v1.0.0) del
+  repositorio (`flinch-data.zip`, 556 MB). Descomprimida en la carpeta del repositorio da
+  `data/`. Después `python -m flinch download` descarga solo la serie de HARPS-N, que es una
+  publicación fija con DOI y no se copia, y
+  `python -m flinch reproduce --no-download --spectra all` repite el artículo sin los 143 GB.
 - **Los espectros son 143 GB.** Un fichero de nivel 2 ocupa 113 MB y el archivo no sirve
   partes de un fichero, así que cada uno se descarga entero, se reduce a un extracto de
   0,2 MB y se borra. Los 1296 ficheros tardaron aquí 3 horas y 14 minutos, a 12 MB por

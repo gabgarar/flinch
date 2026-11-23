@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 # "flinch" is taken on PyPI by an unrelated package, hence the distribution name.
 name = "flinch-rv"
-version = "0.1.0"
+version = "1.0.0"
 description = "Solar flares in the radial velocity of the Sun observed as a star (NEID, HARPS-N): do they contaminate the detection of Earth analogues?"
 readme = "README.md"
 license = "BSD-3-Clause"

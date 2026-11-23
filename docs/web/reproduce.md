@@ -179,10 +179,16 @@ code.
 What follows can still make a reproduction differ, or makes it expensive.
 
 - **The archives can change the data.** NEID can reprocess its spectra with a newer pipeline
-  (the 1296 used here are all of version 1.5.3), and NOAA reissues the GOES files. There is
-  no frozen copy of the inputs outside the archives yet. The fingerprints do not prevent a
-  change, but they detect it. The report then says which input is `different`, and a table
-  that differs has an explanation. The HARPS-N series is a fixed release with a DOI.
+  (the 1296 used here are all of version 1.5.3), and NOAA reissues the GOES files. The
+  fingerprints do not prevent a change, but they detect it. The report then says which input
+  is `different`, and a table that differs has an explanation. A frozen copy of the GOES
+  files, of the NEID table and of the extracts of the 1296 spectra, as they were when the
+  paper was computed, is attached to
+  [release 1.0.0](https://github.com/gabgarar/flinch/releases/tag/v1.0.0) of the repository
+  (`flinch-data.zip`, 556 MB). Unpacked in the folder of the repository it gives `data/`, and
+  then `python -m flinch download` fetches only the HARPS-N series, which is a fixed release
+  with a DOI and is not copied, and `python -m flinch reproduce --no-download --spectra all`
+  repeats the paper without the 143 GB.
 - **The spectra are 143 GB.** A level-2 file is 113 MB and the archive does not serve parts
   of a file, so each one is downloaded whole, reduced to an extract of 0.2 MB and deleted.
   The 1296 files took 3 hours and 14 minutes here, at 12 MB per second, which is 9 seconds
