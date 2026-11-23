@@ -129,6 +129,12 @@ def test_permutation_and_detection_probability():
     assert robust.detection_probability(5.0, 1.0) > 0.999
 
 
+def test_the_fraction_recovered_by_two_instruments_is_weighted_by_their_errors():
+    assert robust.recovered_fraction([0.9, 0.9], [1.0, 3.0]) == pytest.approx(0.9)
+    # an instrument with half the error weighs four times as much
+    assert robust.recovered_fraction([1.0, 0.5], [1.0, 2.0]) == pytest.approx(0.9)
+
+
 def test_inject_adds_the_box_only_inside_the_signal_window():
     table = events(2)
     jd = T0 + 0.1 + np.arange(-3600.0, 3600.0, 83.0) / 86400.0

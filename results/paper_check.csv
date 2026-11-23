@@ -38,8 +38,7 @@ Sect. 4.1,"scatter of the changes of the flares, NEID (m/s)",0.40,0.4030,True
 Sect. 4.1,"scatter of the changes of the controls, NEID (m/s)",0.40,0.3955,True
 Sect. 4.1,"scatter of the changes of the flares, HARPS-N (m/s)",0.40,0.4048,True
 Sect. 4.1,"scatter of the changes of the controls, HARPS-N (m/s)",0.41,0.4135,True
-Eq. 8,"limit on K dF/F per X1 flare, in units of 1e-5",3.7,3.726,True
-Sect. 4.2,probability of detecting 10 cm/s with both instruments (%),99,98.56,True
+Eq. 9,"limit on K dF/F per X1 flare, in units of 1e-5",3.7,3.726,True
 Sect. 3.1,HARPS-N with the quality flag above 0.9: flares,126,126.00,True
 Sect. 3.1,HARPS-N with the quality flag above 0.9: mean change,-0.005 +/- 0.038,-0.00531 +/- 0.03798,True
 Table A.1,Default: flares,139,139.00,True
@@ -130,6 +129,7 @@ Sect. 5.3,"strongest flare of the sample (X class), below X15",14.6,14.641,True
 Abstract,measurements with both instruments,254,254.00,True
 Abstract,different flares,253,253.00,True
 Sect. 5.2,error of one flare with HARPS-N: scatter of its controls (m/s),0.41,0.4135,True
+Sect. 4.2,probability of detecting 10 cm/s with both instruments (%),98,98.21,True
 Sect. 3.2,rows of the flare sample (results/flare_sample.csv),2122,2122.00,True
 Sect. 3.2,flares observed at the peak in that table,279,279.00,True
 Sect. 2.3,flares with spectra,31,31.00,True

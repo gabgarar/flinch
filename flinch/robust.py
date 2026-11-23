@@ -212,8 +212,18 @@ def permutation_p(d: np.ndarray, flux: np.ndarray, rot: np.ndarray, draws: int =
 
 
 def detection_probability(signal: float, error: float) -> float:
-    """Probability that a signal is detected at 95 % confidence (one-sided) given its error."""
+    """Probability that a signal is detected at 95 % confidence (one-sided) given its error.
+
+    ``signal`` is the shift as the method measures it back, that is, the true shift times the
+    fraction recovered.
+    """
     return 0.5 * (1.0 + erf((signal / error - 1.645) / sqrt(2.0)))
+
+
+def recovered_fraction(fractions, errors) -> float:
+    """Fraction of a common shift measured back by instruments combined with the inverse square of their errors."""
+    weights = 1.0 / np.asarray(errors, dtype=float) ** 2
+    return float(np.sum(weights * np.asarray(fractions, dtype=float)) / np.sum(weights))
 
 
 def run(seed: int = 0) -> dict:

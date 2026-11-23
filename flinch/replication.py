@@ -291,7 +291,10 @@ def run(seed: int = 0) -> dict:
     table = pd.concat([*tables, combine(tables)], ignore_index=True)
     both = table[(table["instrument"] == "Both") & (table["band"] == "M and X")].iloc[0]
     numbers["optical_contrast_limit_per_X1"] = float((abs(both["rotation"]) + 1.645 * both["rotation_err"]) / robust.V_LIMB_FROM_EARTH_MS)
-    numbers["detection_probability_10cm"] = robust.detection_probability(0.10, float(both["mean_err"]))
+    # A shift common to all flares is measured back as the weighted mean of what each instrument recovers.
+    alone = table[(table["band"] == "M and X") & (table["instrument"] != "Both")]
+    recovered = robust.recovered_fraction([numbers[name]["injection_efficiency"] for name in alone["instrument"]], alone["mean_err"])
+    numbers["detection_probability_10cm"] = robust.detection_probability(recovered * 0.10, float(both["mean_err"]))
     return {
         "table": table,
         "profiles": pd.concat(profiles, ignore_index=True),

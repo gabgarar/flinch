@@ -131,8 +131,7 @@ def velocity_checks(checks: Checks, directory: Path) -> None:
         checks.add("Sect. 4.1", f"scatter of the changes of the flares, {name} (m/s)", flares, row["flare_std"], 2)
         checks.add("Sect. 4.1", f"scatter of the changes of the controls, {name} (m/s)", controls, row["control_std"], 2)
     limit = (abs(both["rotation"]) + 1.645 * both["rotation_err"]) / robust.V_LIMB_FROM_EARTH_MS
-    checks.add("Eq. 8", "limit on K dF/F per X1 flare, in units of 1e-5", 3.7, limit * 1.0e5, 1)
-    checks.add("Sect. 4.2", "probability of detecting 10 cm/s with both instruments (%)", 99, 100.0 * robust.detection_probability(0.10, float(both["mean_err"])))
+    checks.add("Eq. 9", "limit on K dF/F per X1 flare, in units of 1e-5", 3.7, limit * 1.0e5, 1)
 
     variants = _read(directory, "cleaning_variants.csv")
     if variants is None:
@@ -232,6 +231,13 @@ def text_checks(checks: Checks, directory: Path) -> None:
         checks.add("Abstract", "measurements with both instruments", 254, cell.loc[("Both", "M and X"), "flares"])
         checks.add("Abstract", "different flares", 253, cell.loc[("Both", "M and X"), "flares"] - value.get(("both", "flares_in_both"), np.nan))
         checks.add("Sect. 5.2", "error of one flare with HARPS-N: scatter of its controls (m/s)", 0.41, cell.loc[("HARPS-N", "M and X"), "control_std"], 2)
+        # Eq. 7: a shift of 10 cm/s as the two instruments measure it back, against their combined error.
+        names = ("NEID", "HARPS-N")
+        recovered = robust.recovered_fraction(
+            [value.get((name, "injection_efficiency"), np.nan) for name in names], [cell.loc[(name, "M and X"), "mean_err"] for name in names]
+        )
+        probability = robust.detection_probability(recovered * 0.10, float(cell.loc[("Both", "M and X"), "mean_err"]))
+        checks.add("Sect. 4.2", "probability of detecting 10 cm/s with both instruments (%)", 98, 100.0 * probability)
 
     sample = _read(directory, "flare_sample.csv")
     if sample is None:
