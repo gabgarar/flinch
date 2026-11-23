@@ -25,6 +25,8 @@ BANDS = (
     ("X", 1.0e-4, np.inf),
 )
 PROFILE_EDGES_MIN = np.arange(-60.0, 90.1, 10.0)
+ISOLATION_MIN = 45.0  # the margin that the controls keep from any M or X flare
+ISOLATED = "no other M or X flare in the 45 min before"
 PROFILE_SUBSETS = ("M and X", "X")
 EARLY_WINDOW_MIN = (-60.0, -50.0)  # where the X-class flares of NEID show an excess
 
@@ -207,6 +209,13 @@ def early_window(instrument: Instrument, flares: pd.DataFrame, series: epoch.Ser
     return pd.DataFrame(rows)
 
 
+def not_preceded(flares: pd.DataFrame, major_peaks_jd, margin_min: float = ISOLATION_MIN) -> np.ndarray:
+    """True for the flares with no other M or X flare peaking in the ``margin_min`` minutes before their start."""
+    peaks = np.sort(np.asarray(major_peaks_jd, dtype=float))
+    start = flares["jd_start"].to_numpy(dtype=float)
+    return np.searchsorted(peaks, start - 1.0e-9) == np.searchsorted(peaks, start - margin_min * MINUTE)
+
+
 def cleaning_variants(instrument: Instrument) -> list[tuple[str, dict]]:
     """Other values for the cuts that drop whole days and, for HARPS-N, for its quality flag.
 
@@ -224,7 +233,12 @@ def cleaning_variants(instrument: Instrument) -> list[tuple[str, dict]]:
 
 
 def cleaning_table(seed: int = 0) -> pd.DataFrame:
-    """The velocity change of each instrument under other cleaning thresholds (see ``cleaning_variants``)."""
+    """The velocity change of each instrument under other cleaning thresholds (see ``cleaning_variants``).
+
+    With the default cleaning there is one more row, ``ISOLATED``: the same flares without
+    those that start less than ``ISOLATION_MIN`` minutes after the peak of another M or X
+    flare, whose window before the start is not free of flares.
+    """
     all_flares = goes.load_flares()
     rows = []
     for instrument in (NEID, HARPSN):
@@ -233,23 +247,28 @@ def cleaning_table(seed: int = 0) -> pd.DataFrame:
             prepared = prepare(instrument, raw, **choices)
             good = prepared[prepared["good"]]
             out = measure(instrument, prepared, all_flares, seed)
-            table = band_table(instrument, out["flares"], out["controls"], seed).set_index("band")
-            for band in ("M and X", "X"):
-                row = table.loc[band]
-                rows.append(
-                    {
-                        "instrument": instrument.name,
-                        "variant": label,
-                        "band": band,
-                        "good": len(good),
-                        "days": int(good["day"].nunique()),
-                        "flares": int(row["flares"]),
-                        "mean": row["mean"],
-                        "mean_err": row["mean_err"],
-                        "rotation": row["rotation"],
-                        "rotation_err": row["rotation_err"],
-                    }
-                )
+            subsets = [(label, out["flares"])]
+            if not choices:
+                alone = not_preceded(out["flares"], out["sample"]["jd_peak"])
+                subsets.append((ISOLATED, out["flares"][alone].reset_index(drop=True)))
+            for variant, flares in subsets:
+                table = band_table(instrument, flares, out["controls"], seed).set_index("band")
+                for band in ("M and X", "X"):
+                    row = table.loc[band]
+                    rows.append(
+                        {
+                            "instrument": instrument.name,
+                            "variant": variant,
+                            "band": band,
+                            "good": len(good),
+                            "days": int(good["day"].nunique()),
+                            "flares": int(row["flares"]),
+                            "mean": row["mean"],
+                            "mean_err": row["mean_err"],
+                            "rotation": row["rotation"],
+                            "rotation_err": row["rotation_err"],
+                        }
+                    )
     return pd.DataFrame(rows)
 
 

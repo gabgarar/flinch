@@ -57,6 +57,10 @@ in m/s:
 | Background: straight line fitted on both sides of the flare | 93 | −0.008 ± 0.040 | −0.032 ± 0.070 | −0.002 ± 0.113 |
 | Errors: resampling 81 active regions instead of 111 days | 139 | −0.035 ± 0.035 | −0.010 ± 0.061 | −0.106 ± 0.082 |
 
+Flares that follow one another do not change it either. Without the 36 flares that start
+less than 45 minutes after the peak of another M or X flare, the mean change of the other
+218, with both instruments, is −0.033 ± 0.029 m/s.
+
 ### A signal would have been seen
 
 A shift added to the NEID velocities, and the shift measured back:
@@ -114,7 +118,7 @@ The table flare by flare is `results/spectral_response.csv`. One flare in detail
   average the visible brightening grows with the X-ray class, though not flare by flare.
 - **How much does that light move the velocity?** At most 2 to 4 cm/s for an X1 flare at the
   limb (K = 1), and less elsewhere.
-- **How close do we get?** The limit of the two instruments together is 1.5 to 3.5 times that.
+- **How close do we get?** The limit of the two instruments together is 1.6 to 3.5 times that.
   The absence of a rotation signal is what the physics predicts; it is now measured.
 - **And the lines of the flaring area itself?** In resolved images they are shifted by up to
   200 m/s (Saar et al. 2018). A ten-thousandth of the disc shifted by 100 m/s moves the
@@ -126,7 +130,7 @@ The table flare by flare is `results/spectral_response.csv`. One flare in detail
 Solar flares do not significantly contaminate the detection of Earth analogues by radial
 velocity, for two reasons:
 
-- **They move the velocity very little**: less than 7 cm/s on average up to class X. For class
+- **They move the velocity very little**: less than 7 cm/s on average for M and X flares together. For class
   X alone no change is found either, but the limit is about 20 cm/s, twice the signal of the
   Earth.
 - **They take up little of the time.** Between December 2020 and November 2026, six years

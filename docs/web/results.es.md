@@ -58,6 +58,10 @@ ellas). Todo en m/s:
 | Fondo: recta ajustada a ambos lados de la fulguración | 93 | −0,008 ± 0,040 | −0,032 ± 0,070 | −0,002 ± 0,113 |
 | Errores: remuestreo de 81 regiones activas en lugar de 111 días | 139 | −0,035 ± 0,035 | −0,010 ± 0,061 | −0,106 ± 0,082 |
 
+Tampoco lo cambian las fulguraciones que se suceden. Sin las 36 que empiezan menos de 45
+minutos después del máximo de otra fulguración M o X, el cambio medio de las otras 218, con
+los dos instrumentos, es de −0,033 ± 0,029 m/s.
+
 ### Una señal se habría visto
 
 Un desplazamiento añadido a las velocidades de NEID, y el que se mide después:
@@ -119,7 +123,7 @@ espectro solar de ese día:
   fulguración a fulguración.
 - **¿Cuánto mueve esa luz la velocidad?** Como mucho de 2 a 4 cm/s para una X1 en el limbo
   (K = 1), y menos en el resto.
-- **¿Cuánto nos acercamos?** La cota de los dos instrumentos juntos es entre 1,5 y 3,5 veces
+- **¿Cuánto nos acercamos?** La cota de los dos instrumentos juntos es entre 1,6 y 3,5 veces
   eso. La ausencia de firma de rotación es lo que predice la física; ahora está medida.
 - **¿Y las líneas de la propia zona de la fulguración?** En imágenes resueltas están
   desplazadas hasta 200 m/s (Saar et al. 2018). Una diezmilésima del disco desplazada 100 m/s
@@ -132,7 +136,7 @@ espectro solar de ese día:
 Las fulguraciones solares no contaminan significativamente la detección de análogos terrestres
 por velocidad radial, por dos razones:
 
-- **Mueven muy poco la velocidad**: menos de 7 cm/s de media hasta la clase X. En las de clase
+- **Mueven muy poco la velocidad**: menos de 7 cm/s de media para las fulguraciones M y X en conjunto. En las de clase
   X solas tampoco se encuentra ningún cambio, pero la cota es de unos 20 cm/s, el doble de la
   señal de la Tierra.
 - **Ocupan poco tiempo.** Entre diciembre de 2020 y noviembre de 2026, seis años que abarcan

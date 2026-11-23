@@ -59,14 +59,14 @@ lanzarse de nuevo, y lo que ya está en disco no se descarga otra vez.
    respuesta de los espectros está escrita en partes por mil o por millón de cada magnitud,
    y ahí las nueve cifras son las de la magnitud. `DIFFERENT` nombra las columnas que
    difieren y en cuánto.
-6. **Números del artículo.** Los 243 números del texto y de las tablas del artículo, cada
+6. **Números del artículo.** Los 255 números del texto y de las tablas del artículo, cada
    uno frente a las tablas nuevas. Un número pasa cuando el artículo da un redondeo correcto
    de él.
 
 La última línea es `Reproduced.` cuando ningún paso falló, ninguna tabla difiere y todos los
 números coinciden. La orden termina entonces con código 0, y con 1 en caso contrario.
 
-`results/paper_check.csv` lista los 243 números con el lugar del artículo donde aparece cada
+`results/paper_check.csv` lista los 255 números con el lugar del artículo donde aparece cada
 uno, tal como los dejó la última ejecución de `verify`.
 
 ## Lo que se ejecutó para el artículo
@@ -107,6 +107,15 @@ columnas menos de 0,0001 ppm, frente a errores de 50 a 80 ppm, así que
 ningún número del artículo ni ninguna figura. Ejecutado de nuevo en Windows con el ajuste
 corregido, las 16 tablas son idénticas a las del repositorio. Los espectros no se
 descargaron por segunda vez, porque los extractos son los mismos ficheros.
+
+El 23 de noviembre de 2026 una última revisión del artículo añadió doce números, y la orden
+comprueba ahora 255. Son la medida sin las fulguraciones que empiezan poco después de otra
+(cuatro filas nuevas en `cleaning_variants.csv`), el número de controles de una fulguración
+y lo que el artículo deduce del aumento de brillo de las fulguraciones en luz visible. La
+misma revisión hizo que la probabilidad de detectar un desplazamiento use el desplazamiento
+tal como se recupera, como ya hacían las inyecciones de NEID, y ese número del artículo pasó
+del 99 al 98 %. Ejecutado de nuevo en Windows con los datos en disco, las 16 tablas son
+idénticas a las del repositorio y los 255 números coinciden.
 
 ## Paso a paso
 
@@ -218,13 +227,15 @@ Lo que sigue todavía puede hacer que una reproducción difiera, o la encarece.
   se compararon con las del artículo, y las cinco son iguales píxel a píxel. Con otras
   versiones de Matplotlib o con otros tipos de letra pueden diferir en detalles que no
   cambian lo que muestran.
-- **Los números tomados de otros artículos** (el aumento de brillo de las fulguraciones en
-  luz visible, la escala antigua de GOES) no se calculan aquí.
+- **Los números tomados de otros artículos** (el aumento de brillo de dos fulguraciones en
+  luz visible y el factor de la escala antigua de GOES) están escritos en `flinch/verify.py`
+  tal como se leyeron en esos artículos. Lo que el artículo deduce de ellos se comprueba. La
+  orden no lee los propios artículos.
 
 ## Pruebas
 
 ```
-python -m pytest              # 120 pruebas con datos sintéticos, sin red, un minuto
+python -m pytest              # 122 pruebas con datos sintéticos, sin red, un minuto
 python -m pytest -m network   # 2 pruebas que comprueban que los archivos siguen respondiendo como espera el código
 ```
 

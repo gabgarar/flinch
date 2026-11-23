@@ -59,13 +59,13 @@ again, and what is on disk is not downloaded twice.
    spectra is written in parts per thousand or per million of each quantity, and there the
    nine digits are those of the quantity. `DIFFERENT` names the columns that differ and by
    how much.
-6. **Numbers of the paper.** The 243 numbers of the text and the tables of the paper, each
+6. **Numbers of the paper.** The 255 numbers of the text and the tables of the paper, each
    against the new tables. A number passes when the paper gives a correct rounding of it.
 
 The last line is `Reproduced.` when no step failed, no table differs and every number agrees.
 The command then ends with code 0, and with 1 otherwise.
 
-`results/paper_check.csv` lists the 243 numbers with the place where each appears in the
+`results/paper_check.csv` lists the 255 numbers with the place where each appears in the
 paper, as the last run of `verify` left them.
 
 ## What was run for the paper
@@ -104,6 +104,15 @@ the last digits that the arithmetic keeps. The change moved those two columns by
 byte the table of the first run. No number of the paper and no figure changed. Run again on
 Windows with the corrected fit, the 16 tables are identical to those of the repository. The
 spectra were not downloaded a second time, because the extracts are the same files.
+
+On 23 November 2026 a last review of the paper added twelve numbers, and the command now
+checks 255. They are the measurement without the flares that start soon after another one
+(four new rows in `cleaning_variants.csv`), the number of controls of a flare, and what the
+paper derives from the brightening of flares in visible light. The same review made the
+probability of detecting a shift use the shift as it is measured back, as the injections of
+NEID already did, and that number of the paper went from 99 to 98 %. Run again on Windows
+with the data on disk, the 16 tables are identical to those of the repository and the 255
+numbers agree.
 
 ## Step by step
 
@@ -211,13 +220,15 @@ What follows can still make a reproduction differ, or makes it expensive.
   compared with those of the paper, and the five are the same pixel by pixel. With other
   versions of Matplotlib or other fonts they can differ in details that do not change what
   they show.
-- **Numbers taken from other papers** (the brightening of flares in visible light, the old
-  GOES scale) are not computed here.
+- **Numbers taken from other papers** (the brightening of two flares in visible light and
+  the factor of the old GOES scale) are written in `flinch/verify.py` as they were read in
+  those papers. What the paper derives from them is checked. The papers themselves are not
+  read by the command.
 
 ## Tests
 
 ```
-python -m pytest              # 120 tests on synthetic data, no network, one minute
+python -m pytest              # 122 tests on synthetic data, no network, one minute
 python -m pytest -m network   # 2 tests: the archives still answer as the code expects
 ```
 

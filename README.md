@@ -53,7 +53,7 @@ python -m flinch reproduce
 ```
 
 One command downloads the public data (340 MB), runs every step, compares each table with
-the one in `results/` and checks the 243 numbers of the paper against the new tables. It
+the one in `results/` and checks the 255 numbers of the paper against the new tables. It
 takes about ten minutes and writes a report to `reproduction/`. The spectra are 143 GB and
 are left out unless asked for (`--spectra sample` or `--spectra all`).
 `python -m flinch verify` alone checks the numbers of the paper against the tables of the

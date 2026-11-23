@@ -72,3 +72,12 @@ def test_early_window_needs_two_points_per_flare():
     table = replication.early_window(replication.HARPSN, flares, series).set_index("band")
     assert table.loc["X", "flares"] == 1 and table.loc["X", "mean"] == pytest.approx(0.3)  # the second has one point only
     assert table.loc["M1-M4", "flares"] == 0
+
+
+def test_flares_that_start_soon_after_the_peak_of_another_one_are_told_apart():
+    start = 2460000.5 + np.array([0.0, 0.5, 1.0])
+    flares = pd.DataFrame({"jd_start": start})
+    # A flare peaks 30 min before the first, 50 min before the second, and the third has only its own peak after its start.
+    peaks = [start[0] - 30 * MINUTE, start[1] - 50 * MINUTE, start[2] + 5 * MINUTE]
+    assert replication.not_preceded(flares, peaks).tolist() == [False, True, True]
+    assert replication.not_preceded(flares, peaks, margin_min=60.0).tolist() == [False, False, True]

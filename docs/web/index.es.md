@@ -28,7 +28,7 @@ general.
 |---|---|---|
 | ¿Cambia la velocidad durante una fulguración? | No, dentro de 7 cm/s | 254 medidas de 253 fulguraciones de clase M y X: −0,029 ± 0,026 m/s. Solo NEID: −0,035 ± 0,035 (139). Solo HARPS-N: −0,021 ± 0,039 (115) |
 | ¿La mueven más las fulguraciones mayores? | No | 18 fulguraciones de clase X: −0,074 ± 0,072 m/s. Ningún cambio, pero la cota, 0,2 m/s, es el doble de la señal de la Tierra |
-| ¿Hay firma de rotación (signo opuesto al este y al oeste)? | No | −0,006 ± 0,038 m/s para una X1 en el limbo, a un factor entre 1,5 y 3,5 del mayor desplazamiento esperado |
+| ¿Hay firma de rotación (signo opuesto al este y al oeste)? | No | −0,006 ± 0,038 m/s para una X1 en el limbo, a un factor entre 1,6 y 3,5 del mayor desplazamiento esperado |
 | ¿Se habría visto una señal? | Sí | Se recupera el 98 % de un desplazamiento añadido a los datos |
 | ¿Ven los espectros las fulguraciones? | Sí | Ca II H y K y H alfa se abrillantan en las 14 fulguraciones del disco con espectros, entre 2 y 5 partes por mil |
 | ¿Cuánto tiempo pasa el Sol en fulguración? | El 1,6 % | 358 fulguraciones de clase M o X al año de media entre 2020 y 2026, contadas de inicio a final (19 minutos en la mediana); el 3,8 % en 2024, el año más activo |

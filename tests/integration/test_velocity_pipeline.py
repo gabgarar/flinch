@@ -119,7 +119,8 @@ def test_the_signal_survives_other_cleaning_thresholds(archive_with_signal, monk
     assert main(["replication", "--cleaning"]) == 0
     assert "cleaning thresholds" in capsys.readouterr().out
     table = pd.read_csv(archive_with_signal["root"] / "results" / "cleaning_variants.csv")
-    assert len(table) == 2 * (6 + 7) and set(table["band"]) == {"M and X", "X"}
+    assert len(table) == 2 * (6 + 7) + 4 and set(table["band"]) == {"M and X", "X"}  # the variants and the flares not preceded by another one
+    assert (table["variant"] == replication.ISOLATED).sum() == 4
     every = table[(table["band"] == "M and X") & (table["flares"] > 5)]
     assert len(every) >= 8
     for _, row in every.iterrows():

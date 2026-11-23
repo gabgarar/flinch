@@ -39,8 +39,20 @@ Sect. 4.1,"scatter of the changes of the controls, NEID (m/s)",0.40,0.3955,True
 Sect. 4.1,"scatter of the changes of the flares, HARPS-N (m/s)",0.40,0.4048,True
 Sect. 4.1,"scatter of the changes of the controls, HARPS-N (m/s)",0.41,0.4135,True
 Eq. 9,"limit on K dF/F per X1 flare, in units of 1e-5",3.7,3.726,True
+Sect. 5.1,"ratio of the two brightenings of an X1 flare, about two",2,2.15,True
+Sect. 5.1,lowest brightening of an X1 flare (ppm),11,10.74,True
+Sect. 5.1,largest shift at the limb with the lowest brightening (cm/s),2,1.98,True
+Sect. 5.1,limit over the lowest brightening,3.5,3.468,True
+Sect. 5.1,highest brightening of an X1 flare (ppm),23,23.10,True
+Sect. 5.1,largest shift at the limb with the highest brightening (cm/s),4,4.26,True
+Sect. 5.1,limit over the highest brightening,1.6,1.613,True
+Sect. 3.3,"controls per flare on average, NEID",15,15.15,True
+Sect. 3.3,"controls per flare on average, HARPS-N",9,9.01,True
 Sect. 3.1,HARPS-N with the quality flag above 0.9: flares,126,126.00,True
 Sect. 3.1,HARPS-N with the quality flag above 0.9: mean change,-0.005 +/- 0.038,-0.00531 +/- 0.03798,True
+Sect. 4.2,flares not preceded by another M or X flare within 45 min,218,218.00,True
+Sect. 4.2,"flares preceded by another one, left out",36,36.00,True
+Sect. 4.2,mean change without the flares preceded by another one,-0.033 +/- 0.029,-0.03276 +/- 0.02929,True
 Table A.1,Default: flares,139,139.00,True
 Table A.1,Default: mean change,-0.035 +/- 0.035,-0.03458 +/- 0.03488,True
 Table A.1,Default: S,-0.010 +/- 0.061,-0.00984 +/- 0.06051,True

@@ -12,7 +12,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from . import campaign, robust
+from . import campaign, replication, robust
 from .config import results_dir
 
 # Table 1: label of the paper, band of the table, statistic, and for NEID, HARPS-N and both the
@@ -71,6 +71,12 @@ TABLE_B1 = (
     ("20240411_1705_M5.4", 1.00, (0.5, 1.3), (-0.1, 0.7), (-0.2, 0.9)),
 )
 DISC_RADIUS = 0.9  # flares within this distance of the centre are "on the disc"
+# Sect. 5.1: the brightening of the Sun in total irradiance at the peak of two flares (Kretzschmar
+# et al. 2010; Kretzschmar 2011), as the peak X-ray flux on the scale of GOES-15 and earlier
+# satellites (W/m2) and the brightening in parts per million: the average M2.0 flare and the
+# X17.2 flare of 28 October 2003. The classes of those satellites were multiplied by 0.7.
+BRIGHTENING = ((2.0e-5, 6.6), (17.2e-4, 264.0))
+OLD_SCALE = 0.7
 
 
 def _text(value: float, decimals: int) -> str:
@@ -132,6 +138,16 @@ def velocity_checks(checks: Checks, directory: Path) -> None:
         checks.add("Sect. 4.1", f"scatter of the changes of the controls, {name} (m/s)", controls, row["control_std"], 2)
     limit = (abs(both["rotation"]) + 1.645 * both["rotation_err"]) / robust.V_LIMB_FROM_EARTH_MS
     checks.add("Eq. 9", "limit on K dF/F per X1 flare, in units of 1e-5", 3.7, limit * 1.0e5, 1)
+    # What that limit is compared with: the brightening of an X1 flare on the scale of GOES-16, and the shift it gives at the limb.
+    per_x1 = sorted(ppm / (flux / OLD_SCALE / 1.0e-4) for flux, ppm in BRIGHTENING)
+    checks.add("Sect. 5.1", "ratio of the two brightenings of an X1 flare, about two", 2, per_x1[1] / per_x1[0])
+    for label, ppm, paper_ppm, paper_shift, paper_ratio in zip(("lowest", "highest"), per_x1, (11, 23), (2, 4), (3.5, 1.6)):
+        checks.add("Sect. 5.1", f"{label} brightening of an X1 flare (ppm)", paper_ppm, ppm)
+        checks.add("Sect. 5.1", f"largest shift at the limb with the {label} brightening (cm/s)", paper_shift, 100.0 * ppm * 1.0e-6 * robust.V_LIMB_FROM_EARTH_MS)
+        checks.add("Sect. 5.1", f"limit over the {label} brightening", paper_ratio, limit / (ppm * 1.0e-6), 1)
+    for name, paper in (("NEID", 15), ("HARPS-N", 9)):
+        row = cell.loc[(name, "M and X")]
+        checks.add("Sect. 3.3", f"controls per flare on average, {name}", paper, row["controls"] / row["flares"])
 
     variants = _read(directory, "cleaning_variants.csv")
     if variants is None:
@@ -140,6 +156,16 @@ def velocity_checks(checks: Checks, directory: Path) -> None:
         row = variants[(variants["instrument"] == "HARPS-N") & (variants["variant"] == "quality flag above 0.9") & (variants["band"] == "M and X")].iloc[0]
         checks.add("Sect. 3.1", "HARPS-N with the quality flag above 0.9: flares", 126, row["flares"])
         checks.add("Sect. 3.1", "HARPS-N with the quality flag above 0.9: mean change", (-0.005, 0.038), (row["mean"], row["mean_err"]), 3)
+        # Sect. 4.2: without the flares that start less than 45 min after the peak of another one, both instruments.
+        alone = variants[(variants["variant"] == replication.ISOLATED) & (variants["band"] == "M and X")]
+        if len(alone) != 2:
+            checks.add("Sect. 4.2", "rows of the flares not preceded by another one (cleaning_variants.csv)", 2, len(alone))
+        else:
+            weight = 1.0 / alone["mean_err"].to_numpy(dtype=float) ** 2
+            mean = float(np.sum(weight * alone["mean"].to_numpy(dtype=float)) / np.sum(weight))
+            checks.add("Sect. 4.2", "flares not preceded by another M or X flare within 45 min", 218, alone["flares"].sum())
+            checks.add("Sect. 4.2", "flares preceded by another one, left out", 36, both["flares"] - alone["flares"].sum())
+            checks.add("Sect. 4.2", "mean change without the flares preceded by another one", (-0.033, 0.029), (mean, 1.0 / np.sqrt(np.sum(weight))), 3)
 
     other = _read(directory, "robustness.csv")
     if other is None:
