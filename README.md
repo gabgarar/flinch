@@ -4,6 +4,7 @@
 [![docs](https://github.com/gabgarar/flinch/actions/workflows/docs.yml/badge.svg)](https://gabgarar.github.io/flinch/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 [![License: BSD-3-Clause](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24484826.svg)](https://doi.org/10.5281/zenodo.24484826)
 
 **Do solar flares contaminate the radial-velocity detection of Earth analogues?**
 
@@ -76,10 +77,12 @@ All sources are public and need no registration.
 ## Cite
 
 > García, G. (2026). *flinch: solar flares in Sun-as-a-star radial velocities* (v1.0.0).
-> <https://github.com/gabgarar/flinch>
+> Zenodo. <https://doi.org/10.5281/zenodo.24484827>
 
 GitHub shows a ready-made citation under "Cite this repository", generated from
-[CITATION.cff](CITATION.cff). A paper is in preparation. The acknowledgements that the data
+[CITATION.cff](CITATION.cff). That DOI is the one of version 1.0.0, the code of the paper;
+[10.5281/zenodo.24484826](https://doi.org/10.5281/zenodo.24484826) always points to the latest version. A paper is in
+preparation. The acknowledgements that the data
 providers ask for are on the [Cite page](https://gabgarar.github.io/flinch/cite/).
 
 ## Development note

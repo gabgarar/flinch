@@ -10,6 +10,7 @@ authors:
     given-names: "Gabriel"
     affiliation: "Universidad Complutense de Madrid"
     orcid: "https://orcid.org/0000-0001-7256-2609"
+doi: 10.5281/zenodo.24484826
 repository-code: https://github.com/gabgarar/flinch
 url: https://gabgarar.github.io/flinch/
 license: BSD-3-Clause

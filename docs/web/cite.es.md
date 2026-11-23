@@ -5,7 +5,10 @@ Si usas `flinch` en un trabajo académico, cita por favor el software.
 ## Software
 
 > García, G. (2026). *flinch: solar flares in Sun-as-a-star radial velocities* (v1.0.0).
-> <https://github.com/gabgarar/flinch>
+> Zenodo. <https://doi.org/10.5281/zenodo.24484827>
+
+La versión 1.0.0 es el código del artículo, archivado en Zenodo con ese DOI.
+[10.5281/zenodo.24484826](https://doi.org/10.5281/zenodo.24484826) apunta siempre a la última versión.
 
 GitHub muestra una cita ya preparada en «Cite this repository», generada a partir de
 `CITATION.cff`. Hay un artículo en preparación que describe los resultados; esta página
