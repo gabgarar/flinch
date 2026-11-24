@@ -11,6 +11,13 @@ Necesita 340 MB de descargas y unos diez minutos. Deja fuera los espectros, que 
 los niveles de más abajo explican cómo incluirlos. No se modifica nada del repositorio. Las
 tablas nuevas, las figuras, la salida de cada paso y un informe van a `reproduction/`.
 
+!!! note "Desde el 24 de noviembre de 2026"
+    La NOAA ha reeditado los ficheros de GOES, así que una descarga hecha ahora ya no es la
+    del artículo. La orden sigue encontrando de acuerdo los 255 números del artículo, pero
+    da dos datos de entrada como `different` y cinco tablas como `DIFFERENT`, y su última
+    línea es `Not fully reproduced`. [La reedición de los ficheros de GOES](#goes-reissue)
+    cuenta qué cambió y cómo obtener exactamente las tablas del artículo.
+
 ## Desde cero
 
 ```
@@ -117,6 +124,16 @@ tal como se recupera, como ya hacían las inyecciones de NEID, y ese número del
 del 99 al 98 %. Ejecutado de nuevo en Windows con los datos en disco, las 16 tablas son
 idénticas a las del repositorio y los 255 números coinciden.
 
+El 24 de noviembre de 2026, el día en que se envió el artículo, se comprobó la versión 1.0.0
+tal como está archivada en Zenodo. El archivo es idéntico, fichero a fichero, a la etiqueta
+del repositorio. Instalado desde él en una carpeta vacía, pasan las 122 pruebas y los 255
+números coinciden. En Ubuntu 24.04 con Python 3.12 el análisis entero con los datos del
+artículo, incluida la parte espectral, termina con `Reproduced.` y todas las tablas tienen
+los mismos números. En Windows, con la copia congelada de los datos, las 16 tablas son
+idénticas a las del repositorio. Una descarga de los archivos públicos hecha ese día ya no
+dio los datos de entrada del artículo, porque la NOAA había reeditado los ficheros de GOES.
+Lo describe [La reedición de los ficheros de GOES](#goes-reissue).
+
 ## Paso a paso
 
 `reproduce` ejecuta estas órdenes en este orden. Cada una puede ejecutarse sola, y entonces
@@ -184,15 +201,14 @@ Lo que sigue todavía puede hacer que una reproducción difiera, o la encarece.
 
 - **Los archivos pueden cambiar los datos.** NEID puede reprocesar sus espectros con una
   versión más nueva de su programa de reducción (los 1296 usados aquí son todos de la
-  versión 1.5.3), y la NOAA reedita los ficheros de GOES. Las huellas no impiden un cambio,
-  pero lo detectan. El informe dice entonces qué dato es `different`, y una tabla que difiere
-  tiene explicación. Una copia congelada de los ficheros de GOES, de la tabla de NEID y de los
-  extractos de los 1296 espectros, tal como estaban cuando se calculó el artículo, va adjunta
-  a la [versión 1.0.0](https://github.com/gabgarar/flinch/releases/tag/v1.0.0) del
-  repositorio (`flinch-data.zip`, 556 MB). Descomprimida en la carpeta del repositorio da
-  `data/`. Después `python -m flinch download` descarga solo la serie de HARPS-N, que es una
-  publicación fija con DOI y no se copia, y
-  `python -m flinch reproduce --no-download --spectra all` repite el artículo sin los 143 GB.
+  versión 1.5.3), y la NOAA reedita los ficheros de GOES, como hizo en noviembre de 2026. Las
+  huellas no impiden un cambio, pero lo detectan. El informe dice entonces qué dato es
+  `different`, y una tabla que difiere tiene explicación. Una copia congelada de los ficheros
+  de GOES, de la tabla de NEID y de los extractos de los 1296 espectros, tal como estaban
+  cuando se calculó el artículo, va adjunta a la
+  [versión 1.0.0](https://github.com/gabgarar/flinch/releases/tag/v1.0.0) del repositorio
+  (`flinch-data.zip`, 556 MB). [La reedición de los ficheros de GOES](#goes-reissue) explica
+  cómo repetir el artículo con ella, sin los 143 GB.
 - **Los espectros son 143 GB.** Un fichero de nivel 2 ocupa 113 MB y el archivo no sirve
   partes de un fichero, así que cada uno se descarga entero, se reduce a un extracto de
   0,2 MB y se borra. Los 1296 ficheros tardaron aquí 3 horas y 14 minutos, a 12 MB por
@@ -236,6 +252,61 @@ Lo que sigue todavía puede hacer que una reproducción difiera, o la encarece.
   luz visible y el factor de la escala antigua de GOES) están escritos en `flinch/verify.py`
   tal como se leyeron en esos artículos. Lo que el artículo deduce de ellos se comprueba. La
   orden no lee los propios artículos.
+
+## La reedición de los ficheros de GOES { #goes-reissue }
+
+Entre el 22 y el 24 de noviembre de 2026 la NOAA reeditó los ficheros de GOES que usa el
+artículo. La descarga del 21 y el 22 de noviembre todavía dio los ficheros del artículo. Una
+descarga hecha desde entonces ya no los da.
+
+Cambiaron cuatro cosas, hasta el último día de datos del artículo.
+
+- **La lista de fulguraciones es la misma.** Tiene las mismas 2187 fulguraciones de clase M
+  y X, con las mismas horas y clases.
+- **La longitud y la latitud heliográficas de las fulguraciones se movieron 180 grados**, en
+  unas 1960 de ellas. En los ficheros anteriores la mayoría de las latitudes caía fuera del
+  intervalo de −90 a 90 grados, y en los reeditados no lo hace ninguna, así que los valores
+  anteriores eran erróneos. El análisis no depende de ellos. Usa la posición en el disco, la
+  longitud de Carrington y diferencias de latitud. Las columnas `lon` y `lat` de
+  `results/flare_sample.csv` y `results/pilot_flares.csv` vienen de los ficheros anteriores
+  y no deben usarse como coordenadas heliográficas.
+- **Los flujos de rayos X por minuto de GOES-18** entre el 9 de octubre y el 11 de noviembre
+  de 2026 cambiaron hasta un 14 %.
+- **El flujo máximo y la fluencia** de una docena de fulguraciones cambiaron en unas pocas
+  partes por millón.
+
+Esto es lo que da `python -m flinch reproduce` con una descarga del 24 de noviembre de 2026.
+
+| Qué | Resultado |
+|---|---|
+| Datos de entrada del análisis de velocidad (12 ficheros) | 10 idénticos. La lista de fulguraciones M y X de GOES y los flujos por minuto de GOES-18 de 2026 son `different` |
+| Tablas de velocidad (14) | 9 idénticas o con los mismos números. 5 son `DIFFERENT` |
+| Números del artículo (255) | 255 de 255 coinciden |
+| Figuras del análisis de velocidad (3) | las mismas imágenes, píxel a píxel |
+| Última línea | `Not fully reproduced`, y la orden termina con código 1 |
+
+De las cinco tablas que difieren, `flare_sample.csv` y `pilot_flares.csv` lo hacen en las
+columnas `lon` y `lat` y, en menos de una parte en 100 000, en la fluencia y la posición de
+unas pocas fulguraciones. `velocity_by_instrument.csv` y `robustness.csv` difieren en
+0,000000002 m/s como mucho, en el término de rotación y en el desplazamiento de una
+fulguración X1, y `pilot_tests.csv` en otro tanto en un estadístico de contraste.
+
+Para obtener exactamente las tablas del artículo hay que usar la copia congelada. Se
+descomprime `flinch-data.zip` en la carpeta del código, lo que da `data/`. Después se
+descarga solo la serie de HARPS-N, que es una publicación fija con DOI y no se copia, y se
+ejecuta el análisis con lo que hay en disco.
+
+```
+python -c "from flinch import harpsn; harpsn.download_series()"
+python -m flinch reproduce --no-download --spectra all
+```
+
+No hay que ejecutar `python -m flinch download` en esa carpeta. Desde la reedición descarga
+también las listas nuevas de fulguraciones de GOES-18, cuyos nombres de fichero llevan una
+fecha final posterior, y el código lee la lista más reciente que encuentra en `data/goes/`.
+Las versiones anteriores de esta página recomendaban esa orden. Ejecutado así el 24 de
+noviembre de 2026, con la versión 1.0.0 tal como está archivada en Zenodo, las 16 tablas son
+idénticas a las del repositorio y la última línea es `Reproduced.`
 
 ## Pruebas
 

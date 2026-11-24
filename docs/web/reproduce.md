@@ -11,6 +11,13 @@ It needs 340 MB of downloads and about ten minutes. It leaves the spectra out, w
 143 GB; the levels below say how to include them. Nothing in the repository is modified.
 The new tables, the figures, the output of every step and a report go to `reproduction/`.
 
+!!! note "Since 24 November 2026"
+    NOAA has reissued the GOES files, so a download made now is no longer the one of the
+    paper. The command still finds the 255 numbers of the paper in agreement, but it reports
+    two inputs as `different` and five tables as `DIFFERENT`, and its last line is
+    `Not fully reproduced`. [The reissue of the GOES files](#goes-reissue) says what changed
+    and how to get the tables of the paper exactly.
+
 ## From zero
 
 ```
@@ -114,6 +121,15 @@ NEID already did, and that number of the paper went from 99 to 98 %. Run again o
 with the data on disk, the 16 tables are identical to those of the repository and the 255
 numbers agree.
 
+On 24 November 2026, the day the paper was submitted, version 1.0.0 was checked as it is
+archived at Zenodo. The archive is identical, file by file, to the tag of the repository.
+Installed from it in an empty folder, the 122 tests pass and the 255 numbers agree. On Ubuntu
+24.04 with Python 3.12 the whole analysis on the data of the paper, the spectral part
+included, ends with `Reproduced.` and every table has the same numbers. On Windows, with the
+frozen copy of the data, the 16 tables are identical to those of the repository. A download
+from the public archives made that day no longer gave the inputs of the paper, because NOAA
+had reissued the GOES files. [The reissue of the GOES files](#goes-reissue) describes it.
+
 ## Step by step
 
 `reproduce` runs these commands in this order. Each can be run alone, and then it writes to
@@ -179,16 +195,14 @@ code.
 What follows can still make a reproduction differ, or makes it expensive.
 
 - **The archives can change the data.** NEID can reprocess its spectra with a newer pipeline
-  (the 1296 used here are all of version 1.5.3), and NOAA reissues the GOES files. The
-  fingerprints do not prevent a change, but they detect it. The report then says which input
-  is `different`, and a table that differs has an explanation. A frozen copy of the GOES
-  files, of the NEID table and of the extracts of the 1296 spectra, as they were when the
-  paper was computed, is attached to
+  (the 1296 used here are all of version 1.5.3), and NOAA reissues the GOES files, as it did
+  in November 2026. The fingerprints do not prevent a change, but they detect it. The report
+  then says which input is `different`, and a table that differs has an explanation. A frozen
+  copy of the GOES files, of the NEID table and of the extracts of the 1296 spectra, as they
+  were when the paper was computed, is attached to
   [release 1.0.0](https://github.com/gabgarar/flinch/releases/tag/v1.0.0) of the repository
-  (`flinch-data.zip`, 556 MB). Unpacked in the folder of the repository it gives `data/`, and
-  then `python -m flinch download` fetches only the HARPS-N series, which is a fixed release
-  with a DOI and is not copied, and `python -m flinch reproduce --no-download --spectra all`
-  repeats the paper without the 143 GB.
+  (`flinch-data.zip`, 556 MB). [The reissue of the GOES files](#goes-reissue) says how to
+  repeat the paper with it, without the 143 GB.
 - **The spectra are 143 GB.** A level-2 file is 113 MB and the archive does not serve parts
   of a file, so each one is downloaded whole, reduced to an extract of 0.2 MB and deleted.
   The 1296 files took 3 hours and 14 minutes here, at 12 MB per second, which is 9 seconds
@@ -230,6 +244,59 @@ What follows can still make a reproduction differ, or makes it expensive.
   the factor of the old GOES scale) are written in `flinch/verify.py` as they were read in
   those papers. What the paper derives from them is checked. The papers themselves are not
   read by the command.
+
+## The reissue of the GOES files { #goes-reissue }
+
+Between 22 and 24 November 2026 NOAA reissued the GOES files that the paper uses. The
+download of 21 and 22 November still gave the files of the paper. A download made since then
+does not.
+
+Four things changed, up to the last day of data of the paper.
+
+- **The list of flares is the same.** It has the same 2187 flares of class M and X, with the
+  same times and classes.
+- **The heliographic longitude and latitude of the flares moved by 180 degrees**, in about
+  1960 of them. In the earlier files most latitudes lay outside the range from −90 to 90
+  degrees, and in the reissued files none does, so the earlier values were wrong. The
+  analysis does not depend on them. It uses the position on the disc, the Carrington
+  longitude and differences of latitude. The columns `lon` and `lat` of
+  `results/flare_sample.csv` and `results/pilot_flares.csv` come from the earlier files and
+  should not be used as heliographic coordinates.
+- **The one-minute X-ray fluxes of GOES-18** between 9 October and 11 November 2026 changed
+  by up to 14 %.
+- **The peak flux and the fluence** of about a dozen flares changed by a few parts in a
+  million.
+
+This is what `python -m flinch reproduce` reports with a download of 24 November 2026.
+
+| What | Result |
+|---|---|
+| Inputs of the velocity analysis (12 files) | 10 identical. The GOES list of M and X flares and the GOES-18 one-minute fluxes of 2026 are `different` |
+| Velocity tables (14) | 9 identical or with the same numbers. 5 are `DIFFERENT` |
+| Numbers of the paper (255) | 255 of 255 in agreement |
+| Figures of the velocity analysis (3) | the same images, pixel by pixel |
+| Last line | `Not fully reproduced`, and the command ends with code 1 |
+
+Of the five tables that differ, `flare_sample.csv` and `pilot_flares.csv` do so in the
+columns `lon` and `lat` and, by less than one part in 100 000, in the fluence and the
+position of a few flares. `velocity_by_instrument.csv` and `robustness.csv` differ by
+0.000000002 m/s at most, in the rotation term and in the shift of an X1 flare, and
+`pilot_tests.csv` by as little in one test statistic.
+
+To get the tables of the paper exactly, use the frozen copy. Unpack `flinch-data.zip` in the
+folder of the code, which gives `data/`. Then fetch the HARPS-N series alone, which is a
+fixed release with a DOI and is not copied, and run the analysis on what is on disk.
+
+```
+python -c "from flinch import harpsn; harpsn.download_series()"
+python -m flinch reproduce --no-download --spectra all
+```
+
+Do not run `python -m flinch download` in that folder. Since the reissue it also fetches the
+new flare lists of GOES-18, whose file names carry a later end date, and the code reads the
+latest list that it finds in `data/goes/`. Earlier versions of this page recommended that
+command. Run as above on 24 November 2026, with version 1.0.0 as archived at Zenodo, the 16
+tables are identical to those of the repository and the last line is `Reproduced.`
 
 ## Tests
 
