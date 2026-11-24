@@ -1,0 +1,1767 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="¿Contaminan las fulguraciones solares la detección de análogos terrestres por velocidad radial? Fulguraciones solares en las velocidades radiales del Sol como estrella de NEID y HARPS-N">
+      
+      
+        <meta name="author" content="Gabriel García">
+      
+      
+        <link rel="canonical" href="https://gabgarar.github.io/flinch/es/results/">
+      
+      
+        <link rel="prev" href="../method/">
+      
+      
+        <link rel="next" href="../reproduce/">
+      
+      
+        
+          <link rel="alternate" href="../../results/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Resultados - flinch</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#resultados" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../" title="flinch" class="md-header__button md-logo" aria-label="flinch" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m3.55 19.09 1.41 1.41 1.8-1.79-1.42-1.42M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6c0-3.32-2.69-6-6-6m8 7h3v-2h-3m-2.76 7.71 1.8 1.79 1.41-1.41-1.79-1.8M20.45 5l-1.41-1.4-1.8 1.79 1.42 1.42M13 1h-2v3h2M6.76 5.39 4.96 3.6 3.55 5l1.79 1.81zM1 13h3v-2H1m12 9h-2v3h2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            flinch
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Resultados
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../results/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/gabgarar/flinch" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    gabgarar/flinch
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Primeros pasos
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../data/goes/" class="md-tabs__link">
+          
+  
+  
+  Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../method/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Método
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Resultados
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../reproduce/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Reproducir el artículo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/data/" class="md-tabs__link">
+          
+  
+  
+  Referencia de la API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../references/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Referencias
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cite/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Citar
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="flinch" class="md-nav__button md-logo" aria-label="flinch" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m3.55 19.09 1.41 1.41 1.8-1.79-1.42-1.42M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6c0-3.32-2.69-6-6-6m8 7h3v-2h-3m-2.76 7.71 1.8 1.79 1.41-1.41-1.79-1.8M20.45 5l-1.41-1.4-1.8 1.79 1.42 1.42M13 1h-2v3h2M6.76 5.39 4.96 3.6 3.55 5l1.79 1.81zM1 13h3v-2H1m12 9h-2v3h2"/></svg>
+
+    </a>
+    flinch
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/gabgarar/flinch" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    gabgarar/flinch
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primeros pasos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/goes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fulguraciones de GOES
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/neid-velocities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Velocidades de NEID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/neid-spectra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Espectros de NEID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/harpsn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Velocidades de HARPS-N
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Método
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resultados
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resultados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#la-velocidad-del-sol-no-cambia-durante-las-fulguraciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La velocidad del Sol no cambia durante las fulguraciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-resultado-no-depende-de-las-decisiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El resultado no depende de las decisiones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="El resultado no depende de las decisiones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#una-senal-se-habria-visto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Una señal se habría visto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#los-mismos-espectros-si-ven-las-fulguraciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Los mismos espectros sí ven las fulguraciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-cabia-esperar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué cabía esperar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-respuesta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La respuesta
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacion-con-lo-publicado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparación con lo publicado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fuera-del-articulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fuera del artículo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fuera del artículo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-exceso-antes-de-las-fulguraciones-x-de-neid-que-harps-n-no-ve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Un exceso antes de las fulguraciones X de NEID que HARPS-N no ve
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#las-fulguraciones-no-aumentan-la-amplitud-de-las-oscilaciones-solares" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Las fulguraciones no aumentan la amplitud de las oscilaciones solares
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lo-que-falta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lo que falta
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reproduce/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducir el artículo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referencia de la API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Referencia de la API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/velocity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Análisis de velocidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/spectra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Espectros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/reproduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referencias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Citar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#la-velocidad-del-sol-no-cambia-durante-las-fulguraciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La velocidad del Sol no cambia durante las fulguraciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-resultado-no-depende-de-las-decisiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El resultado no depende de las decisiones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="El resultado no depende de las decisiones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#una-senal-se-habria-visto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Una señal se habría visto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#los-mismos-espectros-si-ven-las-fulguraciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Los mismos espectros sí ven las fulguraciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-cabia-esperar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué cabía esperar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-respuesta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La respuesta
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacion-con-lo-publicado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparación con lo publicado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fuera-del-articulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fuera del artículo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fuera del artículo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-exceso-antes-de-las-fulguraciones-x-de-neid-que-harps-n-no-ve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Un exceso antes de las fulguraciones X de NEID que HARPS-N no ve
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#las-fulguraciones-no-aumentan-la-amplitud-de-las-oscilaciones-solares" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Las fulguraciones no aumentan la amplitud de las oscilaciones solares
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lo-que-falta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lo que falta
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="resultados">Resultados<a class="headerlink" href="#resultados" title="Permanent link">&para;</a></h1>
+<p>Estado: noviembre de 2026. La velocidad se mide con dos instrumentos, NEID y HARPS-N. Los
+espectros son los de NEID: 23 fulguraciones y nueve ventanas de control sin fulguración.</p>
+<h2 id="la-velocidad-del-sol-no-cambia-durante-las-fulguraciones">La velocidad del Sol no cambia durante las fulguraciones<a class="headerlink" href="#la-velocidad-del-sol-no-cambia-durante-las-fulguraciones" title="Permanent link">&para;</a></h2>
+<p>Dos instrumentos que observaron fulguraciones distintas dan la misma respuesta.</p>
+<p><img alt="Velocidad media alrededor del máximo de la fulguración, NEID y HARPS-N" src="../../img/two_instruments_profiles.png" /></p>
+<p>Cambio de la velocidad durante la fulguración, menos el de sus controles, en m/s (entre
+paréntesis, el número de fulguraciones):</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>NEID</th>
+<th>HARPS-N</th>
+<th>Ambos</th>
+<th>Cota al 95 %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cambio medio, todas las M y X</td>
+<td>−0,035 ± 0,035 (139)</td>
+<td>−0,021 ± 0,039 (115)</td>
+<td>−0,029 ± 0,026 (254)</td>
+<td>0,07</td>
+</tr>
+<tr>
+<td>Cambio medio, clase M</td>
+<td>−0,032 ± 0,039 (128)</td>
+<td>−0,015 ± 0,042 (108)</td>
+<td>−0,025 ± 0,028 (236)</td>
+<td>0,07</td>
+</tr>
+<tr>
+<td>Cambio medio, clase X</td>
+<td>−0,060 ± 0,088 (11)</td>
+<td>−0,104 ± 0,127 (7)</td>
+<td>−0,074 ± 0,072 (18)</td>
+<td>0,19</td>
+</tr>
+<tr>
+<td>Desplazamiento de una X1, <em>S</em></td>
+<td>−0,010 ± 0,061</td>
+<td>−0,005 ± 0,040</td>
+<td>−0,006 ± 0,033</td>
+<td>0,06</td>
+</tr>
+<tr>
+<td>Término de rotación, <em>R</em></td>
+<td>−0,106 ± 0,082</td>
+<td>+0,022 ± 0,043</td>
+<td>−0,006 ± 0,038</td>
+<td>0,07</td>
+</tr>
+</tbody>
+</table>
+<p>Juntos, el cambio medio queda por debajo de 0,07 m/s, menos que los 0,09 m/s que la Tierra
+imprime en el Sol. Las 254 medidas son de 253 fulguraciones distintas: una la observaron los
+dos instrumentos. Los datos no dan indicios de que las fulguraciones usadas difieran del
+resto de las M y X. Sus clases y sus posiciones en el disco se distribuyen como las de la
+lista completa, con probabilidades de Kolmogórov-Smirnov entre 0,04 y 0,96 en las ocho
+pruebas (clase, dos coordenadas en el disco y distancia a su centro, con cada instrumento).
+La más baja no es inusual para la menor de ocho pruebas. Con tan pocas fulguraciones como
+en la fila de la clase X, el propio error es incierto en una cuarta parte.</p>
+<p>Tres comprobaciones más dan la misma respuesta:</p>
+<ul>
+<li><strong>Las fulguraciones mayores no desplazan más la velocidad.</strong> En las 18 de clase X tampoco
+  se encuentra ningún cambio, pero la cota, 0,19 m/s, es el doble de la señal de la Tierra.</li>
+<li><strong>No hay desplazamientos de signo opuesto que se cancelen en la media.</strong> Los cambios de las
+  fulguraciones están tan dispersos como los de los controles: 0,40 m/s en ambos con NEID,
+  0,40 y 0,41 con HARPS-N.</li>
+<li><strong>No hay firma de rotación.</strong> El término de rotación queda por debajo de 0,07 m/s para una
+  X1 en el limbo, lo que equivale a K · ΔF / F &lt; 3,7 × 10⁻⁵ por fulguración X1 (véase
+  <a href="../method/#three-estimates">Método</a>).</li>
+</ul>
+<p><img alt="Cambio de velocidad de cada fulguración frente a su clase y a su posición" src="../../img/two_instruments_events.png" /></p>
+<h2 id="el-resultado-no-depende-de-las-decisiones">El resultado no depende de las decisiones<a class="headerlink" href="#el-resultado-no-depende-de-las-decisiones" title="Permanent link">&para;</a></h2>
+<p>Con NEID, donde se tomaron las decisiones (HARPS-N se analizó después, una sola vez, con
+ellas). Todo en m/s:</p>
+<table>
+<thead>
+<tr>
+<th>Variante</th>
+<th>Fulguraciones</th>
+<th>Cambio medio</th>
+<th>Desplazamiento de una X1</th>
+<th>Término de rotación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Por defecto</td>
+<td>139</td>
+<td>−0,035 ± 0,035</td>
+<td>−0,010 ± 0,061</td>
+<td>−0,106 ± 0,082</td>
+</tr>
+<tr>
+<td>Tendencia diaria: polinomio de grado 1</td>
+<td>137</td>
+<td>−0,022 ± 0,036</td>
+<td>−0,015 ± 0,060</td>
+<td>−0,045 ± 0,080</td>
+</tr>
+<tr>
+<td>Tendencia diaria: polinomio de grado 3</td>
+<td>139</td>
+<td>−0,001 ± 0,033</td>
+<td>+0,016 ± 0,049</td>
+<td>−0,079 ± 0,083</td>
+</tr>
+<tr>
+<td>Ventana «durante»: 3 min a cada lado de la subida más rápida de los rayos X</td>
+<td>120</td>
+<td>−0,009 ± 0,042</td>
+<td>−0,019 ± 0,061</td>
+<td>−0,108 ± 0,135</td>
+</tr>
+<tr>
+<td>Ventana «durante»: primeros 10 min desde el inicio</td>
+<td>134</td>
+<td>−0,040 ± 0,035</td>
+<td>+0,006 ± 0,045</td>
+<td>−0,004 ± 0,080</td>
+</tr>
+<tr>
+<td>Ventana «durante»: 5 min a cada lado del máximo en rayos X</td>
+<td>126</td>
+<td>−0,021 ± 0,042</td>
+<td>−0,111 ± 0,085</td>
+<td>−0,134 ± 0,154</td>
+</tr>
+<tr>
+<td>Fondo: recta ajustada a ambos lados de la fulguración</td>
+<td>93</td>
+<td>−0,008 ± 0,040</td>
+<td>−0,032 ± 0,070</td>
+<td>−0,002 ± 0,113</td>
+</tr>
+<tr>
+<td>Errores: remuestreo de 81 regiones activas en lugar de 111 días</td>
+<td>139</td>
+<td>−0,035 ± 0,035</td>
+<td>−0,010 ± 0,061</td>
+<td>−0,106 ± 0,082</td>
+</tr>
+</tbody>
+</table>
+<p>Tampoco lo cambian las fulguraciones que se suceden. Sin las 36 que empiezan menos de 45
+minutos después del máximo de otra fulguración M o X, el cambio medio de las otras 218, con
+los dos instrumentos, es de −0,033 ± 0,029 m/s.</p>
+<h3 id="una-senal-se-habria-visto">Una señal se habría visto<a class="headerlink" href="#una-senal-se-habria-visto" title="Permanent link">&para;</a></h3>
+<p>Un desplazamiento añadido a las velocidades de NEID, y el que se mide después:</p>
+<table>
+<thead>
+<tr>
+<th>Añadido</th>
+<th>Medido</th>
+<th>Probabilidad de detectarlo al 95 %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5 cm/s</td>
+<td>4,9 cm/s</td>
+<td>40 %</td>
+</tr>
+<tr>
+<td>10 cm/s</td>
+<td>9,8 cm/s</td>
+<td>88 %</td>
+</tr>
+<tr>
+<td>20 cm/s</td>
+<td>19,5 cm/s</td>
+<td>100 %</td>
+</tr>
+<tr>
+<td>50 cm/s</td>
+<td>48,8 cm/s</td>
+<td>100 %</td>
+</tr>
+</tbody>
+</table>
+<p>Con HARPS-N la misma prueba recupera el 98 %. La probabilidad de detección es la de medir
+más de 1,645 veces el error, el umbral unilateral del 95 % de confianza, cuando el
+desplazamiento es el que se recupera. Con los dos instrumentos juntos, un desplazamiento de
+10 cm/s común a todas las fulguraciones se habría detectado con una probabilidad del 98 %.</p>
+<h2 id="los-mismos-espectros-si-ven-las-fulguraciones">Los mismos espectros sí ven las fulguraciones<a class="headerlink" href="#los-mismos-espectros-si-ven-las-fulguraciones" title="Permanent link">&para;</a></h2>
+<p>Un resultado de «no pasa nada» necesita la prueba de que el instrumento estaba mirando. Los
+espectros la dan: las líneas cromosféricas se abrillantan al subir el flujo de rayos X,
+alcanzan su máximo unos minutos después del máximo en rayos X y siguen brillantes 40 minutos
+más tarde. En las ventanas de control se quedan planas, y en esos mismos espectros la
+velocidad no se mueve.</p>
+<p><img alt="Respuesta media de los espectros a las fulguraciones X del disco, frente a los controles" src="../../img/light_curves.png" /></p>
+<p>Respuesta media de las fulguraciones del disco (a menos de 0,9 radios solares del centro),
+desde 8 minutos antes del máximo en rayos X hasta 10 minutos después:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Clase X (8 fulguraciones)</th>
+<th>M5 a M9 (6 fulguraciones)</th>
+<th>Controles (9 ventanas)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ca II H y K (partes por mil)</td>
+<td>+5,3 ± 1,7</td>
+<td>+2,2 ± 0,4</td>
+<td>0,0 ± 0,2</td>
+</tr>
+<tr>
+<td>H alfa, núcleo (partes por mil)</td>
+<td>+3,3 ± 1,1</td>
+<td>+2,0 ± 0,2</td>
+<td>−0,1 ± 0,2</td>
+</tr>
+<tr>
+<td>Velocidad (m/s)</td>
+<td>−0,11 ± 0,21</td>
+<td>−0,10 ± 0,11</td>
+<td>+0,07 ± 0,27</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Las 14 fulguraciones del disco se abrillantan en las dos líneas.</strong></li>
+<li><strong>Las fulguraciones menores responden menos</strong>: las de M5 a M9, aproximadamente la mitad que
+  las de clase X.</li>
+<li><strong>Cerca del limbo la respuesta es más débil</strong>: +1,7 ± 0,9 en Ca II H y K en cuatro
+  fulguraciones X, +1,4 ± 0,5 en cinco de M5 a M9.</li>
+<li><strong>Las fulguraciones más débiles no se descargaron.</strong> Entre M2 y M5 la respuesta de una
+  sola quedaría por debajo del ruido, y estas 14 ya muestran que los espectros ven las
+  fulguraciones.</li>
+</ul>
+<p>La tabla fulguración a fulguración es <code>results/spectral_response.csv</code>. Una fulguración en
+detalle, la X6.3 del 22 de febrero de 2024, cuyo máximo llegó justo después del último
+espectro solar de ese día:</p>
+<p><img alt="Respuesta espectral a la fulguración X6.3 del 22 de febrero de 2024" src="../../img/event_20240222_2233_X6.3.png" /></p>
+<h2 id="que-cabia-esperar">Qué cabía esperar<a class="headerlink" href="#que-cabia-esperar" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>¿Cuánto brilla una fulguración en luz visible?</strong> En el máximo de una fulguración M2 media
+  el Sol se abrillanta 7 partes por millón, y en la X17 del 28 de octubre de 2003 se abrillantó
+  264 (Kretzschmar 2011). Esas clases están en la escala antigua de GOES, que llevaba un factor
+  0,7; en la escala de aquí son entre 11 y 23 partes por millón para una X1. Los dos valores
+  coinciden dentro de un factor dos aunque las fulguraciones difieren en un factor de casi noventa en
+  clase: en promedio el abrillantamiento visible crece con la clase en rayos X, aunque no
+  fulguración a fulguración.</li>
+<li><strong>¿Cuánto mueve esa luz la velocidad?</strong> Como mucho de 2 a 4 cm/s para una X1 en el limbo
+  (K = 1), y menos en el resto.</li>
+<li><strong>¿Cuánto nos acercamos?</strong> La cota de los dos instrumentos juntos es entre 1,6 y 3,5 veces
+  eso. La ausencia de firma de rotación es lo que predice la física; ahora está medida.</li>
+<li><strong>¿Y las líneas de la propia zona de la fulguración?</strong> En imágenes resueltas están
+  desplazadas hasta 200 m/s (Saar et al. 2018). Una diezmilésima del disco desplazada 100 m/s
+  mueve la velocidad de todo el Sol alrededor de 1 cm/s, así que este efecto depende del área
+  de la fulguración, que aquí no se ha estimado. La cota del cambio medio lo limita a partir
+  de los datos.</li>
+</ul>
+<h2 id="la-respuesta">La respuesta<a class="headerlink" href="#la-respuesta" title="Permanent link">&para;</a></h2>
+<p>Las fulguraciones solares no contaminan significativamente la detección de análogos terrestres
+por velocidad radial, por dos razones:</p>
+<ul>
+<li><strong>Mueven muy poco la velocidad</strong>: menos de 7 cm/s de media para las fulguraciones M y X en conjunto. En las de clase
+  X solas tampoco se encuentra ningún cambio, pero la cota es de unos 20 cm/s, el doble de la
+  señal de la Tierra.</li>
+<li><strong>Ocupan poco tiempo.</strong> Entre diciembre de 2020 y noviembre de 2026, seis años que abarcan
+  la subida y el máximo del ciclo 25, el Sol produjo de media 358 fulguraciones de clase M o X
+  al año, 18 de ellas de clase X. Contando cada fulguración desde su inicio hasta su final en
+  la lista de GOES (19 minutos en la mediana), el Sol pasó el 1,6 % del tiempo en alguna de
+  ellas (el 0,1 % en las de clase X). En 2024, el año más activo, hubo 934 fulguraciones, 52
+  de ellas de clase X, y el Sol pasó el 3,8 % del tiempo en alguna (el 0,3 % en las de clase
+  X).</li>
+</ul>
+<p>Esto se ha demostrado para el Sol, no para las estrellas de tipo solar en general: las
+estrellas más activas que el Sol, con fulguraciones mayores y más frecuentes, son otro asunto.</p>
+<h2 id="comparacion-con-lo-publicado">Comparación con lo publicado<a class="headerlink" href="#comparacion-con-lo-publicado" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Velocidad.</strong> Pietrow et al. (2024) siguieron con HARPS-N dos fulguraciones de clase X del
+  6 de septiembre de 2017. No pudieron afirmar una detección: fijaron una cota de 50 cm/s y
+  pidieron un estudio estadístico. Aquí el cambio medio de 253 fulguraciones vistas por dos
+  instrumentos queda por debajo de 7 cm/s. La mayor de sus dos fulguraciones está en la
+  muestra de HARPS-N: su cambio es de −0,01 m/s, con un error de 0,41 m/s por ser una sola.</li>
+<li><strong>Cromosfera.</strong> En esas dos fulguraciones Ca II H y K subió más de un 1 %. Aquí Ca II H y K
+  es también el índice más sensible, hasta un 1,7 %.</li>
+<li><strong>Luz de todo el disco.</strong> Los estudios de H alfa con espectrógrafos de imagen (Otsu et al.
+  2022, 2024; Ma et al. 2024) integran una región alrededor de la fulguración y normalizan por
+  el disco. NEID registra la respuesta en la luz de todo el disco, y las ventanas de control
+  dan su suelo de ruido.</li>
+</ul>
+<h2 id="fuera-del-articulo">Fuera del artículo<a class="headerlink" href="#fuera-del-articulo" title="Permanent link">&para;</a></h2>
+<h3 id="un-exceso-antes-de-las-fulguraciones-x-de-neid-que-harps-n-no-ve">Un exceso antes de las fulguraciones X de NEID que HARPS-N no ve<a class="headerlink" href="#un-exceso-antes-de-las-fulguraciones-x-de-neid-que-harps-n-no-ve" title="Permanent link">&para;</a></h3>
+<p>En los diez minutos que van de 60 a 50 minutos antes del máximo en rayos X, las fulguraciones
+de clase X observadas por NEID están 0,43 ± 0,10 m/s por encima de la tendencia de su día (19
+fulguraciones con datos en ese momento, 17 de ellas positivas). Se vio en las velocidades
+medias, no se predijo. No aparece en las fulguraciones de clase M de NEID (0,00 ± 0,03 m/s)
+ni en los controles, y HARPS-N no lo muestra en sus diez fulguraciones X, que son otras:
+−0,12 ± 0,11 m/s. El origen del rasgo no está claro. Si fuera una propiedad general de las
+fulguraciones X, la muestra de HARPS-N también debería mostrarlo; que no aparezca apunta al
+instrumento o al azar, aunque no puede excluirse un origen solar.</p>
+<h3 id="las-fulguraciones-no-aumentan-la-amplitud-de-las-oscilaciones-solares">Las fulguraciones no aumentan la amplitud de las oscilaciones solares<a class="headerlink" href="#las-fulguraciones-no-aumentan-la-amplitud-de-las-oscilaciones-solares" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Magnitud</th>
+<th>Fulguraciones</th>
+<th>Muestras nulas</th>
+<th>Cota al 95 % del exceso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ln(potencia después / antes)</td>
+<td>−0,068</td>
+<td>0,001 ± 0,053</td>
+<td>0,16</td>
+</tr>
+<tr>
+<td>Lo mismo, pesando las frecuencias altas</td>
+<td>−0,013</td>
+<td>−0,009 ± 0,060</td>
+<td>0,10</td>
+</tr>
+</tbody>
+</table>
+<p>Con NEID queda descartado un aumento medio superior al 8 % en amplitud. Pone a prueba la
+propuesta de Karoff y Kjeldsen (2008), con la limitación de que la cadencia de 83 s solo
+llega a 6 mHz.</p>
+<h2 id="lo-que-falta">Lo que falta<a class="headerlink" href="#lo-que-falta" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Un tercer instrumento, para ver si el exceso anterior a las fulguraciones X es cosa de NEID.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Gabriel García. BSD 3-Clause license.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

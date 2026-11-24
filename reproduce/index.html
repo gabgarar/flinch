@@ -1,0 +1,1783 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Do solar flares contaminate the radial-velocity detection of Earth analogues? Solar flares in Sun-as-a-star radial velocities from NEID and HARPS-N">
+      
+      
+        <meta name="author" content="Gabriel García">
+      
+      
+        <link rel="canonical" href="https://gabgarar.github.io/flinch/reproduce/">
+      
+      
+        <link rel="prev" href="../results/">
+      
+      
+        <link rel="next" href="../api/data/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../es/reproduce/" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Reproducing the paper - flinch</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reproducing-the-paper" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="flinch" class="md-header__button md-logo" aria-label="flinch" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m3.55 19.09 1.41 1.41 1.8-1.79-1.42-1.42M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6c0-3.32-2.69-6-6-6m8 7h3v-2h-3m-2.76 7.71 1.8 1.79 1.41-1.41-1.79-1.8M20.45 5l-1.41-1.4-1.8 1.79 1.42 1.42M13 1h-2v3h2M6.76 5.39 4.96 3.6 3.55 5l1.79 1.81zM1 13h3v-2H1m12 9h-2v3h2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            flinch
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Reproducing the paper
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../es/reproduce/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/gabgarar/flinch" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    gabgarar/flinch
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../data/goes/" class="md-tabs__link">
+          
+  
+  
+  Data
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../method/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Method
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../results/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Results
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Reproducing the paper
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/data/" class="md-tabs__link">
+          
+  
+  
+  API reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../references/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  References
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cite/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Cite
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="flinch" class="md-nav__button md-logo" aria-label="flinch" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m3.55 19.09 1.41 1.41 1.8-1.79-1.42-1.42M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6c0-3.32-2.69-6-6-6m8 7h3v-2h-3m-2.76 7.71 1.8 1.79 1.41-1.41-1.79-1.8M20.45 5l-1.41-1.4-1.8 1.79 1.42 1.42M13 1h-2v3h2M6.76 5.39 4.96 3.6 3.55 5l1.79 1.81zM1 13h3v-2H1m12 9h-2v3h2"/></svg>
+
+    </a>
+    flinch
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/gabgarar/flinch" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    gabgarar/flinch
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/goes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GOES flares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/neid-velocities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEID velocities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/neid-spectra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEID spectra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/harpsn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HARPS-N velocities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducing the paper
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducing the paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#from-zero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From zero
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#four-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Four levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The report
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-was-run-for-the-paper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What was run for the paper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step by step
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-fixed-and-how" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is fixed, and how
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goes-reissue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The reissue of the GOES files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/velocity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Velocity analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/spectra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spectra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/reproduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#from-zero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From zero
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#four-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Four levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The report
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-was-run-for-the-paper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What was run for the paper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step by step
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-fixed-and-how" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is fixed, and how
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goes-reissue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The reissue of the GOES files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="reproducing-the-paper">Reproducing the paper<a class="headerlink" href="#reproducing-the-paper" title="Permanent link">&para;</a></h1>
+<p>One command downloads the public data, runs the whole analysis, compares every table with
+the one kept in the repository and checks every number of the paper against the new tables.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python -m flinch reproduce
+</code></pre></div>
+<p>It needs 340 MB of downloads and about ten minutes. It leaves the spectra out, which are
+143 GB; the levels below say how to include them. Nothing in the repository is modified.
+The new tables, the figures, the output of every step and a report go to <code>reproduction/</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Since 24 November 2026</p>
+<p>NOAA has reissued the GOES files, so a download made now is no longer the one of the
+paper. The command still finds the 255 numbers of the paper in agreement, but it reports
+two inputs as <code>different</code> and five tables as <code>DIFFERENT</code>, and its last line is
+<code>Not fully reproduced</code>. <a href="#goes-reissue">The reissue of the GOES files</a> says what changed
+and how to get the tables of the paper exactly.</p>
+</div>
+<h2 id="from-zero">From zero<a class="headerlink" href="#from-zero" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git clone https://github.com/gabgarar/flinch.git
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>cd flinch
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>python -m venv venv
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>venv/Scripts/python -m pip install -r requirements-lock.txt     # the exact versions used
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>venv/Scripts/python -m pip install --no-deps -e .
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>venv/Scripts/python -m flinch reproduce
+</code></pre></div>
+<p>On Linux and macOS the interpreter is <code>venv/bin/python</code>. The paper was computed with Python
+3.14 on Windows 11. Without the first <code>pip</code> line, <code>pip install -e ".[analysis,dev]"</code> installs
+the current versions instead, which is fine for using the package but is not the same test.</p>
+<h2 id="four-levels">Four levels<a class="headerlink" href="#four-levels" title="Permanent link">&para;</a></h2>
+<p>Each level adds a download to the one before.</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Command</th>
+<th>Download</th>
+<th>Time</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>python -m flinch verify</code></td>
+<td>none</td>
+<td>seconds</td>
+<td>The numbers of the paper are those of the tables in the repository</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>python -m flinch reproduce</code></td>
+<td>340 MB</td>
+<td>10 min</td>
+<td>The public archives and this code give the 14 velocity tables again</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>python -m flinch reproduce --spectra sample</code></td>
+<td>1.1 GB more</td>
+<td>5 min more</td>
+<td>Ten spectra of the paper, drawn at random, are still the same in the archive</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>python -m flinch reproduce --spectra all</code></td>
+<td>143 GB more</td>
+<td>3 hours or more</td>
+<td>The spectral tables too: Tables 2 and B.1 and Fig. 4 of the paper</td>
+</tr>
+</tbody>
+</table>
+<p><code>--sample 30</code> changes the number of spectra of level 2. <code>--no-download</code> uses the data already
+on disk. <code>--out</code> names another folder for the output. A run that is stopped can be started
+again, and what is on disk is not downloaded twice.</p>
+<h2 id="the-report">The report<a class="headerlink" href="#the-report" title="Permanent link">&para;</a></h2>
+<p><code>reproduction/report.txt</code> has six parts.</p>
+<ol>
+<li><strong>Data.</strong> Each input is compared with the one used in the paper by a fingerprint (SHA-256)
+   of what the analysis reads from it. <code>identical</code> means that the archive still serves the
+   same data.</li>
+<li><strong>Velocity analysis.</strong> One line per command, with the time it took and the file that
+   keeps its output.</li>
+<li><strong>Spectra.</strong> How many extracts are identical to those of the paper, and whether the
+   spectral analysis was repeated.</li>
+<li><strong>Figures.</strong> The figures of the paper, as PDF, in <code>reproduction/figures/</code>.</li>
+<li><strong>Tables.</strong> Each new table against the one in the repository. <code>identical</code> is the same
+   text. <code>same numbers</code> means that every number agrees to nine significant digits, which is
+   what another processor or another version of a library can change. The response of the
+   spectra is written in parts per thousand or per million of each quantity, and there the
+   nine digits are those of the quantity. <code>DIFFERENT</code> names the columns that differ and by
+   how much.</li>
+<li><strong>Numbers of the paper.</strong> The 255 numbers of the text and the tables of the paper, each
+   against the new tables. A number passes when the paper gives a correct rounding of it.</li>
+</ol>
+<p>The last line is <code>Reproduced.</code> when no step failed, no table differs and every number agrees.
+The command then ends with code 0, and with 1 otherwise.</p>
+<p><code>results/paper_check.csv</code> lists the 255 numbers with the place where each appears in the
+paper, as the last run of <code>verify</code> left them.</p>
+<h2 id="what-was-run-for-the-paper">What was run for the paper<a class="headerlink" href="#what-was-run-for-the-paper" title="Permanent link">&para;</a></h2>
+<p>On 21 and 22 November 2026 everything was downloaded again into an empty folder and run from
+a fresh clone, with the versions of <code>requirements-lock.txt</code>.</p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inputs of the velocity analysis (12 files)</td>
+<td>identical, 12 of 12</td>
+</tr>
+<tr>
+<td>Velocity tables (14)</td>
+<td>identical, byte for byte</td>
+</tr>
+<tr>
+<td>Spectra (1296 files, 143 GB)</td>
+<td>identical, 1296 of 1296</td>
+</tr>
+<tr>
+<td>Spectral tables (2)</td>
+<td>identical, byte for byte</td>
+</tr>
+<tr>
+<td>Numbers of the paper (243)</td>
+<td>243 of 243 in agreement</td>
+</tr>
+<tr>
+<td>Figures of the paper (5)</td>
+<td>the same images, pixel by pixel</td>
+</tr>
+</tbody>
+</table>
+<p>The check found two numbers that had been rounded twice in the text. The scatter of the
+velocity changes of the HARPS-N flares is 0.40 m/s, not 0.41, and the excess of Appendix C
+is 0.43 ± 0.10 m/s, not 0.44 ± 0.11. Both are corrected.</p>
+<p>On 22 November 2026 it was run on Linux in two ways. The <code>reproduce</code> workflow of the
+repository ran it on GitHub from the public archives, with ten spectra of the sample, in six
+minutes. The 12 inputs and the ten extracts are identical. On Ubuntu 24.04 with Python 3.12
+the whole analysis, the spectral part included, was run on the 1296 extracts. In both, the
+243 numbers agree and every table has the same numbers. The largest difference is in the
+eleventh significant digit. The five figures drawn on Linux are the same images as those of
+the paper.</p>
+<p>The run on Linux found one defect, now corrected. The depth and the width of the mean line
+come from an iterative fit, which stopped within a few hundredths of a part per million of
+its minimum, at a point that depended on the machine. The two machines differed by up to
+0.0001 ppm in those two columns of <code>spectral_response.csv</code>, and the command reported the
+table as <code>DIFFERENT</code>. The fit is now carried to convergence, and the two machines agree to
+the last digits that the arithmetic keeps. The change moved those two columns by less than
+0.0001 ppm, against errors of 50 to 80 ppm, so <code>spectral_response.csv</code> is no longer byte for
+byte the table of the first run. No number of the paper and no figure changed. Run again on
+Windows with the corrected fit, the 16 tables are identical to those of the repository. The
+spectra were not downloaded a second time, because the extracts are the same files.</p>
+<p>On 23 November 2026 a last review of the paper added twelve numbers, and the command now
+checks 255. They are the measurement without the flares that start soon after another one
+(four new rows in <code>cleaning_variants.csv</code>), the number of controls of a flare, and what the
+paper derives from the brightening of flares in visible light. The same review made the
+probability of detecting a shift use the shift as it is measured back, as the injections of
+NEID already did, and that number of the paper went from 99 to 98 %. Run again on Windows
+with the data on disk, the 16 tables are identical to those of the repository and the 255
+numbers agree.</p>
+<p>On 24 November 2026, the day the paper was submitted, version 1.0.0 was checked as it is
+archived at Zenodo. The archive is identical, file by file, to the tag of the repository.
+Installed from it in an empty folder, the 122 tests pass and the 255 numbers agree. On Ubuntu
+24.04 with Python 3.12 the whole analysis on the data of the paper, the spectral part
+included, ends with <code>Reproduced.</code> and every table has the same numbers. On Windows, with the
+frozen copy of the data, the 16 tables are identical to those of the repository. A download
+from the public archives made that day no longer gave the inputs of the paper, because NOAA
+had reissued the GOES files. <a href="#goes-reissue">The reissue of the GOES files</a> describes it.</p>
+<h2 id="step-by-step">Step by step<a class="headerlink" href="#step-by-step" title="Permanent link">&para;</a></h2>
+<p><code>reproduce</code> runs these commands in this order. Each can be run alone, and then it writes to
+<code>results/</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python -m flinch download
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python -m flinch coverage
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>python -m flinch replication
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>python -m flinch replication --cleaning
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>python -m flinch robustness
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>python -m flinch pilot
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>python -m flinch numbers
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>python -m flinch paper-spectra
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>python -m flinch chromosphere
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>python -m flinch paper-figures --out figures
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>python -m flinch verify
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Made by</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>results/flare_sample.csv</code></td>
+<td><code>coverage</code></td>
+<td>The 2122 M and X flares and their coverage by NEID</td>
+</tr>
+<tr>
+<td><code>results/velocity_by_instrument.csv</code></td>
+<td><code>replication</code></td>
+<td>Mean change, shift of an X1 flare and rotation term, by class and instrument, and both together (Table 1)</td>
+</tr>
+<tr>
+<td><code>results/replication_events.csv</code></td>
+<td><code>replication</code></td>
+<td>Every flare and control of both instruments, with its velocity change (Fig. 3)</td>
+</tr>
+<tr>
+<td><code>results/replication_profiles.csv</code></td>
+<td><code>replication</code></td>
+<td>Mean velocity around the peak in 10-minute bins (Fig. 2)</td>
+</tr>
+<tr>
+<td><code>results/early_window.csv</code></td>
+<td><code>replication</code></td>
+<td>Mean velocity from 60 to 50 minutes before the peak, by class and instrument (Appendix C)</td>
+</tr>
+<tr>
+<td><code>results/cleaning_variants.csv</code></td>
+<td><code>replication --cleaning</code></td>
+<td>The mean change and the rotation term with other thresholds for dropping days and, for HARPS-N, with the quality flag above 0.9</td>
+</tr>
+<tr>
+<td><code>results/robustness.csv</code></td>
+<td><code>robustness</code></td>
+<td>The table of variants with NEID (Table A.1)</td>
+</tr>
+<tr>
+<td><code>results/injections.csv</code></td>
+<td><code>robustness</code></td>
+<td>A shift added and measured back with NEID (Appendix A)</td>
+</tr>
+<tr>
+<td><code>results/pilot_*.csv</code></td>
+<td><code>pilot</code></td>
+<td>The first NEID analysis, including the oscillation power</td>
+</tr>
+<tr>
+<td><code>results/text_numbers.csv</code></td>
+<td><code>numbers</code></td>
+<td>The counts and descriptive numbers of the text: velocities and days, what the cuts remove, the tests of a fair sample, the flare rate and the time in flare</td>
+</tr>
+<tr>
+<td><code>data/spectra/</code></td>
+<td><code>paper-spectra</code></td>
+<td>The extracts of the 1296 spectra of the paper, each checked against its fingerprint</td>
+</tr>
+<tr>
+<td><code>results/spectral_response.csv</code></td>
+<td><code>chromosphere</code></td>
+<td>Response of every flare and control, with its errors (Table B.1)</td>
+</tr>
+<tr>
+<td><code>results/spectral_indices.csv</code></td>
+<td><code>chromosphere</code></td>
+<td>Summary of each index by class band (Table 2)</td>
+</tr>
+<tr>
+<td>PDF files</td>
+<td><code>paper-figures</code></td>
+<td>The example of the method, the mean velocity around the peak, the change of each flare against class and position, and the mean response of the spectra</td>
+</tr>
+<tr>
+<td><code>results/paper_check.csv</code></td>
+<td><code>verify</code></td>
+<td>Every number of the paper against the tables</td>
+</tr>
+</tbody>
+</table>
+<p>Three environment variables move things. <code>FLINCH_DATA</code> is the folder of the downloads
+(<code>data/</code> by default), <code>FLINCH_RESULTS</code> that of the tables (<code>results/</code>), and <code>FLINCH_DATA_END</code>
+the last day of data (see below).</p>
+<h2 id="what-is-fixed-and-how">What is fixed, and how<a class="headerlink" href="#what-is-fixed-and-how" title="Permanent link">&para;</a></h2>
+<p>Four things made the results depend on the day and on the machine. They are now fixed in the
+code.</p>
+<ul>
+<li><strong>The last day of data.</strong> The NEID table grows every clear day and the GOES lists are
+  reissued with a later end date, so a later download had more flares, more observations and
+  other controls. <code>DATA_END</code> in <code>flinch/config.py</code> is 13 November 2026. Flares and
+  observations from that day on are ignored, whatever the download holds. The last NEID
+  observation of the paper is of 12 November 2026.</li>
+<li><strong>The spectra.</strong> They were fetched with <code>campaign</code>, which works through the flares from the
+  strongest down until a budget of hours and files runs out. What it fetches depends on the
+  connection and on the day. <code>flinch/reference/spectra_files.csv</code> lists the 1296 files that
+  it fetched for the paper, with the fingerprint of each extract, and <code>paper-spectra</code> fetches
+  exactly those.</li>
+<li><strong>The random choices.</strong> Controls and bootstrap use a fixed seed.</li>
+<li><strong>The numbers of the text.</strong> Counts, percentages and tests that were not in any table are
+  now written by <code>numbers</code>.</li>
+</ul>
+<h2 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">&para;</a></h2>
+<p>What follows can still make a reproduction differ, or makes it expensive.</p>
+<ul>
+<li><strong>The archives can change the data.</strong> NEID can reprocess its spectra with a newer pipeline
+  (the 1296 used here are all of version 1.5.3), and NOAA reissues the GOES files, as it did
+  in November 2026. The fingerprints do not prevent a change, but they detect it. The report
+  then says which input is <code>different</code>, and a table that differs has an explanation. A frozen
+  copy of the GOES files, of the NEID table and of the extracts of the 1296 spectra, as they
+  were when the paper was computed, is attached to
+  <a href="https://github.com/gabgarar/flinch/releases/tag/v1.0.0">release 1.0.0</a> of the repository
+  (<code>flinch-data.zip</code>, 556 MB). <a href="#goes-reissue">The reissue of the GOES files</a> says how to
+  repeat the paper with it, without the 143 GB.</li>
+<li><strong>The spectra are 143 GB.</strong> A level-2 file is 113 MB and the archive does not serve parts
+  of a file, so each one is downloaded whole, reduced to an extract of 0.2 MB and deleted.
+  The 1296 files took 3 hours and 14 minutes here, at 12 MB per second, which is 9 seconds
+  per file. A slower line needs more in proportion. They need 400 MB of free disk at a time
+  and leave 260 MB of extracts. A home connection may slow down after tens of GB. In the
+  first campaign it fell to a tenth of its speed after 100 GB. In this second download it
+  did not. The computer must stay awake, so a laptop should be plugged in and should not
+  sleep when the lid closes. Level 2 is the cheap alternative. It does not repeat the
+  spectral analysis, but it shows that the archive and the extraction still give the same
+  extracts.</li>
+<li><strong>Some spectra cannot be read.</strong> For 51 exposures of two windows (27 of the X1.3 flare of
+  4 July 2026 and 24 of the control of the X4.9 flare of 31 December 2023) the archive
+  serves files without the stitched spectrum. They are not in the list, and those two
+  windows have fewer spectra than the others. That flare and that control are not among the
+  usable ones.</li>
+<li><strong>The choice of the spectra is not repeated.</strong> The list records which spectra were
+  fetched, not a rule that gives them again. The windows are the 20 X-class flares that NEID
+  observed at the peak or during the rise, the same hours on the nearest flare-free day for
+  14 of them, and the 11 of the 25 flares between M5 and M9 that had a steady clear sky.
+  Within a window, every spectrum near the flare was taken and one in two or three farther
+  away. Running <code>campaign</code> again would not give the same files, because its budget cut the
+  last window short and the two windows above lost spectra.</li>
+<li><strong>Software versions and machines.</strong> With the versions of <code>requirements-lock.txt</code> on
+  Windows 11 the tables come out identical, byte by byte. On Linux the same versions give
+  the same numbers to eleven significant digits, but not the same text, because another
+  processor and other mathematical libraries round the last digits differently. Tables are
+  therefore compared number by number, not only as text, and the report says
+  <code>same numbers</code>. On Linux the extraction was checked on ten spectra taken from the
+  archive, and the spectral analysis on the 1296 extracts made on Windows. The download of
+  the 143 GB has not been repeated there. macOS has not been tried. NumPy does not promise
+  the same random numbers in every future version. If they changed, the controls drawn and
+  the bootstrap errors would change in their last digits.</li>
+<li><strong>Figures are not compared by the command.</strong> They are drawn again from the new tables.
+  For the runs described above, on Windows and on Linux, they were turned into images and
+  compared with those of the paper, and the five are the same pixel by pixel. With other
+  versions of Matplotlib or other fonts they can differ in details that do not change what
+  they show.</li>
+<li><strong>Numbers taken from other papers</strong> (the brightening of two flares in visible light and
+  the factor of the old GOES scale) are written in <code>flinch/verify.py</code> as they were read in
+  those papers. What the paper derives from them is checked. The papers themselves are not
+  read by the command.</li>
+</ul>
+<h2 id="goes-reissue">The reissue of the GOES files<a class="headerlink" href="#goes-reissue" title="Permanent link">&para;</a></h2>
+<p>Between 22 and 24 November 2026 NOAA reissued the GOES files that the paper uses. The
+download of 21 and 22 November still gave the files of the paper. A download made since then
+does not.</p>
+<p>Four things changed, up to the last day of data of the paper.</p>
+<ul>
+<li><strong>The list of flares is the same.</strong> It has the same 2187 flares of class M and X, with the
+  same times and classes.</li>
+<li><strong>The heliographic longitude and latitude of the flares moved by 180 degrees</strong>, in about
+  1960 of them. In the earlier files most latitudes lay outside the range from −90 to 90
+  degrees, and in the reissued files none does, so the earlier values were wrong. The
+  analysis does not depend on them. It uses the position on the disc, the Carrington
+  longitude and differences of latitude. The columns <code>lon</code> and <code>lat</code> of
+  <code>results/flare_sample.csv</code> and <code>results/pilot_flares.csv</code> come from the earlier files and
+  should not be used as heliographic coordinates.</li>
+<li><strong>The one-minute X-ray fluxes of GOES-18</strong> between 9 October and 11 November 2026 changed
+  by up to 14 %.</li>
+<li><strong>The peak flux and the fluence</strong> of about a dozen flares changed by a few parts in a
+  million.</li>
+</ul>
+<p>This is what <code>python -m flinch reproduce</code> reports with a download of 24 November 2026.</p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inputs of the velocity analysis (12 files)</td>
+<td>10 identical. The GOES list of M and X flares and the GOES-18 one-minute fluxes of 2026 are <code>different</code></td>
+</tr>
+<tr>
+<td>Velocity tables (14)</td>
+<td>9 identical or with the same numbers. 5 are <code>DIFFERENT</code></td>
+</tr>
+<tr>
+<td>Numbers of the paper (255)</td>
+<td>255 of 255 in agreement</td>
+</tr>
+<tr>
+<td>Figures of the velocity analysis (3)</td>
+<td>the same images, pixel by pixel</td>
+</tr>
+<tr>
+<td>Last line</td>
+<td><code>Not fully reproduced</code>, and the command ends with code 1</td>
+</tr>
+</tbody>
+</table>
+<p>Of the five tables that differ, <code>flare_sample.csv</code> and <code>pilot_flares.csv</code> do so in the
+columns <code>lon</code> and <code>lat</code> and, by less than one part in 100 000, in the fluence and the
+position of a few flares. <code>velocity_by_instrument.csv</code> and <code>robustness.csv</code> differ by
+0.000000002 m/s at most, in the rotation term and in the shift of an X1 flare, and
+<code>pilot_tests.csv</code> by as little in one test statistic.</p>
+<p>To get the tables of the paper exactly, use the frozen copy. Unpack <code>flinch-data.zip</code> in the
+folder of the code, which gives <code>data/</code>. Then fetch the HARPS-N series alone, which is a
+fixed release with a DOI and is not copied, and run the analysis on what is on disk.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python -c "from flinch import harpsn; harpsn.download_series()"
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>python -m flinch reproduce --no-download --spectra all
+</code></pre></div>
+<p>Do not run <code>python -m flinch download</code> in that folder. Since the reissue it also fetches the
+new flare lists of GOES-18, whose file names carry a later end date, and the code reads the
+latest list that it finds in <code>data/goes/</code>. Earlier versions of this page recommended that
+command. Run as above on 24 November 2026, with version 1.0.0 as archived at Zenodo, the 16
+tables are identical to those of the repository and the last line is <code>Reproduced.</code></p>
+<h2 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python -m pytest              # 122 tests on synthetic data, no network, one minute
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>python -m pytest -m network   # 2 tests: the archives still answer as the code expects
+</code></pre></div>
+<p>Three more tests compare the real downloads with the tables of the repository. They run
+when the data are on disk.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Gabriel García. BSD 3-Clause license.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
